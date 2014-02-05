@@ -29,6 +29,10 @@ public class RealAnimationFactory implements AnimationFactory {
 
     @Override
     public void fadeOut(final View view) {
+        if (view.getVisibility() == View.INVISIBLE) {
+            return;
+        }
+
         ObjectAnimator animator = createFadeOutAnimator(view);
         animator.start();
     }

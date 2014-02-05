@@ -6,16 +6,22 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.animation.RealAnimationFactory;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity implements Response.ErrorListener, Response.Listener<String> {
 
     private EditText usernameField;
     private EditText passwordField;
     private TextView errorView;
+    VolleyHelper volleyHelper;
     AnimationFactory animationFactory;
+    private ReduxUrlHelper urlHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,15 +29,17 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
         animationFactory = new RealAnimationFactory();
+        volleyHelper = new ApplicationVolleyHelper(this);
+        urlHelper = new ReduxUrlHelper();
 
         usernameField = (EditText) findViewById(R.id.login_username);
         passwordField = (EditText) findViewById(R.id.login_password);
         errorView = (TextView) findViewById(R.id.login_error);
-        findViewById(R.id.login_submit).setOnClickListener(mOnClickListener);
+        findViewById(R.id.login_submit).setOnClickListener(submitClickListener);
 
     }
 
-    View.OnClickListener mOnClickListener = new View.OnClickListener() {
+    View.OnClickListener submitClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View view) {
@@ -39,7 +47,7 @@ public class LoginActivity extends Activity {
 
                 if (passwordIsValid()) {
                     hideErrorView();
-
+                    launchLoginRequest();
                 } else {
                     showErrorView(R.string.login_error_password);
                 }
@@ -51,13 +59,19 @@ public class LoginActivity extends Activity {
 
     };
 
+    private void launchLoginRequest() {
+        String loginUrl = urlHelper.buildLoginUrl(String.valueOf(usernameField.getText()),
+                String.valueOf(passwordField.getText()));
+        StringRequest request = new StringRequest(loginUrl, this, this);
+        volleyHelper.getRequestQueue().add(request);
+    }
+
     private void hideErrorView() {
         animationFactory.fadeOut(errorView);
     }
 
     private void showErrorView(final int errorResId) {
         animationFactory.refadeIn(errorView, new Runnable() {
-
             @Override
             public void run() {
                 errorView.setText(errorResId);
@@ -73,4 +87,13 @@ public class LoginActivity extends Activity {
         return !TextUtils.isEmpty(usernameField.getText());
     }
 
+    @Override
+    public void onErrorResponse(VolleyError error) {
+
+    }
+
+    @Override
+    public void onResponse(String response) {
+        Toast.makeText(this, response, Toast.LENGTH_LONG).show();
+    }
 }

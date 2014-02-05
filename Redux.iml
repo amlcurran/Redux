@@ -17,10 +17,10 @@
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
     </content>
-    <orderEntry type="library" scope="TEST" name="test libraries" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="test libraries" level="project" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="Volley" />
-    <orderEntry type="library" name="compile libraries" level="project" />
+    <orderEntry type="module" module-name="Volley" exported="" />
+    <orderEntry type="library" exported="" name="compile libraries" level="project" />
     <orderEntry type="inheritedJdk" />
   </component>
 </module>

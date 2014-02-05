@@ -3,14 +3,17 @@ package com.espiandev.redux;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-import org.robolectric.util.ActivityController;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,15 +21,19 @@ import static org.junit.Assert.assertEquals;
 @Config(manifest = "AndroidManifest.xml")
 public class LoginActivityTest {
 
-    private ActivityController<LoginActivity> activityController;
     private LoginActivity activity;
+    @Mock
+    private RequestQueue mockRequestQueue;
 
     @Before
     public void setUp() {
-        activityController = Robolectric.buildActivity(LoginActivity.class).create();
-        activity = activityController.get();
+        MockitoAnnotations.initMocks(this);
+
+        activity = Robolectric.buildActivity(LoginActivity.class).create().get();
+        MockVolleyHelper mockVolleyHelper = new MockVolleyHelper(mockRequestQueue);
 
         activity.animationFactory = new NonAnimationFactory();
+        activity.volleyHelper = mockVolleyHelper;
     }
 
     @Test
@@ -77,6 +84,13 @@ public class LoginActivityTest {
         activity.findViewById(R.id.login_submit).performClick();
 
         assertEquals(View.INVISIBLE, activity.findViewById(R.id.login_error).getVisibility());
+    }
+
+    @Test
+    public void testWhenValidCredentialsSupplied_ARequestIsLaunchedForLogin() {
+
+
+
     }
 
 }
