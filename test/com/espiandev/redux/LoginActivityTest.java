@@ -3,6 +3,7 @@ package com.espiandev.redux;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 
@@ -114,6 +115,14 @@ public class LoginActivityTest {
     }
 
     @Test
+    public void testWhenLogInIsSubmitted_TheErrorViewIsHidden() {
+        setUpValidCredentials();
+        clickSubmitButton();
+
+        assertEquals(View.INVISIBLE, activity.findViewById(R.id.login_error).getVisibility());
+    }
+
+    @Test
     public void testWhenLogInResponseReturns_TheLoadingSpinnerIsAnimatedOut() {
         setUpValidCredentials();
         clickSubmitButton();
@@ -131,9 +140,25 @@ public class LoginActivityTest {
         assertEquals(View.VISIBLE, activity.findViewById(R.id.login_credentials_host).getVisibility());
     }
 
+    @Test
+     public void testWhenLogInErrorResponseReturnsDueToAuth_ThisIsShownToTheUser() {
+        setUpValidCredentials();
+        clickSubmitButton();
+        activity.onErrorResponse(new AuthFailureError());
+
+        String expected = activity.getString(R.string.login_error_auth);
+
+        assertEquals(View.VISIBLE, activity.findViewById(R.id.login_error).getVisibility());
+        assertEquals(expected, ((TextView) activity.findViewById(R.id.login_error)).getText());
+    }
+
     private void setUpValidCredentials() {
         ((TextView) activity.findViewById(R.id.login_username)).setText("username");
         ((TextView) activity.findViewById(R.id.login_password)).setText("password");
+    }
+
+    private void setUpInvalidCredentials() {
+        ((TextView) activity.findViewById(R.id.login_username)).setText("username");
     }
 
 }

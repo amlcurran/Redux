@@ -97,6 +97,7 @@ public class LoginActivity extends Activity implements Response.ErrorListener, R
         Log.e(TAG, "volley error + " + error.toString());
         animationFactory.downAndOut(findViewById(R.id.login_spinner));
         animationFactory.downAndIn(findViewById(R.id.login_credentials_host));
+        showErrorView(R.string.login_error_auth);
     }
 
     @Override
