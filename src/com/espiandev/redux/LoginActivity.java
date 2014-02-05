@@ -3,7 +3,6 @@ package com.espiandev.redux;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -46,17 +45,11 @@ public class LoginActivity extends Activity implements Response.ErrorListener, R
 
         @Override
         public void onClick(View view) {
-            if (usernameIsValid()) {
-
-                if (passwordIsValid()) {
-                    hideErrorView();
-                    launchLoginRequest();
-                } else {
-                    showErrorView(R.string.login_error_password);
-                }
-
+            if (isUsernameValid() && isPasswordValid()) {
+                hideErrorView();
+                launchLoginRequest();
             } else {
-                showErrorView(R.string.login_error_username);
+                showErrorView(isUsernameValid() ? R.string.login_error_password : R.string.login_error_username);
             }
         }
 
@@ -84,17 +77,18 @@ public class LoginActivity extends Activity implements Response.ErrorListener, R
         });
     }
 
-    private boolean passwordIsValid() {
+    private boolean isPasswordValid() {
         return !TextUtils.isEmpty(passwordField.getText());
     }
 
-    private boolean usernameIsValid() {
+    private boolean isUsernameValid() {
         return !TextUtils.isEmpty(usernameField.getText());
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Log.e(TAG, "volley error + " + error.toString());
+        animationFactory.cancelAnimations(findViewById(R.id.login_spinner));
+        animationFactory.cancelAnimations(findViewById(R.id.login_credentials_host));
         animationFactory.downAndOut(findViewById(R.id.login_spinner));
         animationFactory.downAndIn(findViewById(R.id.login_credentials_host));
         showErrorView(R.string.login_error_auth);
@@ -103,6 +97,7 @@ public class LoginActivity extends Activity implements Response.ErrorListener, R
     @Override
     public void onResponse(String response) {
         Toast.makeText(this, "Success response", Toast.LENGTH_LONG).show();
+        animationFactory.cancelAnimations(findViewById(R.id.login_spinner));
         animationFactory.downAndOut(findViewById(R.id.login_spinner));
     }
 }

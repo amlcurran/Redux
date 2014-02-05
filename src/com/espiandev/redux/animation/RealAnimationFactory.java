@@ -81,6 +81,13 @@ public class RealAnimationFactory implements AnimationFactory {
         set.start();
     }
 
+    @Override
+    public void cancelAnimations(View view) {
+        if (view.getTag() != null && view.getTag() instanceof Animator) {
+            ((Animator) view.getTag()).cancel();
+        }
+    }
+
     private static ObjectAnimator createFadeInAnimator(final View view, final Runnable runnable) {
         return createFadeInAnimator(view, runnable, 0f);
     }
@@ -94,10 +101,12 @@ public class RealAnimationFactory implements AnimationFactory {
                 if (runnable != null) {
                     runnable.run();
                 }
+                view.setTag(animator);
             }
 
             @Override
             public void onAnimationEnd(Animator animator) {
+                view.setTag(animator);
             }
 
             @Override
@@ -123,11 +132,13 @@ public class RealAnimationFactory implements AnimationFactory {
             @Override
             public void onAnimationStart(Animator animator) {
                 view.setVisibility(View.VISIBLE);
+                view.setTag(animator);
             }
 
             @Override
             public void onAnimationEnd(Animator animator) {
                 view.setVisibility(View.INVISIBLE);
+                view.setTag(null);
             }
 
             @Override

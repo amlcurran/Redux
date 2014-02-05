@@ -40,4 +40,9 @@ public class NonAnimationFactory implements AnimationFactory {
     public void downAndIn(View view) {
         view.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void cancelAnimations(View view) {
+
+    }
 }

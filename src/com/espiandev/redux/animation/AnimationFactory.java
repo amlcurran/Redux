@@ -11,5 +11,6 @@ public interface AnimationFactory {
     public void upAndIn(View view);
     public void downAndOut(View view);
     public void downAndIn(View view);
+    public void cancelAnimations(View view);
 
 }
