@@ -5,4 +5,5 @@
     <string name="password_hint">password</string>
     <string name="login">Login</string>
     <string name="log_in">Log in</string><string name="bbc_redux">BBC Redux</string>
+    <string name="login_error_username">Invalid username</string>
 </resources>
