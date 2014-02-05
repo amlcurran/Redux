@@ -7,5 +7,7 @@ public interface AnimationFactory {
     public void fadeIn(View view);
     public void refadeIn(View view, Runnable runnable);
     public void fadeOut(View view);
+    public void upAndOut(View view);
+    public void upAndIn(View view);
 
 }

@@ -4,8 +4,8 @@ import android.net.Uri;
 
 public class ReduxUrlHelper {
 
-    private static final String REDUX_AUTHORITY = "i.bbcredux.com";
-    private static final String PATH_LOGIN = "user/login";
+    public static final String REDUX_AUTHORITY = "i.bbcredux.com";
+    public static final String PATH_LOGIN = "user/login";
 
     public String buildLoginUrl(String username, String password) {
         return new Uri.Builder().scheme("http")

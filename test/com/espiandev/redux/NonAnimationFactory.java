@@ -20,4 +20,14 @@ public class NonAnimationFactory implements AnimationFactory {
     public void fadeOut(View view) {
         view.setVisibility(View.INVISIBLE);
     }
+
+    @Override
+    public void upAndOut(View view) {
+        view.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void upAndIn(View view) {
+        view.setVisibility(View.VISIBLE);
+    }
 }

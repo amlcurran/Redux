@@ -64,6 +64,8 @@ public class LoginActivity extends Activity implements Response.ErrorListener, R
                 String.valueOf(passwordField.getText()));
         StringRequest request = new StringRequest(loginUrl, this, this);
         volleyHelper.getRequestQueue().add(request);
+        animationFactory.upAndOut(findViewById(R.id.login_credentials_host));
+        animationFactory.upAndIn(findViewById(R.id.login_spinner));
     }
 
     private void hideErrorView() {

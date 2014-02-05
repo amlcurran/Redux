@@ -5,6 +5,8 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.view.View;
 
+import com.espiandev.redux.R;
+
 public class RealAnimationFactory implements AnimationFactory {
 
     @Override
@@ -37,8 +39,28 @@ public class RealAnimationFactory implements AnimationFactory {
         animator.start();
     }
 
+    @Override
+    public void upAndOut(View view) {
+        float translation = view.getContext().getResources().getDimension(R.dimen.translation_delta);
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(createFadeOutAnimator(view), ObjectAnimator.ofFloat(view, "translationY", 0, -translation));
+        set.start();
+    }
+
+    @Override
+    public void upAndIn(View view) {
+        float translation = view.getContext().getResources().getDimension(R.dimen.translation_delta);
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(createFadeInAnimator(view, null), ObjectAnimator.ofFloat(view, "translationY", translation, 0));
+        set.start();
+    }
+
     private static ObjectAnimator createFadeInAnimator(final View view, final Runnable runnable) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f);
+        return createFadeInAnimator(view, runnable, 0f);
+    }
+
+    private static ObjectAnimator createFadeInAnimator(final View view, final Runnable runnable, float startingValue) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", startingValue, 1f);
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -66,7 +88,11 @@ public class RealAnimationFactory implements AnimationFactory {
     }
 
     private static ObjectAnimator createFadeOutAnimator(final View view) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 1f, 0f);
+        return createFadeOutAnimator(view, 1f);
+    }
+
+    private static ObjectAnimator createFadeOutAnimator(final View view, float startingValue) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", startingValue, 0f);
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -90,4 +116,5 @@ public class RealAnimationFactory implements AnimationFactory {
         });
         return animator;
     }
+
 }
