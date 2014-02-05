@@ -17,6 +17,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Volley" />
+    <orderEntry type="library" scope="TEST" name="robolectric libraries" level="project" />
+    <orderEntry type="library" name="compile libraries" level="project" />
   </component>
 </module>
 
