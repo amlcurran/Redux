@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Redux.iml" filepath="$PROJECT_DIR$/Redux.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../Volley/Volley.iml" filepath="$PROJECT_DIR$/../Volley/Volley.iml" />
     </modules>
   </component>
 </project>

@@ -2,6 +2,7 @@
   <library name="compile libraries">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/libs/android-support-v13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/volley.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
