@@ -31,12 +31,33 @@ public class LoginActivity extends Activity {
         public void onClick(View view) {
             if (usernameIsValid()) {
 
+                if (passwordIsValid()) {
+                    hideErrorView();
+
+                } else {
+                    showErrorView();
+                    errorView.setText(R.string.login_error_password);
+                }
+
             } else {
+                showErrorView();
                 errorView.setText(R.string.login_error_username);
             }
         }
 
     };
+
+    private void hideErrorView() {
+        errorView.setVisibility(View.INVISIBLE);
+    }
+
+    private void showErrorView() {
+        errorView.setVisibility(View.VISIBLE);
+    }
+
+    private boolean passwordIsValid() {
+        return !TextUtils.isEmpty(passwordField.getText());
+    }
 
     private boolean usernameIsValid() {
         return !TextUtils.isEmpty(usernameField.getText());
