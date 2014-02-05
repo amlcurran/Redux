@@ -1,65 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:id="@+id/login_credentials_host">
 
         <EditText
-                android:layout_width="@dimen/login_item_width"
-                android:layout_height="wrap_content"
-                android:id="@+id/login_username"
-                android:singleLine="true"
-                android:gravity="center"
-                android:hint="@string/username" />
+            android:layout_width="@dimen/login_item_width"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_username"
+            android:singleLine="true"
+            android:gravity="center"
+            android:hint="@string/username" />
 
         <EditText
-                android:layout_width="@dimen/login_item_width"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
-                android:id="@+id/login_password"
-                android:gravity="center"
-                android:layout_below="@+id/login_username"
-                android:hint="@string/password_hint"/>
+            android:layout_width="@dimen/login_item_width"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/login_password"
+            android:gravity="center"
+            android:layout_below="@+id/login_username"
+            android:hint="@string/password_hint" />
 
         <Button
-                android:layout_width="@dimen/login_item_width"
-                android:layout_height="wrap_content"
-                android:text="@string/login"
-                android:id="@+id/login_submit"
-                android:layout_below="@+id/login_password"
-                android:layout_alignParentStart="true"/>
+            android:layout_width="@dimen/login_item_width"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:id="@+id/login_submit"
+            android:layout_below="@+id/login_password"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 
     <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/log_in"
-                android:id="@+id/textView"
-                style="@style/HighBanner"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/log_in"
+            android:id="@+id/textView"
+            style="@style/HighBanner" />
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/login_error"
-                android:layout_below="@+id/login_password"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="16dp"
-                android:textSize="18sp"
-                android:visibility="invisible"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_error"
+            style="@style/LowBanner"
+            android:visibility="invisible"
+            android:textColor="@android:color/darker_gray" />
 
     </LinearLayout>
 

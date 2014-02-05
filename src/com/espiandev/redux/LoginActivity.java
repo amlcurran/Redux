@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -96,7 +95,6 @@ public class LoginActivity extends Activity implements Response.ErrorListener, R
 
     @Override
     public void onResponse(String response) {
-        Toast.makeText(this, "Success response", Toast.LENGTH_LONG).show();
         animationFactory.cancelAnimations(findViewById(R.id.login_spinner));
         animationFactory.downAndOut(findViewById(R.id.login_spinner));
     }

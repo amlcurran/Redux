@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="login_item_width">200dp</dimen>
-    <dimen name="high_banner_text_size">48sp</dimen>
+    <dimen name="high_banner_text_size">56sp</dimen>
     <dimen name="low_banner_text_size">18sp</dimen>
     <dimen name="translation_delta">60dp</dimen>
 </resources>
