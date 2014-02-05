@@ -30,4 +30,14 @@ public class NonAnimationFactory implements AnimationFactory {
     public void upAndIn(View view) {
         view.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void downAndOut(View view) {
+        view.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void downAndIn(View view) {
+        view.setVisibility(View.VISIBLE);
+    }
 }

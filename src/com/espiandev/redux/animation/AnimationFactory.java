@@ -9,5 +9,7 @@ public interface AnimationFactory {
     public void fadeOut(View view);
     public void upAndOut(View view);
     public void upAndIn(View view);
+    public void downAndOut(View view);
+    public void downAndIn(View view);
 
 }

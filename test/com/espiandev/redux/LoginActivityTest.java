@@ -113,6 +113,24 @@ public class LoginActivityTest {
         assertEquals(View.VISIBLE, activity.findViewById(R.id.login_spinner).getVisibility());
     }
 
+    @Test
+    public void testWhenLogInResponseReturns_TheLoadingSpinnerIsAnimatedOut() {
+        setUpValidCredentials();
+        clickSubmitButton();
+        activity.onResponse("blah");
+
+        assertEquals(View.INVISIBLE, activity.findViewById(R.id.login_spinner).getVisibility());
+    }
+
+    @Test
+    public void testWhenLogInErrorResponseReturns_TheCredentialsAreAnimatedBackIn() {
+        setUpValidCredentials();
+        clickSubmitButton();
+        activity.onErrorResponse(null);
+
+        assertEquals(View.VISIBLE, activity.findViewById(R.id.login_credentials_host).getVisibility());
+    }
+
     private void setUpValidCredentials() {
         ((TextView) activity.findViewById(R.id.login_username)).setText("username");
         ((TextView) activity.findViewById(R.id.login_password)).setText("password");

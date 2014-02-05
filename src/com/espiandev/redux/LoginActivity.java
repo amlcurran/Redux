@@ -3,6 +3,7 @@ package com.espiandev.redux;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.animation.RealAnimationFactory;
 
 public class LoginActivity extends Activity implements Response.ErrorListener, Response.Listener<String> {
+
+    public static final String TAG = LoginActivity.class.getSimpleName();
 
     private EditText usernameField;
     private EditText passwordField;
@@ -91,11 +94,14 @@ public class LoginActivity extends Activity implements Response.ErrorListener, R
 
     @Override
     public void onErrorResponse(VolleyError error) {
-
+        Log.e(TAG, "volley error + " + error.toString());
+        animationFactory.downAndOut(findViewById(R.id.login_spinner));
+        animationFactory.downAndIn(findViewById(R.id.login_credentials_host));
     }
 
     @Override
     public void onResponse(String response) {
-        Toast.makeText(this, response, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Success response", Toast.LENGTH_LONG).show();
+        animationFactory.downAndOut(findViewById(R.id.login_spinner));
     }
 }

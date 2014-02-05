@@ -4,14 +4,19 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Interpolator;
 
 import com.espiandev.redux.R;
 
 public class RealAnimationFactory implements AnimationFactory {
 
+    private static final Interpolator interpolator = new AccelerateDecelerateInterpolator();
+
     @Override
     public void fadeIn(final View view) {
         ObjectAnimator animator = createFadeInAnimator(view, null);
+        animator.setInterpolator(interpolator);
         animator.start();
     }
 
@@ -19,13 +24,14 @@ public class RealAnimationFactory implements AnimationFactory {
     public void refadeIn(View view, Runnable runnable) {
         Animator animator;
         if (view.getVisibility() == View.VISIBLE) {
-            AnimatorSet animatorSet = new AnimatorSet();
+            AnimatorSet animatorSet = createSet();
             animatorSet.playSequentially(createFadeOutAnimator(view), createFadeInAnimator(view,
                     runnable));
             animator = animatorSet;
         } else {
             animator = createFadeInAnimator(view, runnable);
         }
+        animator.setInterpolator(interpolator);
         animator.start();
     }
 
@@ -36,13 +42,14 @@ public class RealAnimationFactory implements AnimationFactory {
         }
 
         ObjectAnimator animator = createFadeOutAnimator(view);
+        animator.setInterpolator(interpolator);
         animator.start();
     }
 
     @Override
     public void upAndOut(View view) {
         float translation = view.getContext().getResources().getDimension(R.dimen.translation_delta);
-        AnimatorSet set = new AnimatorSet();
+        AnimatorSet set = createSet();
         set.playTogether(createFadeOutAnimator(view), ObjectAnimator.ofFloat(view, "translationY", 0, -translation));
         set.start();
     }
@@ -50,8 +57,26 @@ public class RealAnimationFactory implements AnimationFactory {
     @Override
     public void upAndIn(View view) {
         float translation = view.getContext().getResources().getDimension(R.dimen.translation_delta);
-        AnimatorSet set = new AnimatorSet();
+        AnimatorSet set = createSet();
         set.playTogether(createFadeInAnimator(view, null), ObjectAnimator.ofFloat(view, "translationY", translation, 0));
+        set.setInterpolator(interpolator);
+        set.start();
+    }
+
+    @Override
+    public void downAndOut(View view) {
+        float translation = view.getContext().getResources().getDimension(R.dimen.translation_delta);
+        AnimatorSet set = createSet();
+        set.setInterpolator(interpolator);
+        set.playTogether(createFadeOutAnimator(view), ObjectAnimator.ofFloat(view, "translationY", 0, translation));
+        set.start();
+    }
+
+    @Override
+    public void downAndIn(View view) {
+        float translation = view.getContext().getResources().getDimension(R.dimen.translation_delta);
+        AnimatorSet set = createSet();
+        set.playTogether(createFadeInAnimator(view, null), ObjectAnimator.ofFloat(view, "translationY", -translation, 0));
         set.start();
     }
 
@@ -115,6 +140,12 @@ public class RealAnimationFactory implements AnimationFactory {
             }
         });
         return animator;
+    }
+
+    private static AnimatorSet createSet() {
+        AnimatorSet set = new AnimatorSet();
+        set.setInterpolator(interpolator);
+        return set;
     }
 
 }
