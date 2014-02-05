@@ -12,6 +12,7 @@ import com.espiandev.redux.R;
 public class RealAnimationFactory implements AnimationFactory {
 
     private static final Interpolator interpolator = new AccelerateDecelerateInterpolator();
+    public static final float PARTIAL_ALPHA = 0.7f;
 
     @Override
     public void fadeIn(final View view) {
@@ -113,11 +114,11 @@ public class RealAnimationFactory implements AnimationFactory {
     }
 
     private static ObjectAnimator createFadeOutAnimator(final View view) {
-        return createFadeOutAnimator(view, 1f);
+        return createFadeOutAnimator(view, 0f);
     }
 
-    private static ObjectAnimator createFadeOutAnimator(final View view, float startingValue) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", startingValue, 0f);
+    private static ObjectAnimator createFadeOutAnimator(final View view, float endingValue) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 1f, endingValue);
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
