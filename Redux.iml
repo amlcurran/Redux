@@ -3,6 +3,9 @@
   <component name="FacetManager">
     <facet type="android" name="Android">
       <configuration>
+        <proGuardCfgFiles>
+          <file>file://$USER_HOME$/Downloads/android-sdk-macosx/tools/proguard/proguard-android.txt</file>
+        </proGuardCfgFiles>
         <option name="UPDATE_PROPERTY_FILES" value="true" />
       </configuration>
     </facet>
@@ -14,11 +17,11 @@
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="library" scope="TEST" name="test libraries" level="project" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Volley" />
-    <orderEntry type="library" scope="TEST" name="robolectric libraries" level="project" />
     <orderEntry type="library" name="compile libraries" level="project" />
+    <orderEntry type="inheritedJdk" />
   </component>
 </module>
 
