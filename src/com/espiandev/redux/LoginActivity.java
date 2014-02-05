@@ -7,16 +7,22 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.espiandev.redux.animation.AnimationFactory;
+import com.espiandev.redux.animation.RealAnimationFactory;
+
 public class LoginActivity extends Activity {
 
     private EditText usernameField;
     private EditText passwordField;
     private TextView errorView;
+    AnimationFactory animationFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        animationFactory = new RealAnimationFactory();
 
         usernameField = (EditText) findViewById(R.id.login_username);
         passwordField = (EditText) findViewById(R.id.login_password);
@@ -35,24 +41,28 @@ public class LoginActivity extends Activity {
                     hideErrorView();
 
                 } else {
-                    showErrorView();
-                    errorView.setText(R.string.login_error_password);
+                    showErrorView(R.string.login_error_password);
                 }
 
             } else {
-                showErrorView();
-                errorView.setText(R.string.login_error_username);
+                showErrorView(R.string.login_error_username);
             }
         }
 
     };
 
     private void hideErrorView() {
-        errorView.setVisibility(View.INVISIBLE);
+        animationFactory.fadeOut(errorView);
     }
 
-    private void showErrorView() {
-        errorView.setVisibility(View.VISIBLE);
+    private void showErrorView(final int errorResId) {
+        animationFactory.refadeIn(errorView, new Runnable() {
+
+            @Override
+            public void run() {
+                errorView.setText(errorResId);
+            }
+        });
     }
 
     private boolean passwordIsValid() {

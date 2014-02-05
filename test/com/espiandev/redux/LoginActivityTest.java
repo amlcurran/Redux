@@ -19,31 +19,29 @@ import static org.junit.Assert.assertEquals;
 public class LoginActivityTest {
 
     private ActivityController<LoginActivity> activityController;
+    private LoginActivity activity;
 
     @Before
     public void setUp() {
-        activityController = Robolectric.buildActivity(LoginActivity.class);
+        activityController = Robolectric.buildActivity(LoginActivity.class).create();
+        activity = activityController.get();
+
+        activity.animationFactory = new NonAnimationFactory();
     }
 
     @Test
     @Ignore
     public void testWhenActivityStarted_UsernameFieldHasFocus() {
-        LoginActivity activity = activityController.create().start().resume().get();
-
         assertEquals(activity.findViewById(R.id.login_username), activity.getCurrentFocus());
     }
 
     @Test
     public void testWhenActivityIsStarted_TheErrorViewIsHidden() {
-        LoginActivity activity = activityController.create().start().resume().get();
-
         assertEquals(View.INVISIBLE, activity.findViewById(R.id.login_error).getVisibility());
     }
 
     @Test
     public void testWhenLoginClicked_AndUsernameIsEmpty_AUsernameErrorIsShown() {
-        LoginActivity activity = activityController.create().start().resume().get();
-
         activity.findViewById(R.id.login_submit).performClick();
 
         String expectedString = activity.getString(R.string.login_error_username);
@@ -56,7 +54,6 @@ public class LoginActivityTest {
 
     @Test
     public void testWhenLoginClicked_AndPasswordIsEmpty_APasswordErrorIsShown() {
-        LoginActivity activity = activityController.create().start().resume().get();
         ((TextView) activity.findViewById(R.id.login_username)).setText("username");
 
         activity.findViewById(R.id.login_submit).performClick();
@@ -71,8 +68,6 @@ public class LoginActivityTest {
 
     @Test
     public void testWhenLoginClicked_AndUsernameAndPasswordIsValid_TheErrorViewIsHidden() {
-        LoginActivity activity = activityController.create().start().resume().get();
-
         // Show the error view
         ((TextView) activity.findViewById(R.id.login_username)).setText("username");
         activity.findViewById(R.id.login_submit).performClick();
