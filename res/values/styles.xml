@@ -10,6 +10,15 @@
         <item name="android:textColor">@color/app_yellow_main</item>
     </style>
 
+    <style name="Button" parent="android:Widget.Holo.Light.Button">
+
+    </style>
+
+    <style name="Button.Highlight">
+        <item name="android:background">@drawable/button_highlight</item>
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+    </style>
+
     <style name="LowBanner">
         <item name="android:layout_gravity">left|top</item>
         <item name="android:textSize">@dimen/low_banner_text_size</item>
