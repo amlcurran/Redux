@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -20,9 +22,12 @@ public class LoginActivity extends Activity implements Response.ErrorListener, R
     private EditText usernameField;
     private EditText passwordField;
     private TextView errorView;
-    VolleyHelper volleyHelper;
-    AnimationFactory animationFactory;
     private ReduxUrlHelper urlHelper;
+    private ProgressBar loadingSpinner;
+    private View credentialsHost;
+    private Button submitButton;
+    AnimationFactory animationFactory;
+    VolleyHelper volleyHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +40,12 @@ public class LoginActivity extends Activity implements Response.ErrorListener, R
 
         usernameField = (EditText) findViewById(R.id.login_username);
         passwordField = (EditText) findViewById(R.id.login_password);
+        loadingSpinner = (ProgressBar) findViewById(R.id.login_spinner);
         errorView = (TextView) findViewById(R.id.login_error);
-        findViewById(R.id.login_submit).setOnClickListener(submitClickListener);
+        submitButton = (Button) findViewById(R.id.login_submit);
+        credentialsHost = findViewById(R.id.login_credentials_host);
+
+        submitButton.setOnClickListener(submitClickListener);
 
     }
 
@@ -59,8 +68,8 @@ public class LoginActivity extends Activity implements Response.ErrorListener, R
                 String.valueOf(passwordField.getText()));
         StringRequest request = new StringRequest(loginUrl, this, this);
         volleyHelper.getRequestQueue().add(request);
-        animationFactory.upAndOut(findViewById(R.id.login_credentials_host));
-        animationFactory.upAndIn(findViewById(R.id.login_spinner));
+        animationFactory.upAndOut(credentialsHost);
+        animationFactory.upAndIn(loadingSpinner);
     }
 
     private void hideErrorView() {
@@ -86,16 +95,15 @@ public class LoginActivity extends Activity implements Response.ErrorListener, R
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        animationFactory.cancelAnimations(findViewById(R.id.login_spinner));
-        animationFactory.cancelAnimations(findViewById(R.id.login_credentials_host));
-        animationFactory.downAndOut(findViewById(R.id.login_spinner));
-        animationFactory.downAndIn(findViewById(R.id.login_credentials_host));
+        animationFactory.cancelAnimations(loadingSpinner, credentialsHost);
+        animationFactory.downAndOut(loadingSpinner);
+        animationFactory.downAndIn(credentialsHost);
         showErrorView(R.string.login_error_auth);
     }
 
     @Override
     public void onResponse(String response) {
-        animationFactory.cancelAnimations(findViewById(R.id.login_spinner));
-        animationFactory.downAndOut(findViewById(R.id.login_spinner));
+        animationFactory.cancelAnimations(loadingSpinner);
+        animationFactory.downAndOut(loadingSpinner);
     }
 }

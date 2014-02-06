@@ -42,7 +42,7 @@ public class NonAnimationFactory implements AnimationFactory {
     }
 
     @Override
-    public void cancelAnimations(View view) {
+    public void cancelAnimations(View... views) {
 
     }
 }

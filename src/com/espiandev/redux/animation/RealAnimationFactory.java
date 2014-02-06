@@ -82,9 +82,11 @@ public class RealAnimationFactory implements AnimationFactory {
     }
 
     @Override
-    public void cancelAnimations(View view) {
-        if (view.getTag() != null && view.getTag() instanceof Animator) {
-            ((Animator) view.getTag()).cancel();
+    public void cancelAnimations(View... views) {
+        for (View view : views) {
+            if (view.getTag() != null && view.getTag() instanceof Animator) {
+                ((Animator) view.getTag()).cancel();
+            }
         }
     }
 
