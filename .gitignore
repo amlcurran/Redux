@@ -1,5 +1,6 @@
 gen/
 .idea/workspace.xml
+.idea/misc.xml
 /.idea/workspace.xml
 out/
 res/drawable/_pre_production/redux.sketch/QuickLook/Preview.png
