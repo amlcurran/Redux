@@ -1,20 +1,26 @@
 package com.espiandev.redux;
 
+import android.content.Intent;
+import android.preference.PreferenceManager;
+import android.widget.TextView;
+
+import com.espiandev.redux.animation.AnimationFactory;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowIntent;
 import org.robolectric.util.ActivityController;
 
-import android.content.Intent;
-import android.preference.PreferenceManager;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.verify;
 import static org.robolectric.Robolectric.shadowOf;
 
 /**
@@ -22,15 +28,36 @@ import static org.robolectric.Robolectric.shadowOf;
  */
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "AndroidManifest.xml")
-public class LaunchActivityTest {
+public class MainActivityTest {
 
-    private LaunchActivity launchActivity;
-    private ActivityController<LaunchActivity> launchActivityController;
+    private MainActivity launchActivity;
+    private ActivityController<MainActivity> launchActivityController;
+    @Mock
+    public AnimationFactory mockAnimationFactory;
 
     @Before
     public void setUp() {
-        launchActivityController = Robolectric.buildActivity(LaunchActivity.class);
+        MockitoAnnotations.initMocks(this);
+        launchActivityController = Robolectric.buildActivity(MainActivity.class);
         launchActivity = launchActivityController.get();
+    }
+
+    @Test
+    public void testSetTitle_SetsTheHighBanner() {
+        String title = "A TITLE";
+        launchActivityController.create();
+        launchActivity.animationFactory = mockAnimationFactory;
+        launchActivity.setTitle(title);
+        verify(mockAnimationFactory).fadeAndChangeText((TextView) launchActivity.findViewById(R.id.high_banner), title);
+    }
+
+    @Test
+    public void testSetSubtitle_SetsTheLowBanner() {
+        String subtitle = "A SUBTITLE";
+        launchActivityController.create();
+        launchActivity.animationFactory = mockAnimationFactory;
+        launchActivity.setSubtitle(subtitle);
+        verify(mockAnimationFactory).fadeAndChangeText((TextView) launchActivity.findViewById(R.id.low_banner), subtitle);
     }
 
     @Test

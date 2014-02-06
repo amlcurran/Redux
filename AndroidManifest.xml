@@ -17,7 +17,7 @@
         android:name=".ReduxApp"
         android:theme="@style/Theme.Redux.NoActionBar" >
 
-        <activity android:name=".LaunchActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
