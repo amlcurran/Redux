@@ -3,7 +3,10 @@ package com.espiandev.redux;
 import android.app.Application;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
+
+import javax.net.ssl.SSLSocketFactory;
 
 public class ReduxApp extends Application {
 
@@ -12,6 +15,7 @@ public class ReduxApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        requestQueue = Volley.newRequestQueue(this);
+        HurlStack hurlStack = new HurlStack(null, (SSLSocketFactory) SSLSocketFactory.getDefault());
+        requestQueue = Volley.newRequestQueue(this, hurlStack);
     }
 }

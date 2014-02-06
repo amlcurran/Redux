@@ -8,7 +8,7 @@ public class ReduxUrlHelper {
     public static final String PATH_LOGIN = "user/login";
 
     public String buildLoginUrl(String username, String password) {
-        return new Uri.Builder().scheme("http")
+        return new Uri.Builder().scheme("https")
                 .authority(REDUX_AUTHORITY)
                 .path(PATH_LOGIN)
                 .appendQueryParameter("username", username)
