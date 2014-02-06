@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.widget.TextView;
 
 import com.espiandev.redux.R;
 
@@ -31,6 +32,27 @@ public class RealAnimationFactory implements AnimationFactory {
             animator = animatorSet;
         } else {
             animator = createFadeInAnimator(view, runnable);
+        }
+        animator.setInterpolator(interpolator);
+        animator.start();
+    }
+
+    @Override
+    public void fadeAndChangeText(final TextView textView, final CharSequence text) {
+        Animator animator;
+        Runnable changeText = new Runnable() {
+            @Override
+            public void run() {
+                textView.setText(text);
+            }
+        };
+        if (textView.getVisibility() == View.VISIBLE) {
+            AnimatorSet animatorSet = createSet();
+            animatorSet.playSequentially(createFadeOutAnimator(textView), createFadeInAnimator(textView,
+                    changeText));
+            animator = animatorSet;
+        } else {
+            animator = createFadeInAnimator(textView, changeText);
         }
         animator.setInterpolator(interpolator);
         animator.start();

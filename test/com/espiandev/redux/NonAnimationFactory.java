@@ -1,6 +1,7 @@
 package com.espiandev.redux;
 
 import android.view.View;
+import android.widget.TextView;
 
 import com.espiandev.redux.animation.AnimationFactory;
 
@@ -14,6 +15,11 @@ public class NonAnimationFactory implements AnimationFactory {
     public void refadeIn(View view, Runnable runnable) {
         fadeIn(view);
         runnable.run();
+    }
+
+    @Override
+    public void fadeAndChangeText(TextView textView, CharSequence text) {
+        textView.setText(text);
     }
 
     @Override
