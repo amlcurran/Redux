@@ -2,18 +2,23 @@ package com.espiandev.redux;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.animation.RealAnimationFactory;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LoginActivity extends Activity implements Response.ErrorListener, Response.Listener<String> {
 
@@ -105,5 +110,27 @@ public class LoginActivity extends Activity implements Response.ErrorListener, R
     public void onResponse(String response) {
         animationFactory.cancelAnimations(loadingSpinner);
         animationFactory.downAndOut(loadingSpinner);
+        boolean storedToken = storeToken(response);
+        if (storedToken) {
+            setResult(RESULT_OK);
+            finish();
+        } else {
+            onErrorResponse(null);
+        }
+    }
+
+    private boolean storeToken(String response) {
+        try {
+            JSONObject object = new JSONObject(response);
+            String token = object.getString("token");
+            PreferenceManager.getDefaultSharedPreferences(this).edit()
+                    .putString("auth_token", token)
+                    .apply();
+            Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
+            return true;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
