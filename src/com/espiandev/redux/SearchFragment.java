@@ -1,13 +1,11 @@
 package com.espiandev.redux;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends TitledFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -15,10 +13,12 @@ public class SearchFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof TitleHost) {
-            activity.setTitle("Search");
-        }
+    public int getTitle() {
+        return R.string.search;
+    }
+
+    @Override
+    protected int getSubtitle() {
+        return 0;
     }
 }

@@ -1,7 +1,6 @@
 package com.espiandev.redux;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.TextView;
@@ -23,7 +22,8 @@ public class MainActivity extends Activity implements TitleHost {
         highBanner = (TextView) findViewById(R.id.high_banner);
         lowBanner = (TextView) findViewById(R.id.low_banner);
         if (!hasAuthToken()) {
-            startActivity(new Intent(this, LoginActivity.class));
+            getFragmentManager().beginTransaction().add(R.id.host_frame, new LoginFragment())
+                    .commit();
         } else {
             getFragmentManager().beginTransaction().add(R.id.host_frame, new SearchFragment())
                     .commit();

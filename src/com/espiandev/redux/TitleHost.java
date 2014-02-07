@@ -6,4 +6,17 @@ package com.espiandev.redux;
 public interface TitleHost {
     void setTitle(CharSequence title);
     void setSubtitle(CharSequence subtitle);
+
+    public static final TitleHost NONE = new TitleHost() {
+        @Override
+        public void setTitle(CharSequence title) {
+
+        }
+
+        @Override
+        public void setSubtitle(CharSequence subtitle) {
+
+        }
+    };
+
 }

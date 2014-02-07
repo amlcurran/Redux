@@ -40,27 +40,6 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/log_in"
-            android:id="@+id/textView"
-            style="@style/HighBanner" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/login_error"
-            style="@style/LowBanner"
-            android:visibility="invisible" />
-
-    </LinearLayout>
-
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
@@ -68,4 +47,5 @@
         android:id="@+id/login_spinner"
         android:layout_gravity="center"
         android:visibility="invisible" />
+
 </FrameLayout>
