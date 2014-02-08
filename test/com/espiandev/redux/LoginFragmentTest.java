@@ -130,7 +130,7 @@ public class LoginFragmentTest {
         clickSubmitButton();
         loginFragment.onErrorResponse(new AuthFailureError());
 
-        String expected = activity.getString(R.string.login_error_auth);
+        String expected = activity.getString(R.string.volley_error_auth);
 
         assertEquals(expected, activity.getTitleHostSubtitle());
     }

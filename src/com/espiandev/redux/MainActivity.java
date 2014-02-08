@@ -8,17 +8,19 @@ import android.widget.TextView;
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.animation.RealAnimationFactory;
 
-public class MainActivity extends Activity implements TitleHost {
+public class MainActivity extends Activity implements TitleHost, AnimationFactoryProvider, VolleyHelperProvider {
 
     private TextView highBanner;
     private TextView lowBanner;
-    public AnimationFactory animationFactory;
+    AnimationFactory animationFactory;
+    private VolleyHelper volleyHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         animationFactory = new RealAnimationFactory();
+        volleyHelper = new ApplicationVolleyHelper(this);
         highBanner = (TextView) findViewById(R.id.high_banner);
         lowBanner = (TextView) findViewById(R.id.low_banner);
         if (!hasAuthToken()) {
@@ -42,5 +44,15 @@ public class MainActivity extends Activity implements TitleHost {
     @Override
     public void setSubtitle(CharSequence subtitle) {
         animationFactory.fadeAndChangeText(lowBanner, subtitle);
+    }
+
+    @Override
+    public AnimationFactory getAnimationFactory() {
+        return animationFactory;
+    }
+
+    @Override
+    public VolleyHelper getVolleyHelper() {
+        return volleyHelper;
     }
 }

@@ -20,7 +20,7 @@ import com.espiandev.redux.animation.AnimationFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginFragment extends TitledFragment implements Response.ErrorListener, Response.Listener<String> {
+public class LoginFragment extends TitledFragment implements Response.ErrorListener, Response.Listener<String>, ResourceStringProvider {
 
     private EditText usernameField;
     private EditText passwordField;
@@ -106,7 +106,7 @@ public class LoginFragment extends TitledFragment implements Response.ErrorListe
         animationFactory.cancelAnimations(loadingSpinner, credentialsHost);
         animationFactory.downAndOut(loadingSpinner);
         animationFactory.downAndIn(credentialsHost);
-        titleHost.setSubtitle(getString(R.string.login_error_auth));
+        titleHost.setSubtitle(ErrorTranslator.getErrorString(this, error));
     }
 
     @Override
