@@ -16,7 +16,7 @@ public class ReduxUrlHelperTest {
         ReduxUrlHelper helper = new ReduxUrlHelper();
         String url = helper.buildLoginUrl("USERNAME", "PASSWORD");
 
-        assertEquals("http://i.bbcredux.com/user/login?username=USERNAME&password=PASSWORD", url);
+        assertEquals("https://i.bbcredux.com/user/login?username=USERNAME&password=PASSWORD", url);
     }
 
 }

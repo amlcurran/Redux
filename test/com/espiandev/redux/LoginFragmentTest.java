@@ -8,7 +8,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -17,39 +16,35 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.util.ActivityController;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "AndroidManifest.xml")
-public class LoginActivityTest {
+public class LoginFragmentTest {
 
-    private LoginActivity activity;
+    private FragmentTestingActivity activity;
+    private LoginFragment loginFragment;
     @Mock
     private RequestQueue mockRequestQueue;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-
-        activity = Robolectric.buildActivity(LoginActivity.class).create().get();
         MockVolleyHelper mockVolleyHelper = new MockVolleyHelper(mockRequestQueue);
 
+        ActivityController<FragmentTestingActivity> controller = Robolectric.buildActivity(FragmentTestingActivity.class);
+        activity = controller.get();
+        loginFragment = new LoginFragment();
         activity.animationFactory = new NonAnimationFactory();
+        activity.setFragment(loginFragment);
         activity.volleyHelper = mockVolleyHelper;
-    }
+        controller.create();
 
-    @Test
-    @Ignore
-    public void testWhenActivityStarted_UsernameFieldHasFocus() {
-        assertEquals(activity.findViewById(R.id.login_username), activity.getCurrentFocus());
-    }
-
-    @Test
-    public void testWhenActivityIsStarted_TheErrorViewIsHidden() {
-        assertEquals(View.INVISIBLE, activity.findViewById(R.id.login_error).getVisibility());
     }
 
     @Test
@@ -57,11 +52,9 @@ public class LoginActivityTest {
         clickSubmitButton();
 
         String expectedString = activity.getString(R.string.login_error_username);
-        String actualString = String.valueOf(((TextView) activity.findViewById(R.id.login_error))
-                .getText());
+        String actualString = String.valueOf(activity.getTitleHostSubtitle());
 
         assertEquals(expectedString, actualString);
-        assertEquals(View.VISIBLE, activity.findViewById(R.id.login_error).getVisibility());
     }
 
     @Test
@@ -71,24 +64,13 @@ public class LoginActivityTest {
         clickSubmitButton();
 
         String expectedString = activity.getString(R.string.login_error_password);
-        String actualString = String.valueOf(((TextView) activity.findViewById(R.id.login_error))
-                .getText());
+        String actualString = String.valueOf(activity.getTitleHostSubtitle());
 
         assertEquals(expectedString, actualString);
-        assertEquals(View.VISIBLE, activity.findViewById(R.id.login_error).getVisibility());
     }
 
-    @Test
-    public void testWhenLoginClicked_AndUsernameAndPasswordIsValid_TheErrorViewIsHidden() {
-        // Show the error view
-        ((TextView) activity.findViewById(R.id.login_username)).setText("username");
-        clickSubmitButton();
-
-        // Give a valid password to hide it
-        ((TextView) activity.findViewById(R.id.login_password)).setText("password");
-        clickSubmitButton();
-
-        assertEquals(View.INVISIBLE, activity.findViewById(R.id.login_error).getVisibility());
+    private void assertNoSubtitle() {
+        assertNull(activity.getTitleHostSubtitle());
     }
 
     private boolean clickSubmitButton() {
@@ -119,14 +101,14 @@ public class LoginActivityTest {
         setUpValidCredentials();
         clickSubmitButton();
 
-        assertEquals(View.INVISIBLE, activity.findViewById(R.id.login_error).getVisibility());
+        assertNoSubtitle();
     }
 
     @Test
     public void testWhenLogInResponseReturns_TheLoadingSpinnerIsAnimatedOut() {
         setUpValidCredentials();
         clickSubmitButton();
-        activity.onResponse("blah");
+        loginFragment.onResponse("blah");
 
         assertEquals(View.INVISIBLE, activity.findViewById(R.id.login_spinner).getVisibility());
     }
@@ -135,21 +117,20 @@ public class LoginActivityTest {
     public void testWhenLogInErrorResponseReturns_TheCredentialsAreAnimatedBackIn() {
         setUpValidCredentials();
         clickSubmitButton();
-        activity.onErrorResponse(null);
+        loginFragment.onErrorResponse(null);
 
         assertEquals(View.VISIBLE, activity.findViewById(R.id.login_credentials_host).getVisibility());
     }
 
     @Test
-     public void testWhenLogInErrorResponseReturnsDueToAuth_ThisIsShownToTheUser() {
+    public void testWhenLogInErrorResponseReturnsDueToAuth_ThisIsShownToTheUser() {
         setUpValidCredentials();
         clickSubmitButton();
-        activity.onErrorResponse(new AuthFailureError());
+        loginFragment.onErrorResponse(new AuthFailureError());
 
         String expected = activity.getString(R.string.login_error_auth);
 
-        assertEquals(View.VISIBLE, activity.findViewById(R.id.login_error).getVisibility());
-        assertEquals(expected, ((TextView) activity.findViewById(R.id.login_error)).getText());
+        assertEquals(expected, activity.getTitleHostSubtitle());
     }
 
     private void setUpValidCredentials() {

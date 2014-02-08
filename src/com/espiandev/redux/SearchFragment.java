@@ -18,7 +18,7 @@ public class SearchFragment extends TitledFragment {
     }
 
     @Override
-    protected int getSubtitle() {
+    public int getSubtitle() {
         return 0;
     }
 }
