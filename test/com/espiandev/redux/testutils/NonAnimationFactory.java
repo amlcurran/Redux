@@ -1,4 +1,4 @@
-package com.espiandev.redux;
+package com.espiandev.redux.testutils;
 
 import android.view.View;
 import android.widget.TextView;

@@ -6,6 +6,8 @@ import android.widget.TextView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.espiandev.redux.testutils.MockVolleyHelper;
+import com.espiandev.redux.testutils.NonAnimationFactory;
 
 import org.junit.Before;
 import org.junit.Test;
