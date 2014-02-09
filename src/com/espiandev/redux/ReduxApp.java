@@ -10,12 +10,16 @@ import javax.net.ssl.SSLSocketFactory;
 
 public class ReduxApp extends Application {
 
-    RequestQueue requestQueue;
+    private RequestQueue requestQueue;
 
     @Override
     public void onCreate() {
         super.onCreate();
         HurlStack hurlStack = new HurlStack(null, (SSLSocketFactory) SSLSocketFactory.getDefault());
         requestQueue = Volley.newRequestQueue(this, hurlStack);
+    }
+
+    public RequestQueue getRequestQueue() {
+        return requestQueue;
     }
 }

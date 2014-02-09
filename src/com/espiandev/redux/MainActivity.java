@@ -11,6 +11,9 @@ import com.espiandev.redux.auth.LoginFragment;
 import com.espiandev.redux.auth.SharedPreferencesTokenStorage;
 import com.espiandev.redux.auth.TokenStorage;
 import com.espiandev.redux.auth.TokenStorageProvider;
+import com.espiandev.redux.network.ApplicationVolleyHelper;
+import com.espiandev.redux.network.VolleyHelper;
+import com.espiandev.redux.network.VolleyHelperProvider;
 
 public class MainActivity extends Activity implements TitleHost, AnimationFactoryProvider, VolleyHelperProvider,
         TokenStorageProvider {

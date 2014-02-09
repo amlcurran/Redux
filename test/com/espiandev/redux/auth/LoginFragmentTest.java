@@ -8,9 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.espiandev.redux.FragmentTestingActivity;
 import com.espiandev.redux.R;
-import com.espiandev.redux.ReduxUrlHelper;
-import com.espiandev.redux.auth.LoginFragment;
-import com.espiandev.redux.auth.TokenStorage;
+import com.espiandev.redux.network.ReduxUrlHelper;
 import com.espiandev.redux.testutils.MockVolleyHelper;
 import com.espiandev.redux.testutils.NonAnimationFactory;
 

@@ -16,11 +16,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.espiandev.redux.AnimationFactoryProvider;
 import com.espiandev.redux.ErrorTranslator;
 import com.espiandev.redux.R;
-import com.espiandev.redux.ReduxUrlHelper;
+import com.espiandev.redux.network.ReduxUrlHelper;
 import com.espiandev.redux.ResourceStringProvider;
 import com.espiandev.redux.TitledFragment;
-import com.espiandev.redux.VolleyHelper;
-import com.espiandev.redux.VolleyHelperProvider;
+import com.espiandev.redux.network.VolleyHelper;
+import com.espiandev.redux.network.VolleyHelperProvider;
 import com.espiandev.redux.animation.AnimationFactory;
 
 public class LoginFragment extends TitledFragment implements Response.ErrorListener, Response.Listener<String>, ResourceStringProvider {

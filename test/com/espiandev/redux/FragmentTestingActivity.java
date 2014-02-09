@@ -7,6 +7,8 @@ import android.os.Bundle;
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.auth.TokenStorage;
 import com.espiandev.redux.auth.TokenStorageProvider;
+import com.espiandev.redux.network.VolleyHelper;
+import com.espiandev.redux.network.VolleyHelperProvider;
 
 public class FragmentTestingActivity extends Activity implements TitleHost, VolleyHelperProvider, AnimationFactoryProvider,
         TokenStorageProvider {

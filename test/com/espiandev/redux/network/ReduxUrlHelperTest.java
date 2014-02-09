@@ -1,4 +1,6 @@
-package com.espiandev.redux;
+package com.espiandev.redux.network;
+
+import com.espiandev.redux.network.ReduxUrlHelper;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

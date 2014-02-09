@@ -1,7 +1,7 @@
 package com.espiandev.redux.testutils;
 
 import com.android.volley.RequestQueue;
-import com.espiandev.redux.VolleyHelper;
+import com.espiandev.redux.network.VolleyHelper;
 
 public class MockVolleyHelper implements VolleyHelper {
 
