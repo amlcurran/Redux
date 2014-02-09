@@ -1,4 +1,4 @@
-package com.espiandev.redux;
+package com.espiandev.redux.auth;
 
 public interface LoginListener {
     public void onLogin();

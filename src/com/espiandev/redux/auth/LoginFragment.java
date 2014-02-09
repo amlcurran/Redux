@@ -9,29 +9,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import com.espiandev.redux.LoginListener;
 import com.espiandev.redux.R;
-import com.espiandev.redux.ResourceStringProvider;
-import com.espiandev.redux.TitledFragment;
-import com.espiandev.redux.animation.AnimationFactory;
-import com.espiandev.redux.animation.AnimationFactoryProvider;
 import com.espiandev.redux.network.NetworkErrorTranslator;
-import com.espiandev.redux.network.NetworkHelper;
-import com.espiandev.redux.network.NetworkHelperProvider;
 import com.espiandev.redux.network.Responder;
 
-public class LoginFragment extends TitledFragment implements Responder<String>, ResourceStringProvider {
+public class LoginFragment extends BasicFragment implements Responder<String> {
 
     private EditText usernameField;
     private EditText passwordField;
     private ProgressBar loadingSpinner;
     private View credentialsHost;
-    private NetworkHelper networkHelper;
     private TokenStorage tokenStorage;
-    private AnimationFactory animationFactory;
     private LoginListener loginListener;
+    private final Validator validator;
 
     public LoginFragment() {
+        validator = new Validator();
     }
 
     @Override
@@ -49,12 +42,6 @@ public class LoginFragment extends TitledFragment implements Responder<String>, 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (activity instanceof NetworkHelperProvider) {
-            networkHelper = ((NetworkHelperProvider) activity).getNetworkHelper();
-        }
-        if (activity instanceof AnimationFactoryProvider) {
-            animationFactory = ((AnimationFactoryProvider) activity).getAnimationFactory();
-        }
         if (activity instanceof TokenStorageProvider) {
             tokenStorage = ((TokenStorageProvider) activity).getTokenStorage();
         }
@@ -79,12 +66,12 @@ public class LoginFragment extends TitledFragment implements Responder<String>, 
 
         @Override
         public void onClick(View view) {
-            if (Validator.isPasswordValid(passwordField.getText()) &&
-                    Validator.isUsernameValid(usernameField.getText())) {
+            if (validator.isPasswordValid(passwordField.getText()) &&
+                    validator.isUsernameValid(usernameField.getText())) {
                 launchLoginRequest();
                 titleHost.setSubtitle(null);
             } else {
-                titleHost.setSubtitle(Validator.isUsernameValid(usernameField.getText()) ?
+                titleHost.setSubtitle(validator.isUsernameValid(usernameField.getText()) ?
                         getString(R.string.login_error_password) : getString(R.string.login_error_username));
             }
         }

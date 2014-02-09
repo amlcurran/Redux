@@ -1,7 +1,6 @@
 package com.espiandev.redux.auth;
 
-import com.espiandev.redux.auth.Validator;
-
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -13,14 +12,22 @@ import static org.junit.Assert.assertFalse;
 @Config(manifest = "AndroidManifest.xml")
 public class ValidatorTest {
 
+    private Validator validator;
+
+    @Before
+    public void setUp() {
+        validator = new Validator();
+    }
+
+
     @Test
     public void testWhenPasswordIsEmpty_ItIsNotValid() {
-        assertFalse("Empty password should not be valid", Validator.isPasswordValid(""));
+        assertFalse("Empty password should not be valid", validator.isPasswordValid(""));
     }
 
     @Test
     public void testWhenUsernameIsEmpty_ItIsNotValid() {
-        assertFalse("Empty password should not be valid", Validator.isUsernameValid(""));
+        assertFalse("Empty password should not be valid", validator.isUsernameValid(""));
     }
 
 }

@@ -37,4 +37,9 @@ public class VolleyNetworkHelper implements NetworkHelper {
     public void login(String username, String password, Responder<String> responder) {
         performGet(urlHelper.buildLoginUrl(username, password), responder);
     }
+
+    @Override
+    public void search(String query, Responder<String> responder) {
+
+    }
 }

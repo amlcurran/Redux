@@ -13,4 +13,5 @@
     <string name="volley_error_network">Can\'t connect to the internet</string>
     <string name="volley_error_generic">A network error occurred</string>
     <string name="volley_error_token">There is an issue with your stored credentials</string>
+    <string name="error_empty_search">No search query given</string>
 </resources>
