@@ -4,4 +4,5 @@
     <dimen name="high_banner_text_size">56sp</dimen>
     <dimen name="low_banner_text_size">18sp</dimen>
     <dimen name="translation_delta">60dp</dimen>
+    <dimen name="small_banner_text_size">22sp</dimen>
 </resources>

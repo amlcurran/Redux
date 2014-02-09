@@ -6,6 +6,7 @@
     <color name="app_yellow_dark">#B27C06</color>
     <color name="app_blue_light">#1063FF</color>
     <color name="app_blue_dark">#003EB2</color>
+    <color name="window_background">#CECEE0</color>
 
 
     <!--<color name="app_yellow_main">#FF5F10</color>-->
