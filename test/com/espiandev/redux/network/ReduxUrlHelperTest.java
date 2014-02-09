@@ -1,7 +1,5 @@
 package com.espiandev.redux.network;
 
-import com.espiandev.redux.network.ReduxUrlHelper;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -19,6 +17,14 @@ public class ReduxUrlHelperTest {
         String url = helper.buildLoginUrl("USERNAME", "PASSWORD");
 
         assertEquals("https://i.bbcredux.com/user/login?username=USERNAME&password=PASSWORD", url);
+    }
+
+    @Test
+    public void testUrlHelper_FormatsSearchUrlCorrectly() {
+        ReduxUrlHelper helper = new ReduxUrlHelper();
+        String url = helper.buildSearchUrl("search Query", "authToken");
+
+        assertEquals("https://i.bbcredux.com/asset/search?q=search%20Query&token=authToken", url);
     }
 
 }

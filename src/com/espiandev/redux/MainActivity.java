@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.animation.AnimationFactoryProvider;
@@ -18,6 +19,7 @@ import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
 import com.espiandev.redux.network.VolleyNetworkHelper;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends Activity implements TitleHost, AnimationFactoryProvider, NetworkHelperProvider,
@@ -34,8 +36,8 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         animationFactory = new RealAnimationFactory();
-        networkHelper = new VolleyNetworkHelper(((ReduxApp) getApplication()).getRequestQueue());
         tokenStorage = new SharedPreferencesTokenStorage(PreferenceManager.getDefaultSharedPreferences(this));
+        networkHelper = new VolleyNetworkHelper(((ReduxApp) getApplication()).getRequestQueue(), tokenStorage);
         highBanner = (TextView) findViewById(R.id.high_banner);
         lowBanner = (TextView) findViewById(R.id.low_banner);
         if (tokenStorage.hasToken()) {
@@ -82,6 +84,10 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
 
     @Override
     public void onSearchResult(JSONObject results) {
-
+        try {
+            Toast.makeText(this, results.getString("total_returned"), Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
