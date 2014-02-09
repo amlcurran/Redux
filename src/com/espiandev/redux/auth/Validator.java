@@ -1,4 +1,4 @@
-package com.espiandev.redux;
+package com.espiandev.redux.auth;
 
 import android.text.TextUtils;
 

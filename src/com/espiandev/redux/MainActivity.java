@@ -7,9 +7,13 @@ import android.widget.TextView;
 
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.animation.RealAnimationFactory;
+import com.espiandev.redux.auth.LoginFragment;
+import com.espiandev.redux.auth.SharedPreferencesTokenStorage;
+import com.espiandev.redux.auth.TokenStorage;
+import com.espiandev.redux.auth.TokenStorageProvider;
 
 public class MainActivity extends Activity implements TitleHost, AnimationFactoryProvider, VolleyHelperProvider,
-    TokenStorageProvider {
+        TokenStorageProvider {
 
     private TextView highBanner;
     private TextView lowBanner;

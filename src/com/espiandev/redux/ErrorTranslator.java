@@ -4,6 +4,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.espiandev.redux.auth.TokenError;
 
 public class ErrorTranslator {
 

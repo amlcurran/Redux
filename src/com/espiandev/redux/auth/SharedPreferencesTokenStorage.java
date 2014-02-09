@@ -1,4 +1,4 @@
-package com.espiandev.redux;
+package com.espiandev.redux.auth;
 
 import android.content.Context;
 import android.preference.PreferenceManager;

@@ -5,15 +5,17 @@ import android.app.Fragment;
 import android.os.Bundle;
 
 import com.espiandev.redux.animation.AnimationFactory;
+import com.espiandev.redux.auth.TokenStorage;
+import com.espiandev.redux.auth.TokenStorageProvider;
 
 public class FragmentTestingActivity extends Activity implements TitleHost, VolleyHelperProvider, AnimationFactoryProvider,
-    TokenStorageProvider {
+        TokenStorageProvider {
 
     private Fragment fragment;
     private CharSequence title;
     private CharSequence subtitle;
-    AnimationFactory animationFactory;
-    VolleyHelper volleyHelper;
+    public AnimationFactory animationFactory;
+    public VolleyHelper volleyHelper;
     public TokenStorage tokenStorage;
 
     @Override

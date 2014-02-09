@@ -1,4 +1,6 @@
-package com.espiandev.redux;
+package com.espiandev.redux.auth;
+
+import com.espiandev.redux.auth.Validator;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
