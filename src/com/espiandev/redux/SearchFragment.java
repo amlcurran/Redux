@@ -11,7 +11,7 @@ import android.widget.EditText;
 import com.espiandev.redux.network.NetworkErrorTranslator;
 import com.espiandev.redux.network.Responder;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class SearchFragment extends BasicFragment implements Responder<String> {
 
@@ -69,7 +69,7 @@ public class SearchFragment extends BasicFragment implements Responder<String> {
 
     @Override
     public void onSuccessResponse(String response) {
-        List<Asset> assetList = new SearchResultsParser().parseResultList(response);
+        ArrayList<Asset> assetList = new SearchResultsParser().parseResultList(response);
         searchListener.onSearchResult(assetList);
     }
 

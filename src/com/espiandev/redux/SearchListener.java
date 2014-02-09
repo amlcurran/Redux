@@ -1,9 +1,7 @@
 package com.espiandev.redux;
 
-import org.json.JSONObject;
-
-import java.util.List;
+import java.util.ArrayList;
 
 public interface SearchListener {
-    public void onSearchResult(List<Asset> results);
+    public void onSearchResult(ArrayList<Asset> results);
 }

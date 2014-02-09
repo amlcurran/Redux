@@ -12,7 +12,7 @@ import com.espiandev.redux.auth.TokenStorageProvider;
 import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class FragmentTestingActivity extends Activity implements TitleHost, NetworkHelperProvider, AnimationFactoryProvider,
         TokenStorageProvider, LoginListener, SearchListener {
@@ -79,7 +79,8 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Netw
     }
 
     @Override
-    public void onSearchResult(List<Asset> results) {
+    public void onSearchResult(
+            ArrayList<Asset> results) {
         onSearchResultCalled = true;
     }
 }

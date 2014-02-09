@@ -19,7 +19,7 @@ import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
 import com.espiandev.redux.network.VolleyNetworkHelper;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class MainActivity extends Activity implements TitleHost, AnimationFactoryProvider, NetworkHelperProvider,
         TokenStorageProvider, SearchListener, LoginListener {
@@ -82,7 +82,7 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
     }
 
     @Override
-    public void onSearchResult(List<Asset> results) {
+    public void onSearchResult(ArrayList<Asset> results) {
         Toast.makeText(this, String.valueOf(results.size()), Toast.LENGTH_SHORT).show();
     }
 }

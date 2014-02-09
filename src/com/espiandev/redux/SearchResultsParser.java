@@ -5,14 +5,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchResultsParser {
 
-    public List<Asset> parseResultList(String jsonString) {
-        List<Asset> result = new ArrayList<Asset>();
+    public ArrayList<Asset> parseResultList(String jsonString) {
+        ArrayList<Asset> result = new ArrayList<Asset>();
         try {
-
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray assetArray = jsonObject.getJSONObject("results").getJSONArray("assets");
             for (int i = 0; i < assetArray.length(); i++) {
