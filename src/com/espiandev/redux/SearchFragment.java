@@ -11,8 +11,7 @@ import android.widget.EditText;
 import com.espiandev.redux.network.NetworkErrorTranslator;
 import com.espiandev.redux.network.Responder;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.List;
 
 public class SearchFragment extends BasicFragment implements Responder<String> {
 
@@ -70,13 +69,8 @@ public class SearchFragment extends BasicFragment implements Responder<String> {
 
     @Override
     public void onSuccessResponse(String response) {
-        JSONObject results;
-        try {
-            results = new JSONObject(response);
-            searchListener.onSearchResult(results);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        List<Asset> assetList = new SearchResultsParser().parseResultList(response);
+        searchListener.onSearchResult(assetList);
     }
 
     @Override

@@ -19,8 +19,7 @@ import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
 import com.espiandev.redux.network.VolleyNetworkHelper;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.List;
 
 public class MainActivity extends Activity implements TitleHost, AnimationFactoryProvider, NetworkHelperProvider,
         TokenStorageProvider, SearchListener, LoginListener {
@@ -83,11 +82,7 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
     }
 
     @Override
-    public void onSearchResult(JSONObject results) {
-        try {
-            Toast.makeText(this, results.getString("total_returned"), Toast.LENGTH_SHORT).show();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public void onSearchResult(List<Asset> results) {
+        Toast.makeText(this, String.valueOf(results.size()), Toast.LENGTH_SHORT).show();
     }
 }
