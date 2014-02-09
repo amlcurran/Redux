@@ -18,7 +18,6 @@ import com.espiandev.redux.TitledFragment;
 import com.espiandev.redux.network.NetworkErrorTranslator;
 import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
-import com.espiandev.redux.network.ReduxUrlHelper;
 import com.espiandev.redux.network.Responder;
 
 public class LoginFragment extends TitledFragment implements Responder<String>, ResourceStringProvider {
@@ -30,10 +29,8 @@ public class LoginFragment extends TitledFragment implements Responder<String>, 
     private NetworkHelper networkHelper;
     private TokenStorage tokenStorage;
     private AnimationFactory animationFactory;
-    private final ReduxUrlHelper urlHelper;
 
     public LoginFragment() {
-        urlHelper = new ReduxUrlHelper();
     }
 
     @Override

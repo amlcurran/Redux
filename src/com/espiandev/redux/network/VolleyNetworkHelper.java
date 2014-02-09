@@ -12,7 +12,7 @@ public class VolleyNetworkHelper implements NetworkHelper {
 
     public VolleyNetworkHelper(RequestQueue requestQueue) {
         this.requestQueue = requestQueue;
-        urlHelper = new ReduxUrlHelper();
+        this.urlHelper = new ReduxUrlHelper();
     }
 
     @Override
