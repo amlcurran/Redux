@@ -1,6 +1,6 @@
 package com.espiandev.redux.network;
 
-import com.espiandev.redux.Asset;
+import com.espiandev.redux.assets.Asset;
 
 public interface NetworkHelper {
     void performGet(String url, Responder<String> responder);

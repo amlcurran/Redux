@@ -1,7 +1,10 @@
-package com.espiandev.redux;
+package com.espiandev.redux.assets;
 
 import android.widget.ListView;
 
+import com.espiandev.redux.R;
+import com.espiandev.redux.assets.Asset;
+import com.espiandev.redux.assets.AssetListFragment;
 import com.espiandev.redux.testing.BaseFragmentTest;
 
 import org.junit.Test;

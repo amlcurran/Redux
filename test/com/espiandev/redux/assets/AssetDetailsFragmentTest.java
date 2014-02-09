@@ -1,5 +1,8 @@
-package com.espiandev.redux;
+package com.espiandev.redux.assets;
 
+import com.espiandev.redux.Channel;
+import com.espiandev.redux.assets.Asset;
+import com.espiandev.redux.assets.AssetDetailsFragment;
 import com.espiandev.redux.testing.BaseFragmentTest;
 
 import org.junit.Test;

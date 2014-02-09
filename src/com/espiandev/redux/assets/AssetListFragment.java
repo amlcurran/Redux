@@ -1,4 +1,4 @@
-package com.espiandev.redux;
+package com.espiandev.redux.assets;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.espiandev.redux.BasicFragment;
+import com.espiandev.redux.R;
+import com.espiandev.redux.ResourceStringProvider;
 
 import java.util.ArrayList;
 

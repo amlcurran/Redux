@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.espiandev.redux.assets.Asset;
+import com.espiandev.redux.assets.AssetListParser;
 import com.espiandev.redux.network.NetworkErrorTranslator;
 import com.espiandev.redux.network.Responder;
 
@@ -69,7 +71,7 @@ public class SearchFragment extends BasicFragment implements Responder<String> {
 
     @Override
     public void onSuccessResponse(String response) {
-        ArrayList<Asset> assetList = new SearchResultsParser().parseResultList(response);
+        ArrayList<Asset> assetList = new AssetListParser().parseResultList(response);
         searchListener.onSearchResult(String.valueOf(queryField.getText()), assetList);
     }
 

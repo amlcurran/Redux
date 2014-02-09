@@ -1,6 +1,9 @@
-package com.espiandev.redux;
+package com.espiandev.redux.assets;
 
 import android.os.Bundle;
+
+import com.espiandev.redux.BasicFragment;
+import com.espiandev.redux.ResourceStringProvider;
 
 public class AssetDetailsFragment extends BasicFragment {
     private static final String UUID = "uuid";

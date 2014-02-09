@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 
-import com.espiandev.redux.Asset;
-import com.espiandev.redux.AssetSelectionListener;
+import com.espiandev.redux.assets.Asset;
+import com.espiandev.redux.assets.AssetSelectionListener;
 import com.espiandev.redux.R;
 import com.espiandev.redux.SearchListener;
 import com.espiandev.redux.TitleHost;

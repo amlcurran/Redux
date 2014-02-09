@@ -1,5 +1,7 @@
 package com.espiandev.redux;
 
+import com.espiandev.redux.assets.Asset;
+
 import java.util.ArrayList;
 
 public interface SearchListener {
