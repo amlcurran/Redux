@@ -3,7 +3,6 @@ package com.espiandev.redux;
 import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,6 @@ public class LoginFragment extends TitledFragment implements Response.ErrorListe
     private EditText passwordField;
     private ProgressBar loadingSpinner;
     private View credentialsHost;
-    private Button submitButton;
     private VolleyHelper volleyHelper;
     private AnimationFactory animationFactory;
 
@@ -43,7 +41,7 @@ public class LoginFragment extends TitledFragment implements Response.ErrorListe
         passwordField = (EditText) view.findViewById(R.id.login_password);
         loadingSpinner = (ProgressBar) view.findViewById(R.id.login_spinner);
         credentialsHost = view.findViewById(R.id.login_credentials_host);
-        submitButton = (Button) view.findViewById(R.id.login_submit);
+        Button submitButton = (Button) view.findViewById(R.id.login_submit);
         submitButton.setOnClickListener(submitClickListener);
         return view;
     }
@@ -73,11 +71,12 @@ public class LoginFragment extends TitledFragment implements Response.ErrorListe
 
         @Override
         public void onClick(View view) {
-            if (isUsernameValid() && isPasswordValid()) {
+            if (Validator.isPasswordValid(passwordField.getText()) &&
+                    Validator.isUsernameValid(usernameField.getText())) {
                 launchLoginRequest();
                 titleHost.setSubtitle(null);
             } else {
-                titleHost.setSubtitle(isUsernameValid() ?
+                titleHost.setSubtitle(Validator.isUsernameValid(usernameField.getText()) ?
                         getString(R.string.login_error_password) : getString(R.string.login_error_username));
             }
         }
@@ -91,14 +90,6 @@ public class LoginFragment extends TitledFragment implements Response.ErrorListe
         volleyHelper.getRequestQueue().add(request);
         animationFactory.upAndOut(credentialsHost);
         animationFactory.upAndIn(loadingSpinner);
-    }
-
-    private boolean isPasswordValid() {
-        return !TextUtils.isEmpty(passwordField.getText());
-    }
-
-    private boolean isUsernameValid() {
-        return !TextUtils.isEmpty(usernameField.getText());
     }
 
     @Override
