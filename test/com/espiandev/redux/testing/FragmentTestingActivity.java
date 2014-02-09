@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 
 import com.espiandev.redux.Asset;
+import com.espiandev.redux.AssetSelectionListener;
 import com.espiandev.redux.R;
 import com.espiandev.redux.SearchListener;
 import com.espiandev.redux.TitleHost;
@@ -19,7 +20,7 @@ import com.espiandev.redux.network.NetworkHelperProvider;
 import java.util.ArrayList;
 
 public class FragmentTestingActivity extends Activity implements TitleHost, NetworkHelperProvider, AnimationFactoryProvider,
-        TokenStorageProvider, LoginListener, SearchListener {
+        TokenStorageProvider, LoginListener, SearchListener, AssetSelectionListener {
 
     private Fragment fragment;
     private CharSequence title;
@@ -29,6 +30,7 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Netw
     public TokenStorage tokenStorage;
     public boolean onLoginCalled;
     public boolean onSearchResultCalled;
+    public Asset selectedAsset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,5 +88,10 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Netw
     public void onSearchResult(
             String query, ArrayList<Asset> results) {
         onSearchResultCalled = true;
+    }
+
+    @Override
+    public void onAssetSelected(Asset asset) {
+        selectedAsset = asset;
     }
 }

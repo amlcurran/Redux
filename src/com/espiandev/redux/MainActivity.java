@@ -21,7 +21,7 @@ import com.espiandev.redux.network.VolleyNetworkHelper;
 import java.util.ArrayList;
 
 public class MainActivity extends Activity implements TitleHost, AnimationFactoryProvider, NetworkHelperProvider,
-        TokenStorageProvider, SearchListener, LoginListener {
+        TokenStorageProvider, SearchListener, LoginListener, AssetSelectionListener {
 
     private TextView highBanner;
     private TextView lowBanner;
@@ -86,6 +86,15 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
         getFragmentManager().beginTransaction().replace(R.id.host_frame, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack("searchResults")
+                .commit();
+    }
+
+    @Override
+    public void onAssetSelected(Asset asset) {
+        AssetDetailsFragment fragment = AssetDetailsFragment.newInstance(asset);
+        getFragmentManager().beginTransaction().replace(R.id.host_frame, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack("assetDetails")
                 .commit();
     }
 }

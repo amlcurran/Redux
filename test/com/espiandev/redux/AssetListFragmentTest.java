@@ -50,4 +50,13 @@ public class AssetListFragmentTest extends BaseFragmentTest<AssetListFragment> {
         assertEquals(fragment.adapter, ((ListView) activity.findViewById(R.id.results_list)).getAdapter());
     }
 
+    @Test
+    public void testWhenAnItemIsClicked_TheListenerIsNotifiedOfTheSelection() {
+        ListView listView = (ListView) activity.findViewById(R.id.results_list);
+
+        listView.performItemClick(fragment.adapter.getView(1, null, listView), 1, 1);
+
+        assertEquals(assetArray.get(1), activity.selectedAsset);
+    }
+
 }

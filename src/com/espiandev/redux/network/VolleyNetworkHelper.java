@@ -4,6 +4,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.espiandev.redux.Asset;
 import com.espiandev.redux.auth.TokenStorage;
 
 public class VolleyNetworkHelper implements NetworkHelper {
@@ -44,5 +45,10 @@ public class VolleyNetworkHelper implements NetworkHelper {
     @Override
     public void search(String query, Responder<String> responder) {
         performGet(urlHelper.buildSearchUrl(query, tokenStorage.getToken()), responder);
+    }
+
+    @Override
+    public void details(String uuid, Responder<Asset> assetResponder) {
+
     }
 }

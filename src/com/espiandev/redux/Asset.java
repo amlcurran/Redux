@@ -15,6 +15,8 @@ public class Asset implements Parcelable {
     private String key;
     private long duration;
 
+    private Channel channel;
+
     public Asset() {
 
     }
@@ -24,7 +26,8 @@ public class Asset implements Parcelable {
         description = in.readString();
         uuid = in.readString();
         key = in.readString();
-        duration = in.readLong();
+        channel = in.readParcelable(getClass().getClassLoader());
+        //duration = in.readLong();
     }
 
     public static Asset fromJsonObject(JSONObject object) {
@@ -32,7 +35,7 @@ public class Asset implements Parcelable {
             Asset result = new Asset();
             result.name = object.getString("name");
             result.description = object.getString("description");
-            //result.channel = Channel.fromJsonObject(object.getJSONObject("channel"));
+            result.channel = Channel.fromJsonObject(object.getJSONObject("channel"));
             result.uuid = object.getString("uuid");
             result.key = object.getString("key");
             //result.duration = object.getLong("duration");
@@ -45,6 +48,10 @@ public class Asset implements Parcelable {
 
     public long getDuration() {
         return duration;
+    }
+
+    public Channel getChannel() {
+        return channel;
     }
 
     public String getKey() {
@@ -75,6 +82,7 @@ public class Asset implements Parcelable {
         parcel.writeString(uuid);
         parcel.writeString(key);
         parcel.writeLong(duration);
+        parcel.writeParcelable(channel, 0);
     }
 
     @Override
