@@ -82,7 +82,7 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
 
     @Override
     public void onSearchResult(String query, ArrayList<Asset> results) {
-        SearchResultsFragment fragment = SearchResultsFragment.newInstance(query, results);
+        AssetListFragment fragment = AssetListFragment.newInstance(query, results);
         getFragmentManager().beginTransaction().replace(R.id.host_frame, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack("searchResults")

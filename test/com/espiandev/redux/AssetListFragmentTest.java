@@ -24,11 +24,11 @@ import static org.mockito.Mockito.mock;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "AndroidManifest.xml")
-public class SearchResultsFragmentTest {
+public class AssetListFragmentTest {
 
     public static final String QUERY_STRING = "queryString";
     private FragmentTestingActivity activity;
-    private SearchResultsFragment loginFragment;
+    private AssetListFragment loginFragment;
     @Mock
     private TokenStorage mockTokenStorage;
     @Mock
@@ -44,7 +44,7 @@ public class SearchResultsFragmentTest {
         ActivityController<FragmentTestingActivity> controller = Robolectric.buildActivity(FragmentTestingActivity.class);
         activity = controller.get();
         assetArray = createAssetArray();
-        loginFragment = SearchResultsFragment.newInstance(QUERY_STRING, assetArray);
+        loginFragment = AssetListFragment.newInstance(QUERY_STRING, assetArray);
         attachMocks();
         activity.setFragment(loginFragment);
         controller.create();
