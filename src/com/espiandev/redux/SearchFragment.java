@@ -41,13 +41,13 @@ public class SearchFragment extends BasicFragment implements Responder<String> {
     }
 
     @Override
-    public int getTitle() {
-        return R.string.search;
+    public CharSequence getHostedTitle(ResourceStringProvider stringProvider) {
+        return stringProvider.getString(R.string.search);
     }
 
     @Override
-    public int getSubtitle() {
-        return 0;
+    public CharSequence getHostedSubtitle(ResourceStringProvider stringProvider) {
+        return null;
     }
 
     private View.OnClickListener mSearchClickListener = new View.OnClickListener() {

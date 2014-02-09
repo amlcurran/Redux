@@ -20,10 +20,10 @@ public abstract class TitledFragment extends Fragment implements TitledItem {
     }
 
     private void setTitles(Activity activity) {
-        titleHost.setTitle(activity.getString(getTitle()));
+        titleHost.setTitle(getHostedTitle(titleHost));
 
-        if (getSubtitle() != 0) {
-            titleHost.setSubtitle(activity.getString(getSubtitle()));
+        if (getHostedSubtitle(titleHost) != null) {
+            titleHost.setSubtitle(getHostedSubtitle(titleHost));
         } else {
             titleHost.setSubtitle("");
         }

@@ -18,13 +18,15 @@ public class SearchResultsFragment extends BasicFragment {
     }
 
     @Override
-    public int getSubtitle() {
-        return 0;
+    public CharSequence getHostedSubtitle(ResourceStringProvider stringProvider) {
+        return null;
     }
 
     @Override
-    public int getTitle() {
-        return 0;
+    public CharSequence getHostedTitle(ResourceStringProvider stringProvider) {
+        return stringProvider.getString(R.string.results_title, getArguments().getString(QUERY));
     }
+
+
 
 }

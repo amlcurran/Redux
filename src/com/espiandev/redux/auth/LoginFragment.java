@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 
 import com.espiandev.redux.BasicFragment;
 import com.espiandev.redux.R;
+import com.espiandev.redux.ResourceStringProvider;
 import com.espiandev.redux.network.NetworkErrorTranslator;
 import com.espiandev.redux.network.Responder;
 
@@ -57,13 +58,13 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
     }
 
     @Override
-    public int getTitle() {
-        return R.string.log_in;
+    public CharSequence getHostedTitle(ResourceStringProvider stringProvider) {
+        return stringProvider.getString(R.string.log_in);
     }
 
     @Override
-    public int getSubtitle() {
-        return 0;
+    public CharSequence getHostedSubtitle(ResourceStringProvider stringProvider) {
+        return null;
     }
 
     View.OnClickListener submitClickListener = new View.OnClickListener() {

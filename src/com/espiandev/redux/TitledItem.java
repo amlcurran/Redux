@@ -1,7 +1,7 @@
 package com.espiandev.redux;
 
 public interface TitledItem {
-    int getSubtitle();
+    CharSequence getHostedSubtitle(ResourceStringProvider stringProvider);
 
-    int getTitle();
+    CharSequence getHostedTitle(ResourceStringProvider stringProvider);
 }
