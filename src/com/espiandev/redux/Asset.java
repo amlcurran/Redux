@@ -35,7 +35,7 @@ public class Asset implements Parcelable {
             //result.channel = Channel.fromJsonObject(object.getJSONObject("channel"));
             result.uuid = object.getString("uuid");
             result.key = object.getString("key");
-            result.duration = object.getLong("duration");
+            //result.duration = object.getLong("duration");
             return result;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -75,6 +75,11 @@ public class Asset implements Parcelable {
         parcel.writeString(uuid);
         parcel.writeString(key);
         parcel.writeLong(duration);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%1$s\n%2$s", name, description);
     }
 
     public static final Creator<Asset> CREATOR = new Creator<Asset>() {

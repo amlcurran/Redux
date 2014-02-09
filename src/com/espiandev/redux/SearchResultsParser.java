@@ -14,7 +14,10 @@ public class SearchResultsParser {
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray assetArray = jsonObject.getJSONObject("results").getJSONArray("assets");
             for (int i = 0; i < assetArray.length(); i++) {
-                result.add(Asset.fromJsonObject(assetArray.getJSONObject(i)));
+                Asset asset = Asset.fromJsonObject(assetArray.getJSONObject(i));
+                if (asset != null) {
+                    result.add(asset);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
