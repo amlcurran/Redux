@@ -33,6 +33,8 @@ public class LoginFragmentTest {
     private LoginFragment loginFragment;
     @Mock
     private RequestQueue mockRequestQueue;
+    @Mock
+    private TokenStorage mockTokenStorage;
 
     @Before
     public void setUp() {
@@ -43,6 +45,7 @@ public class LoginFragmentTest {
         activity = controller.get();
         loginFragment = new LoginFragment();
         activity.animationFactory = new NonAnimationFactory();
+        activity.tokenStorage = mockTokenStorage;
         activity.setFragment(loginFragment);
         activity.volleyHelper = mockVolleyHelper;
         controller.create();
@@ -113,6 +116,17 @@ public class LoginFragmentTest {
         loginFragment.onResponse("blah");
 
         assertEquals(View.INVISIBLE, activity.findViewById(R.id.login_spinner).getVisibility());
+    }
+
+    @Test
+    public void testWhenLogInResponseReturns_TheTokenIsStored() {
+        setUpValidCredentials();
+        clickSubmitButton();
+        String response = "blah";
+
+        loginFragment.onResponse(response);
+
+        verify(mockTokenStorage).storeToken(response);
     }
 
     @Test

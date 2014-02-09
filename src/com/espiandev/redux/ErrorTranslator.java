@@ -14,6 +14,8 @@ public class ErrorTranslator {
             return provider.getString(R.string.volley_error_timeout);
         } else if (error instanceof NetworkError) {
             return provider.getString(R.string.volley_error_network);
+        } else if (error instanceof TokenError) {
+            return provider.getString(R.string.volley_error_token);
         }
         return provider.getString(R.string.volley_error_generic);
     }

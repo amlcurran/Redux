@@ -2,7 +2,6 @@ package com.espiandev.redux;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.espiandev.redux.animation.AnimationFactory;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class LoginFragment extends TitledFragment implements Response.ErrorListener, Response.Listener<String>, ResourceStringProvider {
 
     private EditText usernameField;
@@ -26,8 +22,8 @@ public class LoginFragment extends TitledFragment implements Response.ErrorListe
     private ProgressBar loadingSpinner;
     private View credentialsHost;
     private VolleyHelper volleyHelper;
+    private TokenStorage tokenStorage;
     private AnimationFactory animationFactory;
-
     private final ReduxUrlHelper urlHelper;
 
     public LoginFragment() {
@@ -54,6 +50,9 @@ public class LoginFragment extends TitledFragment implements Response.ErrorListe
         }
         if (activity instanceof AnimationFactoryProvider) {
             animationFactory = ((AnimationFactoryProvider) activity).getAnimationFactory();
+        }
+        if (activity instanceof TokenStorageProvider) {
+            tokenStorage = ((TokenStorageProvider) activity).getTokenStorage();
         }
     }
 
@@ -104,26 +103,12 @@ public class LoginFragment extends TitledFragment implements Response.ErrorListe
     public void onResponse(String response) {
         animationFactory.cancelAnimations(loadingSpinner);
         animationFactory.downAndOut(loadingSpinner);
-        boolean storedToken = storeToken(response);
+        boolean storedToken = tokenStorage.storeToken(response);
         if (storedToken) {
             Toast.makeText(getActivity(), "Stored token", Toast.LENGTH_SHORT).show();
         } else {
-            onErrorResponse(null);
+            onErrorResponse(new TokenError());
         }
-    }
-
-    private boolean storeToken(String response) {
-        try {
-            JSONObject object = new JSONObject(response);
-            String token = object.getString("token");
-            PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
-                    .putString("auth_token", token)
-                    .apply();
-            return true;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
 }

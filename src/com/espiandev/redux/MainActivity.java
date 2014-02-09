@@ -8,11 +8,13 @@ import android.widget.TextView;
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.animation.RealAnimationFactory;
 
-public class MainActivity extends Activity implements TitleHost, AnimationFactoryProvider, VolleyHelperProvider {
+public class MainActivity extends Activity implements TitleHost, AnimationFactoryProvider, VolleyHelperProvider,
+    TokenStorageProvider {
 
     private TextView highBanner;
     private TextView lowBanner;
     AnimationFactory animationFactory;
+    private TokenStorage tokenStorage;
     private VolleyHelper volleyHelper;
 
     @Override
@@ -21,6 +23,7 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
         setContentView(R.layout.activity_main);
         animationFactory = new RealAnimationFactory();
         volleyHelper = new ApplicationVolleyHelper(this);
+        tokenStorage = new SharedPreferencesTokenStorage(this);
         highBanner = (TextView) findViewById(R.id.high_banner);
         lowBanner = (TextView) findViewById(R.id.low_banner);
         if (!hasAuthToken()) {
@@ -54,5 +57,10 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
     @Override
     public VolleyHelper getVolleyHelper() {
         return volleyHelper;
+    }
+
+    @Override
+    public TokenStorage getTokenStorage() {
+        return tokenStorage;
     }
 }

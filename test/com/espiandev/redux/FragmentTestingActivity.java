@@ -6,13 +6,15 @@ import android.os.Bundle;
 
 import com.espiandev.redux.animation.AnimationFactory;
 
-public class FragmentTestingActivity extends Activity implements TitleHost, VolleyHelperProvider, AnimationFactoryProvider {
+public class FragmentTestingActivity extends Activity implements TitleHost, VolleyHelperProvider, AnimationFactoryProvider,
+    TokenStorageProvider {
 
     private Fragment fragment;
     private CharSequence title;
     private CharSequence subtitle;
     AnimationFactory animationFactory;
     VolleyHelper volleyHelper;
+    public TokenStorage tokenStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,5 +56,10 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Voll
     @Override
     public VolleyHelper getVolleyHelper() {
         return volleyHelper;
+    }
+
+    @Override
+    public TokenStorage getTokenStorage() {
+        return tokenStorage;
     }
 }
