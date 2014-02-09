@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.espiandev.redux.auth.BasicFragment;
 import com.espiandev.redux.network.Responder;
 
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.espiandev.redux.auth;
+package com.espiandev.redux;
 
 import android.app.Activity;
 

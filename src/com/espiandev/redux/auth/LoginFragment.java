@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.espiandev.redux.BasicFragment;
 import com.espiandev.redux.R;
 import com.espiandev.redux.network.NetworkErrorTranslator;
 import com.espiandev.redux.network.Responder;
