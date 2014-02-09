@@ -32,7 +32,7 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
         View view = inflater.inflate(R.layout.activity_login, container, false);
         usernameField = (EditText) view.findViewById(R.id.login_username);
         passwordField = (EditText) view.findViewById(R.id.login_password);
-        loadingSpinner = (ProgressBar) view.findViewById(R.id.login_spinner);
+        loadingSpinner = (ProgressBar) view.findViewById(R.id.spinner);
         credentialsHost = view.findViewById(R.id.login_credentials_host);
         Button submitButton = (Button) view.findViewById(R.id.login_submit);
         submitButton.setOnClickListener(submitClickListener);

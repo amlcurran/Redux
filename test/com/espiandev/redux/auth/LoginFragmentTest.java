@@ -1,13 +1,12 @@
 package com.espiandev.redux.auth;
 
-import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.espiandev.redux.FragmentTestingActivity;
 import com.espiandev.redux.R;
+import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.network.NetworkHelper;
-import com.espiandev.redux.testutils.NonAnimationFactory;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -38,6 +37,8 @@ public class LoginFragmentTest {
     private TokenStorage mockTokenStorage;
     @Mock
     private NetworkHelper mockNetworkHelper;
+    @Mock
+    private AnimationFactory mockAnimationFactory;
 
     @Before
     public void setUp() {
@@ -46,7 +47,7 @@ public class LoginFragmentTest {
         ActivityController<FragmentTestingActivity> controller = Robolectric.buildActivity(FragmentTestingActivity.class);
         activity = controller.get();
         loginFragment = new LoginFragment();
-        activity.animationFactory = new NonAnimationFactory();
+        activity.animationFactory = mockAnimationFactory;
         activity.tokenStorage = mockTokenStorage;
         activity.networkHelper = mockNetworkHelper;
         activity.setFragment(loginFragment);
@@ -98,8 +99,24 @@ public class LoginFragmentTest {
         setUpValidCredentials();
         clickSubmitButton();
 
-        assertEquals(View.INVISIBLE, activity.findViewById(R.id.login_credentials_host).getVisibility());
-        assertEquals(View.VISIBLE, activity.findViewById(R.id.login_spinner).getVisibility());
+        verifyUpAndOut(R.id.login_credentials_host);
+        verifyUpAndIn(R.id.spinner);
+    }
+
+    private void verifyUpAndIn(int spinner) {
+        verify(mockAnimationFactory).upAndIn(activity.findViewById(spinner));
+    }
+
+    private void verifyUpAndOut(int viewId) {
+        verify(mockAnimationFactory).upAndOut(activity.findViewById(viewId));
+    }
+
+    private void verifyDownAndIn(int viewId) {
+        verify(mockAnimationFactory).downAndIn(activity.findViewById(viewId));
+    }
+
+    private void verifyDownAndOut(int viewId) {
+        verify(mockAnimationFactory).downAndOut(activity.findViewById(viewId));
     }
 
     @Test
@@ -112,17 +129,15 @@ public class LoginFragmentTest {
 
     @Test
     public void testWhenLogInResponseReturns_TheLoadingSpinnerIsAnimatedOut() {
-        setUpValidCredentials();
-        clickSubmitButton();
+        when(mockTokenStorage.storeToken(any(String.class))).thenReturn(true);
+
         loginFragment.onSuccessResponse("blah");
 
-        assertEquals(View.INVISIBLE, activity.findViewById(R.id.login_spinner).getVisibility());
+        verifyDownAndOut(R.id.spinner);
     }
 
     @Test
     public void testWhenLogInResponseReturns_TheTokenIsStored() {
-        setUpValidCredentials();
-        clickSubmitButton();
         String response = "blah";
 
         loginFragment.onSuccessResponse(response);
@@ -148,7 +163,7 @@ public class LoginFragmentTest {
         clickSubmitButton();
         loginFragment.onErrorResponse(null);
 
-        assertEquals(View.VISIBLE, activity.findViewById(R.id.login_credentials_host).getVisibility());
+        verifyDownAndIn(R.id.login_credentials_host);
     }
 
     @Test

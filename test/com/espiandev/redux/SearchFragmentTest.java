@@ -2,9 +2,9 @@ package com.espiandev.redux;
 
 import android.widget.TextView;
 
+import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.auth.TokenStorage;
 import com.espiandev.redux.network.NetworkHelper;
-import com.espiandev.redux.testutils.NonAnimationFactory;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +17,7 @@ import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
@@ -29,6 +30,8 @@ public class SearchFragmentTest {
     private TokenStorage mockTokenStorage;
     @Mock
     private NetworkHelper mockNetworkHelper;
+    @Mock
+    private AnimationFactory mockAnimationFactory;
 
     @Before
     public void setUp() {
@@ -37,7 +40,7 @@ public class SearchFragmentTest {
         ActivityController<FragmentTestingActivity> controller = Robolectric.buildActivity(FragmentTestingActivity.class);
         activity = controller.get();
         searchFragment = new SearchFragment();
-        activity.animationFactory = new NonAnimationFactory();
+        activity.animationFactory = mockAnimationFactory;
         activity.tokenStorage = mockTokenStorage;
         activity.networkHelper = mockNetworkHelper;
         activity.setFragment(searchFragment);
@@ -61,6 +64,22 @@ public class SearchFragmentTest {
         clickSearchButton();
 
         verify(mockNetworkHelper).search("query", searchFragment);
+    }
+
+    @Test
+    public void testAValidSearch_AnimatedOutTheQueryBarAndShowsSpinner() {
+        setSearchQuery("query");
+        clickSearchButton();
+
+        verify(mockAnimationFactory).upAndOut(activity.findViewById(R.id.search_query_host));
+        verify(mockAnimationFactory).upAndIn(activity.findViewById(R.id.spinner));
+    }
+
+    @Test
+    public void testASearchResponse_NotifiesTheListenerOfAScucessfulSearch() {
+        searchFragment.onSuccessResponse("{ 'successResponse' : 'true' }");
+
+        assertTrue("onSearchResult wasn't called", activity.onSearchResultCalled);
     }
 
     private void setSearchQuery(String query) {

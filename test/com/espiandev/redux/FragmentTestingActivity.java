@@ -12,8 +12,10 @@ import com.espiandev.redux.auth.TokenStorageProvider;
 import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
 
+import org.json.JSONObject;
+
 public class FragmentTestingActivity extends Activity implements TitleHost, NetworkHelperProvider, AnimationFactoryProvider,
-        TokenStorageProvider, LoginListener {
+        TokenStorageProvider, LoginListener, SearchListener {
 
     private Fragment fragment;
     private CharSequence title;
@@ -22,6 +24,7 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Netw
     public NetworkHelper networkHelper;
     public TokenStorage tokenStorage;
     public boolean onLoginCalled;
+    public boolean onSearchResultCalled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,5 +76,10 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Netw
     @Override
     public void onLogin() {
         onLoginCalled = true;
+    }
+
+    @Override
+    public void onSearchResult(JSONObject results) {
+        onSearchResultCalled = true;
     }
 }
