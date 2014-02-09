@@ -31,7 +31,6 @@
     </style>
 
     <style name="Theme.Redux" parent="@android:style/Theme.Holo.Light">
-        <item name="android:windowBackground">@color/window_background</item>
     </style>
 
     <style name="Theme.Redux.NoActionBar">

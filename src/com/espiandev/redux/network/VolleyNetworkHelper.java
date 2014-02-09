@@ -1,21 +1,25 @@
 package com.espiandev.redux.network;
 
+import android.graphics.Bitmap;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
-import com.espiandev.redux.assets.Asset;
 import com.espiandev.redux.auth.TokenStorage;
 
 public class VolleyNetworkHelper implements NetworkHelper {
 
     private final RequestQueue requestQueue;
-    private TokenStorage tokenStorage;
+    private final TokenStorage tokenStorage;
     private final ReduxUrlHelper urlHelper;
+    private final ImageLoader imageLoader;
 
     public VolleyNetworkHelper(RequestQueue requestQueue, TokenStorage tokenStorage) {
         this.requestQueue = requestQueue;
         this.tokenStorage = tokenStorage;
+        this.imageLoader = new ImageLoader(requestQueue, new NullImageCache());
         this.urlHelper = new ReduxUrlHelper();
     }
 
@@ -48,7 +52,17 @@ public class VolleyNetworkHelper implements NetworkHelper {
     }
 
     @Override
-    public void details(String uuid, Responder<Asset> assetResponder) {
+    public void image(String uuid, String key, final Responder<Bitmap> bitmapResponder) {
+        imageLoader.get(urlHelper.buildImageUrl(uuid, key), new ImageLoader.ImageListener() {
+            @Override
+            public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
+                bitmapResponder.onSuccessResponse(imageContainer.getBitmap());
+            }
 
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                bitmapResponder.onErrorResponse(error);
+            }
+        });
     }
 }

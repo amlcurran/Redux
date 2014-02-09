@@ -27,4 +27,12 @@ public class ReduxUrlHelperTest {
         assertEquals("https://i.bbcredux.com/asset/search?q=search%20Query&token=authToken", url);
     }
 
+    @Test
+    public void testUrlHelper_FormatsImageUrlCorrectly() {
+        ReduxUrlHelper helper = new ReduxUrlHelper();
+        String url = helper.buildImageUrl("pinguuuid", "pinguKey");
+
+        assertEquals("https://i.bbcredux.com/asset/media/pinguuuid/pinguKey/JPEG-1280x/image.jpg", url);
+    }
+
 }

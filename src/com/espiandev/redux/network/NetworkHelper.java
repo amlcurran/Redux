@@ -1,6 +1,6 @@
 package com.espiandev.redux.network;
 
-import com.espiandev.redux.assets.Asset;
+import android.graphics.Bitmap;
 
 public interface NetworkHelper {
     void performGet(String url, Responder<String> responder);
@@ -9,5 +9,5 @@ public interface NetworkHelper {
 
     void search(String query, Responder<String> responder);
 
-    void details(String uuid, Responder<Asset> assetResponder);
+    void image(String uuid, String key, Responder<Bitmap> bitmapResponder);
 }
