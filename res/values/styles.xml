@@ -4,7 +4,7 @@
     <style name="HighBanner">
         <item name="android:layout_gravity">left|top</item>
         <item name="android:textSize">@dimen/high_banner_text_size</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:textColor">@color/app_yellow_main</item>
     </style>
 

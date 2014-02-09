@@ -15,4 +15,5 @@
     <string name="volley_error_token">There is an issue with your stored credentials</string>
     <string name="error_empty_search">No search query given</string>
     <string name="results_title">\"%s\"</string>
+    <string name="search_results">Search results</string>
 </resources>
