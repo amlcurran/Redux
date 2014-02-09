@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.espiandev.redux.animation.AnimationFactoryProvider;
-import com.espiandev.redux.animation.AnimationFactory;
+import com.espiandev.redux.LoginListener;
 import com.espiandev.redux.R;
 import com.espiandev.redux.ResourceStringProvider;
 import com.espiandev.redux.TitledFragment;
+import com.espiandev.redux.animation.AnimationFactory;
+import com.espiandev.redux.animation.AnimationFactoryProvider;
 import com.espiandev.redux.network.NetworkErrorTranslator;
 import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
@@ -29,6 +29,7 @@ public class LoginFragment extends TitledFragment implements Responder<String>, 
     private NetworkHelper networkHelper;
     private TokenStorage tokenStorage;
     private AnimationFactory animationFactory;
+    private LoginListener loginListener;
 
     public LoginFragment() {
     }
@@ -56,6 +57,11 @@ public class LoginFragment extends TitledFragment implements Responder<String>, 
         }
         if (activity instanceof TokenStorageProvider) {
             tokenStorage = ((TokenStorageProvider) activity).getTokenStorage();
+        }
+        if (activity instanceof LoginListener) {
+            loginListener = (LoginListener) activity;
+        } else {
+            throw new ClassCastException("Host of LoginFragment must implement LoginListener");
         }
     }
 
@@ -99,7 +105,7 @@ public class LoginFragment extends TitledFragment implements Responder<String>, 
         animationFactory.downAndOut(loadingSpinner);
         boolean storedToken = tokenStorage.storeToken(response);
         if (storedToken) {
-            Toast.makeText(getActivity(), "Stored token", Toast.LENGTH_SHORT).show();
+            loginListener.onLogin();
         } else {
             onErrorResponse(new TokenError());
         }

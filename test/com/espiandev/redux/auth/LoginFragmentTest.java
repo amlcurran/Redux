@@ -19,9 +19,12 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
 
+import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "AndroidManifest.xml")
@@ -125,6 +128,18 @@ public class LoginFragmentTest {
         loginFragment.onSuccessResponse(response);
 
         verify(mockTokenStorage).storeToken(response);
+    }
+
+    @Test
+    public void testWhenTheTokenIsStored_TheLogInListenerIsNotified() {
+        setUpValidCredentials();
+        clickSubmitButton();
+        String response = "blah";
+
+        when(mockTokenStorage.storeToken(any(String.class))).thenReturn(true);
+        loginFragment.onSuccessResponse(response);
+
+        assertTrue("LoginListener wasn't notified of login", activity.onLoginCalled);
     }
 
     @Test

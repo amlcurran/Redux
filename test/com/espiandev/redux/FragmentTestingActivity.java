@@ -12,7 +12,7 @@ import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
 
 public class FragmentTestingActivity extends Activity implements TitleHost, NetworkHelperProvider, AnimationFactoryProvider,
-        TokenStorageProvider {
+        TokenStorageProvider, LoginListener {
 
     private Fragment fragment;
     private CharSequence title;
@@ -20,6 +20,7 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Netw
     public AnimationFactory animationFactory;
     public NetworkHelper networkHelper;
     public TokenStorage tokenStorage;
+    public boolean onLoginCalled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,5 +67,10 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Netw
     @Override
     public TokenStorage getTokenStorage() {
         return tokenStorage;
+    }
+
+    @Override
+    public void onLogin() {
+        onLoginCalled = true;
     }
 }
