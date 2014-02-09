@@ -3,20 +3,13 @@ package com.espiandev.redux.auth;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
-import com.espiandev.redux.FragmentTestingActivity;
+import com.espiandev.redux.testing.BaseFragmentTest;
 import com.espiandev.redux.R;
-import com.espiandev.redux.animation.AnimationFactory;
-import com.espiandev.redux.network.NetworkHelper;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-import org.robolectric.util.ActivityController;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -27,38 +20,16 @@ import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "AndroidManifest.xml")
-public class LoginFragmentTest {
+public class LoginFragmentTest extends BaseFragmentTest<LoginFragment>{
 
     public static final String VALID_USERNAME = "username";
     public static final String VALID_PASSWORD = "password";
     public static final String TOKEN = "blah";
     public static final String VALID_TOKEN_RESPONSE = String.format("{ 'token' : '%s' }", TOKEN);
-    private FragmentTestingActivity activity;
-    private LoginFragment loginFragment;
-    @Mock
-    private TokenStorage mockTokenStorage;
-    @Mock
-    private NetworkHelper mockNetworkHelper;
-    @Mock
-    private AnimationFactory mockAnimationFactory;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-
-        ActivityController<FragmentTestingActivity> controller = Robolectric.buildActivity(FragmentTestingActivity.class);
-        activity = controller.get();
-        loginFragment = new LoginFragment();
-        attachMocks();
-        activity.setFragment(loginFragment);
-        controller.create();
-
-    }
-
-    private void attachMocks() {
-        activity.animationFactory = mockAnimationFactory;
-        activity.tokenStorage = mockTokenStorage;
-        activity.networkHelper = mockNetworkHelper;
+    @Override
+    protected void createFragment() {
+        fragment = new LoginFragment();
     }
 
     @Test
@@ -97,7 +68,7 @@ public class LoginFragmentTest {
 
         clickSubmitButton();
 
-        verify(mockNetworkHelper).login(VALID_USERNAME, VALID_PASSWORD, loginFragment);
+        verify(mockNetworkHelper).login(VALID_USERNAME, VALID_PASSWORD, fragment);
     }
 
     @Test
@@ -137,14 +108,14 @@ public class LoginFragmentTest {
     public void testWhenLogInResponseReturns_TheLoadingSpinnerIsAnimatedOut() {
         when(mockTokenStorage.storeToken(any(String.class))).thenReturn(true);
 
-        loginFragment.onSuccessResponse(VALID_TOKEN_RESPONSE);
+        fragment.onSuccessResponse(VALID_TOKEN_RESPONSE);
 
         verifyDownAndOut(R.id.spinner);
     }
 
     @Test
     public void testWhenLogInResponseReturns_TheTokenIsStored() {
-        loginFragment.onSuccessResponse(VALID_TOKEN_RESPONSE);
+        fragment.onSuccessResponse(VALID_TOKEN_RESPONSE);
 
         verify(mockTokenStorage).storeToken(TOKEN);
     }
@@ -155,7 +126,7 @@ public class LoginFragmentTest {
         clickSubmitButton();
 
         when(mockTokenStorage.storeToken(any(String.class))).thenReturn(true);
-        loginFragment.onSuccessResponse(VALID_TOKEN_RESPONSE);
+        fragment.onSuccessResponse(VALID_TOKEN_RESPONSE);
 
         assertTrue("LoginListener wasn't notified of login", activity.onLoginCalled);
     }
@@ -164,7 +135,7 @@ public class LoginFragmentTest {
     public void testWhenLogInErrorResponseReturns_TheCredentialsAreAnimatedBackIn() {
         setUpValidCredentials();
         clickSubmitButton();
-        loginFragment.onErrorResponse(null);
+        fragment.onErrorResponse(null);
 
         verifyDownAndIn(R.id.login_credentials_host);
     }
@@ -173,7 +144,7 @@ public class LoginFragmentTest {
     public void testWhenLogInErrorResponseReturnsDueToAuth_ThisIsShownToTheUser() {
         setUpValidCredentials();
         clickSubmitButton();
-        loginFragment.onErrorResponse(new AuthFailureError());
+        fragment.onErrorResponse(new AuthFailureError());
 
         String expected = activity.getString(R.string.volley_error_auth);
 

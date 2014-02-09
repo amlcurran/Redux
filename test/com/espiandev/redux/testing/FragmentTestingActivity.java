@@ -1,9 +1,13 @@
-package com.espiandev.redux;
+package com.espiandev.redux.testing;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 
+import com.espiandev.redux.Asset;
+import com.espiandev.redux.R;
+import com.espiandev.redux.SearchListener;
+import com.espiandev.redux.TitleHost;
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.animation.AnimationFactoryProvider;
 import com.espiandev.redux.auth.LoginListener;

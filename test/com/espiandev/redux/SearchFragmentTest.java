@@ -2,19 +2,12 @@ package com.espiandev.redux;
 
 import android.widget.TextView;
 
-import com.espiandev.redux.animation.AnimationFactory;
-import com.espiandev.redux.auth.TokenStorage;
-import com.espiandev.redux.network.NetworkHelper;
+import com.espiandev.redux.testing.BaseFragmentTest;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-import org.robolectric.util.ActivityController;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -22,30 +15,11 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "AndroidManifest.xml")
-public class SearchFragmentTest {
+public class SearchFragmentTest extends BaseFragmentTest<SearchFragment> {
 
-    private FragmentTestingActivity activity;
-    private SearchFragment searchFragment;
-    @Mock
-    private TokenStorage mockTokenStorage;
-    @Mock
-    private NetworkHelper mockNetworkHelper;
-    @Mock
-    private AnimationFactory mockAnimationFactory;
-
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-
-        ActivityController<FragmentTestingActivity> controller = Robolectric.buildActivity(FragmentTestingActivity.class);
-        activity = controller.get();
-        searchFragment = new SearchFragment();
-        activity.animationFactory = mockAnimationFactory;
-        activity.tokenStorage = mockTokenStorage;
-        activity.networkHelper = mockNetworkHelper;
-        activity.setFragment(searchFragment);
-        controller.create();
-
+    @Override
+    protected void createFragment() {
+        fragment = new SearchFragment();
     }
 
     @Test
@@ -63,7 +37,7 @@ public class SearchFragmentTest {
         setSearchQuery("query");
         clickSearchButton();
 
-        verify(mockNetworkHelper).search("query", searchFragment);
+        verify(mockNetworkHelper).search("query", fragment);
     }
 
     @Test
@@ -77,7 +51,7 @@ public class SearchFragmentTest {
 
     @Test
     public void testASearchResponse_NotifiesTheListenerOfASuccessfulSearch() {
-        searchFragment.onSuccessResponse("{ 'successResponse' : 'true' }");
+        fragment.onSuccessResponse("{ 'successResponse' : 'true' }");
 
         assertTrue("onSearchResult wasn't called", activity.onSearchResultCalled);
     }
