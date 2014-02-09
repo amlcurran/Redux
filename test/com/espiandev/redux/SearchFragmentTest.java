@@ -76,7 +76,7 @@ public class SearchFragmentTest {
     }
 
     @Test
-    public void testASearchResponse_NotifiesTheListenerOfAScucessfulSearch() {
+    public void testASearchResponse_NotifiesTheListenerOfASuccessfulSearch() {
         searchFragment.onSuccessResponse("{ 'successResponse' : 'true' }");
 
         assertTrue("onSearchResult wasn't called", activity.onSearchResultCalled);

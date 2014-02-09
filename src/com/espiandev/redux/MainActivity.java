@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.animation.AnimationFactoryProvider;
@@ -82,7 +81,11 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
     }
 
     @Override
-    public void onSearchResult(ArrayList<Asset> results) {
-        Toast.makeText(this, String.valueOf(results.size()), Toast.LENGTH_SHORT).show();
+    public void onSearchResult(String query, ArrayList<Asset> results) {
+        SearchResultsFragment fragment = SearchResultsFragment.newInstance(query, results);
+        getFragmentManager().beginTransaction().replace(R.id.host_frame, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack("searchResults")
+                .commit();
     }
 }

@@ -14,12 +14,13 @@ public class SearchResultsFragment extends BasicFragment {
         Bundle b = new Bundle();
         b.putString(QUERY, query);
         b.putParcelableArrayList(ASSET_LIST, assetList);
+        fragment.setArguments(b);
         return fragment;
     }
 
     @Override
     public CharSequence getHostedSubtitle(ResourceStringProvider stringProvider) {
-        return null;
+        return stringProvider.getString(R.string.search_results);
     }
 
     @Override

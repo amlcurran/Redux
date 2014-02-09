@@ -80,7 +80,7 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Netw
 
     @Override
     public void onSearchResult(
-            ArrayList<Asset> results) {
+            String query, ArrayList<Asset> results) {
         onSearchResultCalled = true;
     }
 }

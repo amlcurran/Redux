@@ -70,7 +70,7 @@ public class SearchFragment extends BasicFragment implements Responder<String> {
     @Override
     public void onSuccessResponse(String response) {
         ArrayList<Asset> assetList = new SearchResultsParser().parseResultList(response);
-        searchListener.onSearchResult(assetList);
+        searchListener.onSearchResult(String.valueOf(queryField.getText()), assetList);
     }
 
     @Override

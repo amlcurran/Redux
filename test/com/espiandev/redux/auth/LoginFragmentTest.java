@@ -49,12 +49,16 @@ public class LoginFragmentTest {
         ActivityController<FragmentTestingActivity> controller = Robolectric.buildActivity(FragmentTestingActivity.class);
         activity = controller.get();
         loginFragment = new LoginFragment();
-        activity.animationFactory = mockAnimationFactory;
-        activity.tokenStorage = mockTokenStorage;
-        activity.networkHelper = mockNetworkHelper;
+        attachMocks();
         activity.setFragment(loginFragment);
         controller.create();
 
+    }
+
+    private void attachMocks() {
+        activity.animationFactory = mockAnimationFactory;
+        activity.tokenStorage = mockTokenStorage;
+        activity.networkHelper = mockNetworkHelper;
     }
 
     @Test
