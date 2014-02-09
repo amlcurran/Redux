@@ -9,7 +9,7 @@ import com.android.volley.RequestQueue;
 import com.espiandev.redux.FragmentTestingActivity;
 import com.espiandev.redux.R;
 import com.espiandev.redux.network.ReduxUrlHelper;
-import com.espiandev.redux.testutils.MockVolleyHelper;
+import com.espiandev.redux.testutils.MockNetworkHelper;
 import com.espiandev.redux.testutils.NonAnimationFactory;
 
 import org.junit.Before;
@@ -42,7 +42,7 @@ public class LoginFragmentTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        MockVolleyHelper mockVolleyHelper = new MockVolleyHelper(mockRequestQueue);
+        MockNetworkHelper mockVolleyHelper = new MockNetworkHelper(mockRequestQueue);
 
         ActivityController<FragmentTestingActivity> controller = Robolectric.buildActivity(FragmentTestingActivity.class);
         activity = controller.get();
@@ -50,7 +50,7 @@ public class LoginFragmentTest {
         activity.animationFactory = new NonAnimationFactory();
         activity.tokenStorage = mockTokenStorage;
         activity.setFragment(loginFragment);
-        activity.volleyHelper = mockVolleyHelper;
+        activity.networkHelper = mockVolleyHelper;
         controller.create();
 
     }
@@ -116,7 +116,7 @@ public class LoginFragmentTest {
     public void testWhenLogInResponseReturns_TheLoadingSpinnerIsAnimatedOut() {
         setUpValidCredentials();
         clickSubmitButton();
-        loginFragment.onResponse("blah");
+        loginFragment.onSuccessResponse("blah");
 
         assertEquals(View.INVISIBLE, activity.findViewById(R.id.login_spinner).getVisibility());
     }
@@ -127,7 +127,7 @@ public class LoginFragmentTest {
         clickSubmitButton();
         String response = "blah";
 
-        loginFragment.onResponse(response);
+        loginFragment.onSuccessResponse(response);
 
         verify(mockTokenStorage).storeToken(response);
     }

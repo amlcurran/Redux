@@ -11,25 +11,25 @@ import com.espiandev.redux.auth.LoginFragment;
 import com.espiandev.redux.auth.SharedPreferencesTokenStorage;
 import com.espiandev.redux.auth.TokenStorage;
 import com.espiandev.redux.auth.TokenStorageProvider;
-import com.espiandev.redux.network.ApplicationVolleyHelper;
-import com.espiandev.redux.network.VolleyHelper;
-import com.espiandev.redux.network.VolleyHelperProvider;
+import com.espiandev.redux.network.VolleyNetworkHelper;
+import com.espiandev.redux.network.NetworkHelper;
+import com.espiandev.redux.network.NetworkHelperProvider;
 
-public class MainActivity extends Activity implements TitleHost, AnimationFactoryProvider, VolleyHelperProvider,
+public class MainActivity extends Activity implements TitleHost, AnimationFactoryProvider, NetworkHelperProvider,
         TokenStorageProvider {
 
     private TextView highBanner;
     private TextView lowBanner;
     AnimationFactory animationFactory;
     private TokenStorage tokenStorage;
-    private VolleyHelper volleyHelper;
+    private NetworkHelper networkHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         animationFactory = new RealAnimationFactory();
-        volleyHelper = new ApplicationVolleyHelper(this);
+        networkHelper = new VolleyNetworkHelper(this);
         tokenStorage = new SharedPreferencesTokenStorage(this);
         highBanner = (TextView) findViewById(R.id.high_banner);
         lowBanner = (TextView) findViewById(R.id.low_banner);
@@ -62,8 +62,8 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
     }
 
     @Override
-    public VolleyHelper getVolleyHelper() {
-        return volleyHelper;
+    public NetworkHelper getNetworkHelper() {
+        return networkHelper;
     }
 
     @Override

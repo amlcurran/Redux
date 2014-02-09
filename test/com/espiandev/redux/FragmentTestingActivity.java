@@ -7,17 +7,17 @@ import android.os.Bundle;
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.auth.TokenStorage;
 import com.espiandev.redux.auth.TokenStorageProvider;
-import com.espiandev.redux.network.VolleyHelper;
-import com.espiandev.redux.network.VolleyHelperProvider;
+import com.espiandev.redux.network.NetworkHelper;
+import com.espiandev.redux.network.NetworkHelperProvider;
 
-public class FragmentTestingActivity extends Activity implements TitleHost, VolleyHelperProvider, AnimationFactoryProvider,
+public class FragmentTestingActivity extends Activity implements TitleHost, NetworkHelperProvider, AnimationFactoryProvider,
         TokenStorageProvider {
 
     private Fragment fragment;
     private CharSequence title;
     private CharSequence subtitle;
     public AnimationFactory animationFactory;
-    public VolleyHelper volleyHelper;
+    public NetworkHelper networkHelper;
     public TokenStorage tokenStorage;
 
     @Override
@@ -58,8 +58,8 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Voll
     }
 
     @Override
-    public VolleyHelper getVolleyHelper() {
-        return volleyHelper;
+    public NetworkHelper getNetworkHelper() {
+        return networkHelper;
     }
 
     @Override

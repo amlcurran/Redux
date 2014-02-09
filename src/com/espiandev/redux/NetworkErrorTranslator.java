@@ -3,12 +3,11 @@ package com.espiandev.redux;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
 import com.espiandev.redux.auth.TokenError;
 
-public class ErrorTranslator {
+public class NetworkErrorTranslator {
 
-    public static String getErrorString(ResourceStringProvider provider, VolleyError error) {
+    public static String getErrorString(ResourceStringProvider provider, Exception error) {
         if (error instanceof AuthFailureError) {
             return provider.getString(R.string.volley_error_auth);
         } else if (error instanceof TimeoutError) {

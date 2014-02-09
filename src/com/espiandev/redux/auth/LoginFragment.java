@@ -10,26 +10,24 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.espiandev.redux.AnimationFactoryProvider;
-import com.espiandev.redux.ErrorTranslator;
+import com.espiandev.redux.NetworkErrorTranslator;
 import com.espiandev.redux.R;
-import com.espiandev.redux.network.ReduxUrlHelper;
 import com.espiandev.redux.ResourceStringProvider;
 import com.espiandev.redux.TitledFragment;
-import com.espiandev.redux.network.VolleyHelper;
-import com.espiandev.redux.network.VolleyHelperProvider;
 import com.espiandev.redux.animation.AnimationFactory;
+import com.espiandev.redux.network.NetworkHelper;
+import com.espiandev.redux.network.NetworkHelperProvider;
+import com.espiandev.redux.network.ReduxUrlHelper;
+import com.espiandev.redux.network.Responder;
 
-public class LoginFragment extends TitledFragment implements Response.ErrorListener, Response.Listener<String>, ResourceStringProvider {
+public class LoginFragment extends TitledFragment implements Responder<String>, ResourceStringProvider {
 
     private EditText usernameField;
     private EditText passwordField;
     private ProgressBar loadingSpinner;
     private View credentialsHost;
-    private VolleyHelper volleyHelper;
+    private NetworkHelper networkHelper;
     private TokenStorage tokenStorage;
     private AnimationFactory animationFactory;
     private final ReduxUrlHelper urlHelper;
@@ -53,8 +51,8 @@ public class LoginFragment extends TitledFragment implements Response.ErrorListe
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (activity instanceof VolleyHelperProvider) {
-            volleyHelper = ((VolleyHelperProvider) activity).getVolleyHelper();
+        if (activity instanceof NetworkHelperProvider) {
+            networkHelper = ((NetworkHelperProvider) activity).getNetworkHelper();
         }
         if (activity instanceof AnimationFactoryProvider) {
             animationFactory = ((AnimationFactoryProvider) activity).getAnimationFactory();
@@ -93,22 +91,13 @@ public class LoginFragment extends TitledFragment implements Response.ErrorListe
     private void launchLoginRequest() {
         String loginUrl = urlHelper.buildLoginUrl(String.valueOf(usernameField.getText()),
                 String.valueOf(passwordField.getText()));
-        StringRequest request = new StringRequest(loginUrl, this, this);
-        volleyHelper.getRequestQueue().add(request);
+        networkHelper.performGet(loginUrl, this);
         animationFactory.upAndOut(credentialsHost);
         animationFactory.upAndIn(loadingSpinner);
     }
 
     @Override
-    public void onErrorResponse(VolleyError error) {
-        animationFactory.cancelAnimations(loadingSpinner, credentialsHost);
-        animationFactory.downAndOut(loadingSpinner);
-        animationFactory.downAndIn(credentialsHost);
-        titleHost.setSubtitle(ErrorTranslator.getErrorString(this, error));
-    }
-
-    @Override
-    public void onResponse(String response) {
+    public void onSuccessResponse(String response) {
         animationFactory.cancelAnimations(loadingSpinner);
         animationFactory.downAndOut(loadingSpinner);
         boolean storedToken = tokenStorage.storeToken(response);
@@ -117,6 +106,14 @@ public class LoginFragment extends TitledFragment implements Response.ErrorListe
         } else {
             onErrorResponse(new TokenError());
         }
+    }
+
+    @Override
+    public void onErrorResponse(Exception error) {
+        animationFactory.cancelAnimations(loadingSpinner, credentialsHost);
+        animationFactory.downAndOut(loadingSpinner);
+        animationFactory.downAndIn(credentialsHost);
+        titleHost.setSubtitle(NetworkErrorTranslator.getErrorString(this, error));
     }
 
 }
