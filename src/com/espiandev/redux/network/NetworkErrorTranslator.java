@@ -1,8 +1,10 @@
-package com.espiandev.redux;
+package com.espiandev.redux.network;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.TimeoutError;
+import com.espiandev.redux.R;
+import com.espiandev.redux.ResourceStringProvider;
 import com.espiandev.redux.auth.TokenError;
 
 public class NetworkErrorTranslator {

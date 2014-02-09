@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 
 import com.espiandev.redux.animation.AnimationFactory;
+import com.espiandev.redux.animation.AnimationFactoryProvider;
 import com.espiandev.redux.auth.TokenStorage;
 import com.espiandev.redux.auth.TokenStorageProvider;
 import com.espiandev.redux.network.NetworkHelper;

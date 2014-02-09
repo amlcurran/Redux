@@ -1,4 +1,4 @@
-package com.espiandev.redux;
+package com.espiandev.redux.animation;
 
 import com.espiandev.redux.animation.AnimationFactory;
 

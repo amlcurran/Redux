@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.widget.TextView;
 
 import com.espiandev.redux.animation.AnimationFactory;
+import com.espiandev.redux.animation.AnimationFactoryProvider;
 import com.espiandev.redux.animation.RealAnimationFactory;
 import com.espiandev.redux.auth.LoginFragment;
 import com.espiandev.redux.auth.SharedPreferencesTokenStorage;
@@ -29,7 +30,7 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         animationFactory = new RealAnimationFactory();
-        networkHelper = new VolleyNetworkHelper(this);
+        networkHelper = new VolleyNetworkHelper(((ReduxApp) getApplication()).getRequestQueue());
         tokenStorage = new SharedPreferencesTokenStorage(this);
         highBanner = (TextView) findViewById(R.id.high_banner);
         lowBanner = (TextView) findViewById(R.id.low_banner);

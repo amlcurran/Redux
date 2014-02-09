@@ -4,18 +4,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.espiandev.redux.FragmentTestingActivity;
 import com.espiandev.redux.R;
-import com.espiandev.redux.network.ReduxUrlHelper;
-import com.espiandev.redux.testutils.MockNetworkHelper;
+import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.testutils.NonAnimationFactory;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
@@ -25,32 +21,32 @@ import org.robolectric.util.ActivityController;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "AndroidManifest.xml")
 public class LoginFragmentTest {
 
+    public static final String VALID_USERNAME = "username";
+    public static final String VALID_PASSWORD = "password";
     private FragmentTestingActivity activity;
     private LoginFragment loginFragment;
     @Mock
-    private RequestQueue mockRequestQueue;
-    @Mock
     private TokenStorage mockTokenStorage;
+    @Mock
+    private NetworkHelper mockNetworkHelper;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        MockNetworkHelper mockVolleyHelper = new MockNetworkHelper(mockRequestQueue);
 
         ActivityController<FragmentTestingActivity> controller = Robolectric.buildActivity(FragmentTestingActivity.class);
         activity = controller.get();
         loginFragment = new LoginFragment();
         activity.animationFactory = new NonAnimationFactory();
         activity.tokenStorage = mockTokenStorage;
+        activity.networkHelper = mockNetworkHelper;
         activity.setFragment(loginFragment);
-        activity.networkHelper = mockVolleyHelper;
         controller.create();
 
     }
@@ -88,11 +84,10 @@ public class LoginFragmentTest {
     @Test
     public void testWhenValidCredentialsSupplied_ARequestIsLaunchedForLogin() {
         setUpValidCredentials();
+
         clickSubmitButton();
 
-        ArgumentCaptor<Request> requestArgumentCaptor = ArgumentCaptor.forClass(Request.class);
-        verify(mockRequestQueue).add(requestArgumentCaptor.capture());
-        assertTrue(requestArgumentCaptor.getValue().getUrl().contains(ReduxUrlHelper.PATH_LOGIN));
+        verify(mockNetworkHelper).login(VALID_USERNAME, VALID_PASSWORD, loginFragment);
     }
 
     @Test
@@ -153,8 +148,8 @@ public class LoginFragmentTest {
     }
 
     private void setUpValidCredentials() {
-        ((TextView) activity.findViewById(R.id.login_username)).setText("username");
-        ((TextView) activity.findViewById(R.id.login_password)).setText("password");
+        ((TextView) activity.findViewById(R.id.login_username)).setText(VALID_USERNAME);
+        ((TextView) activity.findViewById(R.id.login_password)).setText(VALID_PASSWORD);
     }
 
     private void setUpInvalidCredentials() {

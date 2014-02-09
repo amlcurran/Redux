@@ -10,12 +10,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.espiandev.redux.AnimationFactoryProvider;
-import com.espiandev.redux.NetworkErrorTranslator;
+import com.espiandev.redux.animation.AnimationFactoryProvider;
+import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.R;
 import com.espiandev.redux.ResourceStringProvider;
 import com.espiandev.redux.TitledFragment;
-import com.espiandev.redux.animation.AnimationFactory;
+import com.espiandev.redux.network.NetworkErrorTranslator;
 import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
 import com.espiandev.redux.network.ReduxUrlHelper;
@@ -89,9 +89,9 @@ public class LoginFragment extends TitledFragment implements Responder<String>, 
     };
 
     private void launchLoginRequest() {
-        String loginUrl = urlHelper.buildLoginUrl(String.valueOf(usernameField.getText()),
-                String.valueOf(passwordField.getText()));
-        networkHelper.performGet(loginUrl, this);
+        String username = String.valueOf(usernameField.getText());
+        String password = String.valueOf(passwordField.getText());
+        networkHelper.login(username, password, this);
         animationFactory.upAndOut(credentialsHost);
         animationFactory.upAndIn(loadingSpinner);
     }

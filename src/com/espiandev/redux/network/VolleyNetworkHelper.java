@@ -1,18 +1,18 @@
 package com.espiandev.redux.network;
 
-import android.content.Context;
-
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.espiandev.redux.ReduxApp;
 
 public class VolleyNetworkHelper implements NetworkHelper {
 
-    private final ReduxApp reduxApp;
+    private final RequestQueue requestQueue;
+    private final ReduxUrlHelper urlHelper;
 
-    public VolleyNetworkHelper(Context context) {
-        reduxApp = (ReduxApp) context.getApplicationContext();
+    public VolleyNetworkHelper(RequestQueue requestQueue) {
+        this.requestQueue = requestQueue;
+        urlHelper = new ReduxUrlHelper();
     }
 
     @Override
@@ -30,6 +30,11 @@ public class VolleyNetworkHelper implements NetworkHelper {
                 responder.onErrorResponse(error);
             }
         };
-        reduxApp.getRequestQueue().add(new StringRequest(url, listener, errorListener));
+        requestQueue.add(new StringRequest(url, listener, errorListener));
+    }
+
+    @Override
+    public void login(String username, String password, Responder<String> responder) {
+        performGet(urlHelper.buildLoginUrl(username, password), responder);
     }
 }
