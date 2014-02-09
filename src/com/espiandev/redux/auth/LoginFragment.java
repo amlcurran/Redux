@@ -13,6 +13,9 @@ import com.espiandev.redux.R;
 import com.espiandev.redux.network.NetworkErrorTranslator;
 import com.espiandev.redux.network.Responder;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class LoginFragment extends BasicFragment implements Responder<String> {
 
     private EditText usernameField;
@@ -90,11 +93,18 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
     public void onSuccessResponse(String response) {
         animationFactory.cancelAnimations(loadingSpinner);
         animationFactory.downAndOut(loadingSpinner);
-        boolean storedToken = tokenStorage.storeToken(response);
-        if (storedToken) {
-            loginListener.onLogin();
-        } else {
-            onErrorResponse(new TokenError());
+
+        try {
+            JSONObject object = new JSONObject(response);
+            String token = object.getString("token");
+            boolean storedToken = tokenStorage.storeToken(token);
+            if (storedToken) {
+                loginListener.onLogin();
+            } else {
+                onErrorResponse(new TokenError());
+            }
+        } catch (JSONException e) {
+            onErrorResponse(null);
         }
     }
 

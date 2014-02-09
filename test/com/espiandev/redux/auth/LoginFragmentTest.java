@@ -31,6 +31,8 @@ public class LoginFragmentTest {
 
     public static final String VALID_USERNAME = "username";
     public static final String VALID_PASSWORD = "password";
+    public static final String TOKEN = "blah";
+    public static final String VALID_TOKEN_RESPONSE = String.format("{ 'token' : '%s' }", TOKEN);
     private FragmentTestingActivity activity;
     private LoginFragment loginFragment;
     @Mock
@@ -131,28 +133,25 @@ public class LoginFragmentTest {
     public void testWhenLogInResponseReturns_TheLoadingSpinnerIsAnimatedOut() {
         when(mockTokenStorage.storeToken(any(String.class))).thenReturn(true);
 
-        loginFragment.onSuccessResponse("blah");
+        loginFragment.onSuccessResponse(VALID_TOKEN_RESPONSE);
 
         verifyDownAndOut(R.id.spinner);
     }
 
     @Test
     public void testWhenLogInResponseReturns_TheTokenIsStored() {
-        String response = "blah";
+        loginFragment.onSuccessResponse(VALID_TOKEN_RESPONSE);
 
-        loginFragment.onSuccessResponse(response);
-
-        verify(mockTokenStorage).storeToken(response);
+        verify(mockTokenStorage).storeToken(TOKEN);
     }
 
     @Test
     public void testWhenTheTokenIsStored_TheLogInListenerIsNotified() {
         setUpValidCredentials();
         clickSubmitButton();
-        String response = "blah";
 
         when(mockTokenStorage.storeToken(any(String.class))).thenReturn(true);
-        loginFragment.onSuccessResponse(response);
+        loginFragment.onSuccessResponse(VALID_TOKEN_RESPONSE);
 
         assertTrue("LoginListener wasn't notified of login", activity.onLoginCalled);
     }
