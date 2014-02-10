@@ -18,7 +18,7 @@ public class TestAsset extends Asset {
 
     @Override
     public Channel getChannel() {
-        return super.getChannel();
+        return new Channel();
     }
 
     @Override

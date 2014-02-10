@@ -1,6 +1,8 @@
 package com.espiandev.redux.assets;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +12,10 @@ import android.widget.ImageView;
 import com.espiandev.redux.BasicFragment;
 import com.espiandev.redux.R;
 import com.espiandev.redux.ResourceStringProvider;
+import com.espiandev.redux.network.ReduxUrlHelper;
 import com.espiandev.redux.network.Responder;
 
-public class AssetDetailsFragment extends BasicFragment implements Responder<Bitmap> {
+public class AssetDetailsFragment extends BasicFragment implements Responder<Bitmap>, View.OnClickListener {
     private static final String ASSET = "asset";
     private ImageView assetImageView;
 
@@ -28,6 +31,7 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_asset_detail, container, false);
         assetImageView = (ImageView) view.findViewById(R.id.asset_image_view);
+        assetImageView.setOnClickListener(this);
         return view;
     }
 
@@ -47,7 +51,7 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
         return getAsset().getName();
     }
 
-    private Asset getAsset() {
+    public Asset getAsset() {
         return (Asset) getArguments().getParcelable(ASSET);
     }
 
@@ -59,5 +63,12 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
     @Override
     public void onErrorResponse(Exception error) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        String uriString = new ReduxUrlHelper().buildDownloadUrl(getAsset());
+        Uri uri = Uri.parse(uriString);
+        startActivity(new Intent(Intent.ACTION_VIEW).setData(uri));
     }
 }
