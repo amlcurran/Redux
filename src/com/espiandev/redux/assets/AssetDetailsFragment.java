@@ -69,6 +69,6 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
     public void onClick(View view) {
         String uriString = new ReduxUrlHelper().buildDownloadUrl(getAsset());
         Uri uri = Uri.parse(uriString);
-        startActivity(new Intent(Intent.ACTION_VIEW).setData(uri));
+        startActivity(new Intent(Intent.ACTION_VIEW).setDataAndType(uri, "video/mpeg"));
     }
 }
