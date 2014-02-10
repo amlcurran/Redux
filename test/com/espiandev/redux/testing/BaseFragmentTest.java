@@ -3,6 +3,7 @@ package com.espiandev.redux.testing;
 import android.app.Fragment;
 
 import com.espiandev.redux.animation.AnimationFactory;
+import com.espiandev.redux.assets.AssetListParser;
 import com.espiandev.redux.auth.TokenStorage;
 import com.espiandev.redux.network.NetworkHelper;
 
@@ -21,6 +22,8 @@ public abstract class BaseFragmentTest<T extends Fragment> {
     protected NetworkHelper mockNetworkHelper;
     @Mock
     protected AnimationFactory mockAnimationFactory;
+    @Mock
+    protected AssetListParser mockListParser;
 
     @Before
     public void setUp() {
@@ -41,5 +44,6 @@ public abstract class BaseFragmentTest<T extends Fragment> {
         activity.animationFactory = mockAnimationFactory;
         activity.tokenStorage = mockTokenStorage;
         activity.networkHelper = mockNetworkHelper;
+        activity.listParser = mockListParser;
     }
 }

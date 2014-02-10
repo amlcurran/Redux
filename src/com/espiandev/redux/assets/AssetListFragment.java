@@ -12,22 +12,24 @@ import android.widget.ListView;
 import com.espiandev.redux.BasicFragment;
 import com.espiandev.redux.R;
 import com.espiandev.redux.ResourceStringProvider;
+import com.espiandev.redux.network.Responder;
 
 import java.util.ArrayList;
 
-public class AssetListFragment extends BasicFragment implements AdapterView.OnItemClickListener {
+public class AssetListFragment extends BasicFragment implements AdapterView.OnItemClickListener, Responder<String> {
 
     private static final String QUERY = "query";
     private static final String ASSET_LIST = "assetList";
     public ArrayAdapter<Asset> adapter;
     private ListView listview;
     private AssetSelectionListener selectionListener;
+    private AssetListParser assetListParser;
+    private ArrayList<Asset> assetList;
 
-    public static AssetListFragment newInstance(String query, ArrayList<Asset> assetList) {
+    public static AssetListFragment newInstance(String query) {
         AssetListFragment fragment = new AssetListFragment();
         Bundle b = new Bundle();
         b.putString(QUERY, query);
-        b.putParcelableArrayList(ASSET_LIST, assetList);
         fragment.setArguments(b);
         return fragment;
     }
@@ -40,15 +42,18 @@ public class AssetListFragment extends BasicFragment implements AdapterView.OnIt
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ArrayList<Asset> list = getArguments().getParcelableArrayList(ASSET_LIST);
-        adapter = new AssetListAdapter(getActivity(), list);
+        adapter = new AssetListAdapter(getActivity(), new ArrayList<Asset>());
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(this);
+        networkHelper.search(getArguments().getString(QUERY), this);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        if (activity instanceof AssetListParserProvider) {
+            assetListParser = ((AssetListParserProvider) activity).getListParser();
+        }
         if (activity instanceof AssetSelectionListener) {
             selectionListener = (AssetSelectionListener) activity;
         } else {
@@ -69,5 +74,16 @@ public class AssetListFragment extends BasicFragment implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         selectionListener.onAssetSelected(adapter.getItem(i));
+    }
+
+    @Override
+    public void onSuccessResponse(String response) {
+        assetList = assetListParser.parseResultList(response);
+        adapter.addAll(assetList);
+    }
+
+    @Override
+    public void onErrorResponse(Exception error) {
+
     }
 }

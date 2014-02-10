@@ -5,6 +5,8 @@ import android.app.Fragment;
 import android.os.Bundle;
 
 import com.espiandev.redux.assets.Asset;
+import com.espiandev.redux.assets.AssetListParser;
+import com.espiandev.redux.assets.AssetListParserProvider;
 import com.espiandev.redux.assets.AssetSelectionListener;
 import com.espiandev.redux.R;
 import com.espiandev.redux.search.SearchListener;
@@ -20,7 +22,7 @@ import com.espiandev.redux.network.NetworkHelperProvider;
 import java.util.ArrayList;
 
 public class FragmentTestingActivity extends Activity implements TitleHost, NetworkHelperProvider, AnimationFactoryProvider,
-        TokenStorageProvider, LoginListener, SearchListener, AssetSelectionListener {
+        TokenStorageProvider, LoginListener, SearchListener, AssetSelectionListener, AssetListParserProvider {
 
     private Fragment fragment;
     private CharSequence title;
@@ -28,6 +30,7 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Netw
     public AnimationFactory animationFactory;
     public NetworkHelper networkHelper;
     public TokenStorage tokenStorage;
+    public AssetListParser listParser;
     public boolean onLoginCalled;
     public boolean onSearchResultCalled;
     public Asset selectedAsset;
@@ -93,5 +96,10 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Netw
     @Override
     public void onAssetSelected(Asset asset) {
         selectedAsset = asset;
+    }
+
+    @Override
+    public AssetListParser getListParser() {
+        return listParser;
     }
 }

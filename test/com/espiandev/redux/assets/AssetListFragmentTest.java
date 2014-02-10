@@ -1,5 +1,7 @@
 package com.espiandev.redux.assets;
 
+import android.widget.ListView;
+
 import com.espiandev.redux.R;
 import com.espiandev.redux.testing.BaseFragmentTest;
 
@@ -8,25 +10,23 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import android.widget.ListView;
-
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "AndroidManifest.xml")
 public class AssetListFragmentTest extends BaseFragmentTest<AssetListFragment> {
 
     public static final String QUERY_STRING = "queryString";
-    private ArrayList<Asset> assetArray;
 
     @Override
     protected void createFragment() {
-        assetArray = createAssetArray();
-        fragment = AssetListFragment.newInstance(QUERY_STRING, assetArray);
+        fragment = AssetListFragment.newInstance(QUERY_STRING);
     }
 
     private ArrayList<Asset> createAssetArray() {
@@ -42,19 +42,32 @@ public class AssetListFragmentTest extends BaseFragmentTest<AssetListFragment> {
     }
 
     @Test
-    public void testTheResultsArrayPassedIn_IsSetOnTheAdapter() {
-        assertEquals(assetArray.get(0), fragment.adapter.getItem(0));
+    public void testTheAdapterIsSetOnTheListView() {
+        assertEquals(fragment.adapter, ((ListView) activity.findViewById(R.id.results_list)).getAdapter());
     }
 
     @Test
-    public void testTheAdapterIsSetOnTheListView() {
-        assertEquals(fragment.adapter, ((ListView) activity.findViewById(R.id.results_list)).getAdapter());
+    public void testASearchRequestIsStarted() {
+        verify(mockNetworkHelper).search(QUERY_STRING, fragment);
+    }
+
+    @Test
+    public void testTheNetworkResponse_TheReturnedListIsSetOnTheAdapter() {
+        String response = "{ 'json' : 'result' }";
+        ArrayList<Asset> assetArray = createAssetArray();
+        when(mockListParser.parseResultList(response)).thenReturn(assetArray);
+
+        fragment.onSuccessResponse(response);
+
+        assertEquals(assetArray.get(1), fragment.adapter.getItem(1));
     }
 
     @Test
     public void testWhenAnItemIsClicked_TheListenerIsNotifiedOfTheSelection() {
         ListView listView = (ListView) activity.findViewById(R.id.results_list);
 
+        ArrayList<Asset> assetArray;
+        fragment.adapter.addAll(assetArray = createAssetArray());
         listView.performItemClick(fragment.adapter.getView(1, null, listView), 1, 1);
 
         assertEquals(assetArray.get(1), activity.selectedAsset);
