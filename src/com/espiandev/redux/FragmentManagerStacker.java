@@ -14,7 +14,7 @@ public class FragmentManagerStacker implements Stacker {
 
     @Override
     public int addFragment(Fragment fragment) {
-        return activity.getFragmentManager().beginTransaction().add(R.id.host_frame, fragment)
+        return activity.getFragmentManager().beginTransaction().replace(R.id.host_frame, fragment)
                 .commit();
     }
 
