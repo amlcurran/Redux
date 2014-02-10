@@ -1,19 +1,19 @@
 package com.espiandev.redux.auth;
 
-import android.widget.TextView;
-
 import com.android.volley.AuthFailureError;
-import com.espiandev.redux.testing.BaseFragmentTest;
 import com.espiandev.redux.R;
+import com.espiandev.redux.testing.BaseFragmentTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import static junit.framework.Assert.assertTrue;
+import android.widget.TextView;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

@@ -1,10 +1,6 @@
 package com.espiandev.redux.assets;
 
-import android.widget.ListView;
-
 import com.espiandev.redux.R;
-import com.espiandev.redux.assets.Asset;
-import com.espiandev.redux.assets.AssetListFragment;
 import com.espiandev.redux.testing.BaseFragmentTest;
 
 import org.junit.Test;
@@ -12,9 +8,11 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import android.widget.ListView;
+
 import java.util.ArrayList;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
