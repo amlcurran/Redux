@@ -3,7 +3,6 @@ package com.espiandev.redux.search;
 import android.widget.TextView;
 
 import com.espiandev.redux.R;
-import com.espiandev.redux.search.SearchFragment;
 import com.espiandev.redux.testing.BaseFragmentTest;
 
 import org.junit.Test;
@@ -39,11 +38,11 @@ public class SearchFragmentTest extends BaseFragmentTest<SearchFragment> {
         setSearchQuery("query");
         clickSearchButton();
 
-        verify(mockNetworkHelper).search("query", fragment);
+        verify(mockNetworkHelper).search("query", fragment, 0);
     }
 
     @Test
-    public void testAValidSearch_AnimatedOutTheQueryBarAndShowsSpinner() {
+    public void testAValidSearch_AnimatesOutTheQueryBarAndShowsSpinner() {
         setSearchQuery("query");
         clickSearchButton();
 

@@ -47,7 +47,7 @@ public class VolleyNetworkHelper implements NetworkHelper {
     }
 
     @Override
-    public void search(String query, Responder<String> responder) {
+    public void search(String query, Responder<String> responder, int resultPage) {
         performGet(urlHelper.buildSearchUrl(query, tokenStorage.getToken()), responder);
     }
 

@@ -67,7 +67,7 @@ public class SearchFragment extends BasicFragment implements Responder<String> {
     };
 
     private void launchSearchRequest() {
-        networkHelper.search(String.valueOf(queryField.getText()), this);
+        networkHelper.search(String.valueOf(queryField.getText()), this, 0);
         animationFactory.upAndOut(queryHost);
         animationFactory.upAndIn(loadingSpinner);
     }

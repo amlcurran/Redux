@@ -25,6 +25,7 @@ public class AssetListFragment extends BasicFragment implements AdapterView.OnIt
     private AssetSelectionListener selectionListener;
     private AssetListParser assetListParser;
     private ArrayList<Asset> assetList;
+    private View loadingSpinner;
 
     public static AssetListFragment newInstance(String query) {
         AssetListFragment fragment = new AssetListFragment();
@@ -36,7 +37,10 @@ public class AssetListFragment extends BasicFragment implements AdapterView.OnIt
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return listview = (ListView) inflater.inflate(R.layout.fragment_results, container, false);
+        View view = inflater.inflate(R.layout.fragment_results, container, false);
+        listview = (ListView) view.findViewById(R.id.results_list);
+        loadingSpinner = view.findViewById(R.id.spinner);
+        return view;
     }
 
     @Override
@@ -45,7 +49,9 @@ public class AssetListFragment extends BasicFragment implements AdapterView.OnIt
         adapter = new AssetListAdapter(getActivity(), new ArrayList<Asset>());
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(this);
-        networkHelper.search(getArguments().getString(QUERY), this);
+        networkHelper.search(getArguments().getString(QUERY), this, 0);
+        animationFactory.upAndOut(listview);
+        animationFactory.upAndIn(loadingSpinner);
     }
 
     @Override
@@ -80,6 +86,8 @@ public class AssetListFragment extends BasicFragment implements AdapterView.OnIt
     public void onSuccessResponse(String response) {
         assetList = assetListParser.parseResultList(response);
         adapter.addAll(assetList);
+        animationFactory.downAndIn(listview);
+        animationFactory.downAndOut(loadingSpinner);
     }
 
     @Override

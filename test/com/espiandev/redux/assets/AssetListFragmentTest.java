@@ -48,11 +48,17 @@ public class AssetListFragmentTest extends BaseFragmentTest<AssetListFragment> {
 
     @Test
     public void testASearchRequestIsStarted() {
-        verify(mockNetworkHelper).search(QUERY_STRING, fragment);
+        verify(mockNetworkHelper).search(QUERY_STRING, fragment, 0);
     }
 
     @Test
-    public void testTheNetworkResponse_TheReturnedListIsSetOnTheAdapter() {
+    public void testWhenTheSearchRequestIsStarted_TheLoadingViewIsFadedIn_AndListViewOut() {
+        verify(mockAnimationFactory).upAndOut(activity.findViewById(R.id.results_list));
+        verify(mockAnimationFactory).upAndIn(activity.findViewById(R.id.spinner));
+    }
+
+    @Test
+    public void testWhenTheNetworkResponseReturns_TheReturnedListIsSetOnTheAdapter() {
         String response = "{ 'json' : 'result' }";
         ArrayList<Asset> assetArray = createAssetArray();
         when(mockListParser.parseResultList(response)).thenReturn(assetArray);
@@ -60,6 +66,18 @@ public class AssetListFragmentTest extends BaseFragmentTest<AssetListFragment> {
         fragment.onSuccessResponse(response);
 
         assertEquals(assetArray.get(1), fragment.adapter.getItem(1));
+    }
+
+    @Test
+    public void testWhenTheNetworkResponseReturns_TheSpinnerIsFadedOutAndListViewBackIn() {
+        String response = "{ 'json' : 'result' }";
+        ArrayList<Asset> assetArray = createAssetArray();
+        when(mockListParser.parseResultList(response)).thenReturn(assetArray);
+
+        fragment.onSuccessResponse(response);
+
+        verify(mockAnimationFactory).downAndIn(activity.findViewById(R.id.results_list));
+        verify(mockAnimationFactory).downAndOut(activity.findViewById(R.id.spinner));
     }
 
     @Test

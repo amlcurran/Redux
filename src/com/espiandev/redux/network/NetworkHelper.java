@@ -7,7 +7,7 @@ public interface NetworkHelper {
 
     void login(String username, String password, Responder<String> responder);
 
-    void search(String query, Responder<String> responder);
+    void search(String query, Responder<String> responder, int resultPage);
 
     void image(String uuid, String key, Responder<Bitmap> bitmapResponder);
 }
