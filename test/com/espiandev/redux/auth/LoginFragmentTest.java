@@ -146,7 +146,7 @@ public class LoginFragmentTest extends BaseFragmentTest<LoginFragment>{
         clickSubmitButton();
         fragment.onErrorResponse(new AuthFailureError());
 
-        String expected = activity.getString(R.string.volley_error_auth);
+        String expected = activity.getString(R.string.volley_error_wrong_password);
 
         assertEquals(expected, activity.getTitleHostSubtitle());
     }

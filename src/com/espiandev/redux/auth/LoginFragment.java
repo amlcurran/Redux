@@ -1,14 +1,6 @@
 package com.espiandev.redux.auth;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-
+import com.android.volley.AuthFailureError;
 import com.espiandev.redux.BasicFragment;
 import com.espiandev.redux.R;
 import com.espiandev.redux.ResourceStringProvider;
@@ -17,6 +9,15 @@ import com.espiandev.redux.network.Responder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 
 public class LoginFragment extends BasicFragment implements Responder<String> {
 
@@ -115,7 +116,11 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
         animationFactory.cancelAnimations(loadingSpinner, credentialsHost);
         animationFactory.downAndOut(loadingSpinner);
         animationFactory.downAndIn(credentialsHost);
-        titleHost.setSubtitle(NetworkErrorTranslator.getErrorString(this, error));
+        if (error instanceof AuthFailureError) {
+            titleHost.setSubtitle(getString(R.string.volley_error_wrong_password));
+        } else {
+            titleHost.setSubtitle(NetworkErrorTranslator.getErrorString(this, error));
+        }
     }
 
 }

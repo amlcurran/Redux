@@ -1,5 +1,11 @@
 package com.espiandev.redux.assets;
 
+import com.espiandev.redux.BasicFragment;
+import com.espiandev.redux.R;
+import com.espiandev.redux.ResourceStringProvider;
+import com.espiandev.redux.network.ReduxUrlHelper;
+import com.espiandev.redux.network.Responder;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -8,12 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import com.espiandev.redux.BasicFragment;
-import com.espiandev.redux.R;
-import com.espiandev.redux.ResourceStringProvider;
-import com.espiandev.redux.network.ReduxUrlHelper;
-import com.espiandev.redux.network.Responder;
 
 public class AssetDetailsFragment extends BasicFragment implements Responder<Bitmap>, View.OnClickListener {
     private static final String ASSET = "asset";
@@ -69,6 +69,6 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
     public void onClick(View view) {
         String uriString = new ReduxUrlHelper().buildDownloadUrl(getAsset());
         Uri uri = Uri.parse(uriString);
-        startActivity(new Intent(Intent.ACTION_VIEW).setData(uri));
+        getActivity().startActivity(new Intent(Intent.ACTION_VIEW).setData(uri));
     }
 }

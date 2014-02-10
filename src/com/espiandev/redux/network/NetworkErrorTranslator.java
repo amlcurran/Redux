@@ -11,7 +11,7 @@ public class NetworkErrorTranslator {
 
     public static String getErrorString(ResourceStringProvider provider, Exception error) {
         if (error instanceof AuthFailureError) {
-            return provider.getString(R.string.volley_error_auth);
+            return provider.getString(R.string.volley_error_invalid_cred);
         } else if (error instanceof TimeoutError) {
             return provider.getString(R.string.volley_error_timeout);
         } else if (error instanceof NetworkError) {
