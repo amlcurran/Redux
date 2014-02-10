@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.Volley;
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.animation.AnimationFactoryProvider;
 import com.espiandev.redux.animation.RealAnimationFactory;
@@ -25,6 +28,8 @@ import com.espiandev.redux.network.NetworkHelperProvider;
 import com.espiandev.redux.network.VolleyNetworkHelper;
 import com.espiandev.redux.search.SearchFragment;
 import com.espiandev.redux.search.SearchListener;
+
+import javax.net.ssl.SSLSocketFactory;
 
 public class MainActivity extends Activity implements TitleHost, AnimationFactoryProvider, NetworkHelperProvider,
         TokenStorageProvider, SearchListener, LoginListener, AssetSelectionListener, AssetListParserProvider {
@@ -52,9 +57,11 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
     }
 
     protected void createWorld() {
+        HurlStack hurlStack = new HurlStack(null, (SSLSocketFactory) SSLSocketFactory.getDefault());
+        RequestQueue requestQueue = Volley.newRequestQueue(this, hurlStack);
         animationFactory = new RealAnimationFactory();
         tokenStorage = new SharedPreferencesTokenStorage(PreferenceManager.getDefaultSharedPreferences(this));
-        networkHelper = new VolleyNetworkHelper(((ReduxApp) getApplication()).getRequestQueue(), tokenStorage);
+        networkHelper = new VolleyNetworkHelper(requestQueue, tokenStorage);
         stacker = new FragmentManagerStacker(this);
         listParser = new AssetListParser();
     }
