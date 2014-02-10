@@ -25,4 +25,11 @@ public class FragmentManagerStacker implements Stacker {
                 .addToBackStack(String.valueOf(fragment.getClass()))
                 .commit();
     }
+
+    @Override
+    public void removeFragment() {
+        Fragment currentFragment = activity.getFragmentManager().findFragmentById(R.id.host_frame);
+        activity.getFragmentManager().beginTransaction().remove(currentFragment)
+                .commit();
+    }
 }

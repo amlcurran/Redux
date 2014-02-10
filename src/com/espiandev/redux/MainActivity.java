@@ -86,6 +86,7 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
 
     @Override
     public void onLogin() {
+        stacker.removeFragment();
         stacker.addFragment(new SearchFragment());
     }
 

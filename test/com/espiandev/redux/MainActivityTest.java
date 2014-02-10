@@ -1,5 +1,9 @@
 package com.espiandev.redux;
 
+import android.app.Fragment;
+import android.preference.PreferenceManager;
+import android.widget.TextView;
+
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.auth.LoginFragment;
 import com.espiandev.redux.auth.TokenStorage;
@@ -17,10 +21,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
-
-import android.app.Fragment;
-import android.preference.PreferenceManager;
-import android.widget.TextView;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -88,6 +88,16 @@ public class MainActivityTest {
 
         verify(mockStacker).addFragment(captor.capture());
         assertEquals(SearchFragment.class, captor.getValue().getClass());
+    }
+
+    @Test
+    public void testWhenLoggedIn_TheLogInFragmentIsRemoved() {
+        when(mockTokenStorage.hasToken()).thenReturn(false);
+
+        launchActivityController.create();
+        launchActivity.onLogin();
+
+        verify(mockStacker).removeFragment();
     }
 
     @After

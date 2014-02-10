@@ -10,4 +10,6 @@ public interface Stacker {
     int addFragment(Fragment fragment);
 
     void pushFragment(Fragment fragment);
+
+    void removeFragment();
 }
