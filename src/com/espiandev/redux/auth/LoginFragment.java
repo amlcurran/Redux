@@ -35,7 +35,7 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
         usernameField = (EditText) view.findViewById(R.id.login_username);
         passwordField = (EditText) view.findViewById(R.id.login_password);
         loadingSpinner = (ProgressBar) view.findViewById(R.id.spinner);
