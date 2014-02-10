@@ -1,4 +1,4 @@
-package com.espiandev.redux;
+package com.espiandev.redux.assets;
 
 import android.os.Parcel;
 import android.os.Parcelable;

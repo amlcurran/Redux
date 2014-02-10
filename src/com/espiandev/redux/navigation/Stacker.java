@@ -1,4 +1,4 @@
-package com.espiandev.redux;
+package com.espiandev.redux.navigation;
 
 import android.app.Fragment;
 

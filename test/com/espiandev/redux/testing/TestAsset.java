@@ -1,6 +1,6 @@
 package com.espiandev.redux.testing;
 
-import com.espiandev.redux.Channel;
+import com.espiandev.redux.assets.Channel;
 import com.espiandev.redux.assets.Asset;
 
 import java.util.Date;

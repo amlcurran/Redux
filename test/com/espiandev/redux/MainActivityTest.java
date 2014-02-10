@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.auth.LoginFragment;
 import com.espiandev.redux.auth.TokenStorage;
+import com.espiandev.redux.navigation.Stacker;
 import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.search.SearchFragment;
 

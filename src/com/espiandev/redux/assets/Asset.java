@@ -1,7 +1,5 @@
 package com.espiandev.redux.assets;
 
-import com.espiandev.redux.Channel;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

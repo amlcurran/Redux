@@ -1,8 +1,10 @@
-package com.espiandev.redux;
+package com.espiandev.redux.navigation;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+
+import com.espiandev.redux.R;
 
 public class FragmentManagerStacker implements Stacker {
 
