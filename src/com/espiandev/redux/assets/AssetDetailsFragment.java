@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.espiandev.redux.BasicFragment;
-import com.espiandev.redux.DownloadManagerProvider;
+import com.espiandev.redux.downloads.DownloadManagerProvider;
 import com.espiandev.redux.R;
 import com.espiandev.redux.ResourceStringProvider;
 import com.espiandev.redux.network.ReduxUrlHelper;

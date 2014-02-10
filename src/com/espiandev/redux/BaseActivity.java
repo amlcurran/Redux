@@ -13,6 +13,7 @@ import com.espiandev.redux.assets.AssetSelectionListener;
 import com.espiandev.redux.auth.LoginListener;
 import com.espiandev.redux.auth.TokenStorage;
 import com.espiandev.redux.auth.TokenStorageProvider;
+import com.espiandev.redux.downloads.DownloadManagerProvider;
 import com.espiandev.redux.navigation.Stacker;
 import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;

@@ -1,4 +1,4 @@
-package com.espiandev.redux;
+package com.espiandev.redux.downloads;
 
 import android.app.DownloadManager;
 
