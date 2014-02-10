@@ -1,4 +1,4 @@
-package com.espiandev.redux;
+package com.espiandev.redux.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
