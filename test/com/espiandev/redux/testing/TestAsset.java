@@ -3,6 +3,8 @@ package com.espiandev.redux.testing;
 import com.espiandev.redux.Channel;
 import com.espiandev.redux.assets.Asset;
 
+import java.util.Date;
+
 public class TestAsset extends Asset {
 
     public static final long DURATION = 1000;
@@ -14,6 +16,11 @@ public class TestAsset extends Asset {
     @Override
     public long getDuration() {
         return DURATION;
+    }
+
+    @Override
+    public Date getBroadcastDate() {
+        return new Date(0);
     }
 
     @Override
