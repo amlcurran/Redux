@@ -1,34 +1,21 @@
 package com.espiandev.redux.testing;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 
+import com.espiandev.redux.BaseActivity;
+import com.espiandev.redux.R;
+import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.assets.Asset;
 import com.espiandev.redux.assets.AssetListParser;
-import com.espiandev.redux.assets.AssetListParserProvider;
-import com.espiandev.redux.assets.AssetSelectionListener;
-import com.espiandev.redux.R;
-import com.espiandev.redux.search.SearchListener;
-import com.espiandev.redux.TitleHost;
-import com.espiandev.redux.animation.AnimationFactory;
-import com.espiandev.redux.animation.AnimationFactoryProvider;
-import com.espiandev.redux.auth.LoginListener;
 import com.espiandev.redux.auth.TokenStorage;
-import com.espiandev.redux.auth.TokenStorageProvider;
 import com.espiandev.redux.network.NetworkHelper;
-import com.espiandev.redux.network.NetworkHelperProvider;
 
-public class FragmentTestingActivity extends Activity implements TitleHost, NetworkHelperProvider, AnimationFactoryProvider,
-        TokenStorageProvider, LoginListener, SearchListener, AssetSelectionListener, AssetListParserProvider {
+public class FragmentTestingActivity extends BaseActivity {
 
     private Fragment fragment;
     private CharSequence title;
     private CharSequence subtitle;
-    public AnimationFactory animationFactory;
-    public NetworkHelper networkHelper;
-    public TokenStorage tokenStorage;
-    public AssetListParser listParser;
     public boolean onLoginCalled;
     public boolean onSearchResultCalled;
     public Asset selectedAsset;
@@ -41,6 +28,11 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Netw
             getFragmentManager().beginTransaction().add(R.id.host_frame, fragment)
                     .commit();
         }
+    }
+
+    @Override
+    protected void createWorld() {
+
     }
 
     public void setFragment(Fragment fragment) {
