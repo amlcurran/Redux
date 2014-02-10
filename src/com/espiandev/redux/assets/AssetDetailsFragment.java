@@ -1,11 +1,5 @@
 package com.espiandev.redux.assets;
 
-import com.espiandev.redux.BasicFragment;
-import com.espiandev.redux.R;
-import com.espiandev.redux.ResourceStringProvider;
-import com.espiandev.redux.network.ReduxUrlHelper;
-import com.espiandev.redux.network.Responder;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -15,6 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.espiandev.redux.BasicFragment;
+import com.espiandev.redux.R;
+import com.espiandev.redux.ResourceStringProvider;
+import com.espiandev.redux.network.ReduxUrlHelper;
+import com.espiandev.redux.network.Responder;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -38,6 +38,7 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
         View view = inflater.inflate(R.layout.fragment_asset_detail, container, false);
         assetImageView = (ImageView) view.findViewById(R.id.asset_image_view);
         assetImageView.setOnClickListener(this);
+        assetImageView.setVisibility(View.INVISIBLE);
         assetDescriptionView = (TextView) view.findViewById(R.id.asset_description);
         assetDescriptionView.setText(getAsset().getDescription());
         return view;
@@ -66,6 +67,7 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
     @Override
     public void onSuccessResponse(Bitmap response) {
         assetImageView.setImageBitmap(response);
+        animationFactory.fadeIn(assetImageView);
     }
 
     @Override

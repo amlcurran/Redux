@@ -1,7 +1,10 @@
 package com.espiandev.redux.assets;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.widget.ImageView;
 
 import com.espiandev.redux.R;
 import com.espiandev.redux.network.ReduxUrlHelper;
@@ -14,6 +17,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.robolectric.Robolectric.shadowOf;
 
@@ -29,6 +33,19 @@ public class AssetDetailsFragmentTest extends BaseFragmentTest<AssetDetailsFragm
     @Test
     public void testWhenFragmentIsCreated_AnImageRequestIsSent() {
         verify(mockNetworkHelper).image(TestAsset.UUID, TestAsset.KEY, fragment);
+    }
+
+    @Test
+    public void testWhenImageComesBack_TheImageViewIsFadedIn() {
+        fragment.onSuccessResponse(null);
+        verify(mockAnimationFactory).fadeIn(activity.findViewById(R.id.asset_image_view));
+    }
+
+    @Test
+    public void testWhenImageComesBack_TheResultIsSetOnTheImage() {
+        Bitmap bitmapResponse = mock(Bitmap.class);
+        fragment.onSuccessResponse(bitmapResponse);
+        assertEquals(bitmapResponse, ((BitmapDrawable) ((ImageView) activity.findViewById(R.id.asset_image_view)).getDrawable()).getBitmap());
     }
 
     @Test
