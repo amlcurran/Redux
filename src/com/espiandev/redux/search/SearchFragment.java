@@ -11,14 +11,8 @@ import android.widget.EditText;
 import com.espiandev.redux.BasicFragment;
 import com.espiandev.redux.R;
 import com.espiandev.redux.ResourceStringProvider;
-import com.espiandev.redux.assets.Asset;
-import com.espiandev.redux.assets.AssetListParser;
-import com.espiandev.redux.network.NetworkErrorTranslator;
-import com.espiandev.redux.network.Responder;
 
-import java.util.ArrayList;
-
-public class SearchFragment extends BasicFragment implements Responder<String> {
+public class SearchFragment extends BasicFragment {
 
     private EditText queryField;
     private View loadingSpinner;
@@ -59,30 +53,11 @@ public class SearchFragment extends BasicFragment implements Responder<String> {
         @Override
         public void onClick(View view) {
             if (!TextUtils.isEmpty(queryField.getText())) {
-                launchSearchRequest();
+                searchListener.onSearchResult(String.valueOf(queryField.getText()));
             } else {
                 titleHost.setSubtitle(getString(R.string.error_empty_search));
             }
         }
     };
 
-    private void launchSearchRequest() {
-        networkHelper.search(String.valueOf(queryField.getText()), this, 0);
-        animationFactory.upAndOut(queryHost);
-        animationFactory.upAndIn(loadingSpinner);
-    }
-
-    @Override
-    public void onSuccessResponse(String response) {
-        ArrayList<Asset> assetList = new AssetListParser().parseResultList(response);
-        searchListener.onSearchResult(String.valueOf(queryField.getText()), assetList);
-    }
-
-    @Override
-    public void onErrorResponse(Exception error) {
-        animationFactory.cancelAnimations(loadingSpinner, queryHost);
-        animationFactory.downAndOut(loadingSpinner);
-        animationFactory.downAndIn(queryHost);
-        titleHost.setSubtitle(NetworkErrorTranslator.getErrorString(this, error));
-    }
 }

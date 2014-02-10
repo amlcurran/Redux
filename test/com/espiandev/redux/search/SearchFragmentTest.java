@@ -12,7 +12,6 @@ import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "AndroidManifest.xml")
@@ -34,27 +33,11 @@ public class SearchFragmentTest extends BaseFragmentTest<SearchFragment> {
     }
 
     @Test
-    public void testAValidSearchLaunchesASearch() {
-        setSearchQuery("query");
-        clickSearchButton();
-
-        verify(mockNetworkHelper).search("query", fragment, 0);
-    }
-
-    @Test
     public void testAValidSearch_AnimatesOutTheQueryBarAndShowsSpinner() {
         setSearchQuery("query");
         clickSearchButton();
 
-        verify(mockAnimationFactory).upAndOut(activity.findViewById(R.id.search_query_host));
-        verify(mockAnimationFactory).upAndIn(activity.findViewById(R.id.spinner));
-    }
-
-    @Test
-    public void testASearchResponse_NotifiesTheListenerOfASuccessfulSearch() {
-        fragment.onSuccessResponse("{ 'successResponse' : 'true' }");
-
-        assertTrue("onSearchResult wasn't called", activity.onSearchResultCalled);
+        assertTrue(activity.onSearchResultCalled);
     }
 
     private void setSearchQuery(String query) {

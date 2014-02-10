@@ -26,8 +26,6 @@ import com.espiandev.redux.network.VolleyNetworkHelper;
 import com.espiandev.redux.search.SearchFragment;
 import com.espiandev.redux.search.SearchListener;
 
-import java.util.ArrayList;
-
 public class MainActivity extends Activity implements TitleHost, AnimationFactoryProvider, NetworkHelperProvider,
         TokenStorageProvider, SearchListener, LoginListener, AssetSelectionListener, AssetListParserProvider {
 
@@ -92,7 +90,7 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
     }
 
     @Override
-    public void onSearchResult(String query, ArrayList<Asset> results) {
+    public void onSearchResult(String query) {
         stacker.pushFragment(AssetListFragment.newInstance(query));
     }
 

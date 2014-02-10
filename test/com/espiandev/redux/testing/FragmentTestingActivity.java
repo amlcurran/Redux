@@ -19,8 +19,6 @@ import com.espiandev.redux.auth.TokenStorageProvider;
 import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
 
-import java.util.ArrayList;
-
 public class FragmentTestingActivity extends Activity implements TitleHost, NetworkHelperProvider, AnimationFactoryProvider,
         TokenStorageProvider, LoginListener, SearchListener, AssetSelectionListener, AssetListParserProvider {
 
@@ -49,6 +47,14 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Netw
         this.fragment = fragment;
     }
 
+    public CharSequence getTitleHostSubtitle() {
+        return subtitle;
+    }
+
+    public CharSequence getTitleHostTitle() {
+        return title;
+    }
+
     @Override
     public void setTitle(CharSequence title) {
         this.title = title;
@@ -57,14 +63,6 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Netw
     @Override
     public void setSubtitle(CharSequence subtitle) {
         this.subtitle = subtitle;
-    }
-
-    public CharSequence getTitleHostSubtitle() {
-        return subtitle;
-    }
-
-    public CharSequence getTitleHostTitle() {
-        return title;
     }
 
     @Override
@@ -88,8 +86,7 @@ public class FragmentTestingActivity extends Activity implements TitleHost, Netw
     }
 
     @Override
-    public void onSearchResult(
-            String query, ArrayList<Asset> results) {
+    public void onSearchResult(String query) {
         onSearchResultCalled = true;
     }
 
