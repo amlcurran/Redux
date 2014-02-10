@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.espiandev.redux.assets.Asset;
 import com.espiandev.redux.assets.AssetSelectionListener;
 import com.espiandev.redux.R;
-import com.espiandev.redux.SearchListener;
+import com.espiandev.redux.search.SearchListener;
 import com.espiandev.redux.TitleHost;
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.animation.AnimationFactoryProvider;

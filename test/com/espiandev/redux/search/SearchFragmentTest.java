@@ -1,7 +1,9 @@
-package com.espiandev.redux;
+package com.espiandev.redux.search;
 
 import android.widget.TextView;
 
+import com.espiandev.redux.R;
+import com.espiandev.redux.search.SearchFragment;
 import com.espiandev.redux.testing.BaseFragmentTest;
 
 import org.junit.Test;

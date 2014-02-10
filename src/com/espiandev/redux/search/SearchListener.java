@@ -1,4 +1,4 @@
-package com.espiandev.redux;
+package com.espiandev.redux.search;
 
 import com.espiandev.redux.assets.Asset;
 

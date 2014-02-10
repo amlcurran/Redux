@@ -1,4 +1,4 @@
-package com.espiandev.redux;
+package com.espiandev.redux.search;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.espiandev.redux.BasicFragment;
+import com.espiandev.redux.R;
+import com.espiandev.redux.ResourceStringProvider;
 import com.espiandev.redux.assets.Asset;
 import com.espiandev.redux.assets.AssetListParser;
 import com.espiandev.redux.network.NetworkErrorTranslator;
