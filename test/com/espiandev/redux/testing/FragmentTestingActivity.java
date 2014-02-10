@@ -5,11 +5,7 @@ import android.os.Bundle;
 
 import com.espiandev.redux.BaseActivity;
 import com.espiandev.redux.R;
-import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.assets.Asset;
-import com.espiandev.redux.assets.AssetListParser;
-import com.espiandev.redux.auth.TokenStorage;
-import com.espiandev.redux.network.NetworkHelper;
 
 public class FragmentTestingActivity extends BaseActivity {
 
@@ -58,21 +54,6 @@ public class FragmentTestingActivity extends BaseActivity {
     }
 
     @Override
-    public AnimationFactory getAnimationFactory() {
-        return animationFactory;
-    }
-
-    @Override
-    public NetworkHelper getNetworkHelper() {
-        return networkHelper;
-    }
-
-    @Override
-    public TokenStorage getTokenStorage() {
-        return tokenStorage;
-    }
-
-    @Override
     public void onLogin() {
         onLoginCalled = true;
     }
@@ -87,8 +68,4 @@ public class FragmentTestingActivity extends BaseActivity {
         selectedAsset = asset;
     }
 
-    @Override
-    public AssetListParser getListParser() {
-        return listParser;
-    }
 }

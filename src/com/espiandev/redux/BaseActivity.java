@@ -1,6 +1,7 @@
 package com.espiandev.redux;
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -17,11 +18,14 @@ import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
 import com.espiandev.redux.search.SearchListener;
 
-public abstract class BaseActivity extends Activity implements TitleHost, AnimationFactoryProvider, NetworkHelperProvider, TokenStorageProvider, SearchListener, LoginListener, AssetSelectionListener, AssetListParserProvider {
+public abstract class BaseActivity extends Activity implements TitleHost, AnimationFactoryProvider,
+        NetworkHelperProvider, TokenStorageProvider, SearchListener, LoginListener,
+        AssetSelectionListener, AssetListParserProvider, DownloadManagerProvider {
     protected Stacker stacker;
     public AnimationFactory animationFactory;
     public TokenStorage tokenStorage;
     public NetworkHelper networkHelper;
+    public DownloadManager downloadManager;
     protected TextView highBanner;
     protected TextView lowBanner;
     public AssetListParser listParser;
@@ -37,6 +41,11 @@ public abstract class BaseActivity extends Activity implements TitleHost, Animat
         lowBanner = (TextView) findViewById(R.id.low_banner);
     }
 
+    @Override
+    public AssetListParser getListParser() {
+        return listParser;
+    }
+
     protected abstract void createWorld();
 
     @Override
@@ -47,5 +56,25 @@ public abstract class BaseActivity extends Activity implements TitleHost, Animat
     @Override
     public void setSubtitle(CharSequence subtitle) {
         animationFactory.fadeAndChangeText(lowBanner, subtitle);
+    }
+
+    @Override
+    public AnimationFactory getAnimationFactory() {
+        return animationFactory;
+    }
+
+    @Override
+    public NetworkHelper getNetworkHelper() {
+        return networkHelper;
+    }
+
+    @Override
+    public TokenStorage getTokenStorage() {
+        return tokenStorage;
+    }
+
+    @Override
+    public DownloadManager getDownloadManager() {
+        return downloadManager;
     }
 }
