@@ -1,13 +1,11 @@
 package com.espiandev.redux.assets;
 
-import android.content.Intent;
+import android.app.DownloadManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.widget.ImageView;
 
 import com.espiandev.redux.R;
-import com.espiandev.redux.network.ReduxUrlHelper;
 import com.espiandev.redux.testing.BaseFragmentTest;
 import com.espiandev.redux.testing.TestAsset;
 
@@ -17,9 +15,9 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "AndroidManifest.xml")
@@ -49,11 +47,10 @@ public class AssetDetailsFragmentTest extends BaseFragmentTest<AssetDetailsFragm
     }
 
     @Test
-    public void testWhenImageIsClicked_AnIntentIsLaunched() {
+    public void testWhenImageIsClicked_ADownloadIsRequested() {
         activity.findViewById(R.id.asset_image_view).performClick();
 
-        Intent intent = shadowOf(activity).getNextStartedActivity();
-        assertEquals(Uri.parse(new ReduxUrlHelper().buildDownloadUrl(fragment.getAsset())), intent.getData());
+        verify(mockDownloadManager).enqueue(any(DownloadManager.Request.class));
     }
 
     @Test
