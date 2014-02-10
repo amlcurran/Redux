@@ -14,10 +14,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class AssetDetailsFragment extends BasicFragment implements Responder<Bitmap>, View.OnClickListener {
     private static final String ASSET = "asset";
     private ImageView assetImageView;
+    private DateFormat dateFormat = new SimpleDateFormat("E dd MMM yyyy 'at' HH:mm");
+    private TextView assetDescriptionView;
 
     public static AssetDetailsFragment newInstance(Asset asset) {
         AssetDetailsFragment fragment = new AssetDetailsFragment();
@@ -32,6 +38,8 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
         View view = inflater.inflate(R.layout.fragment_asset_detail, container, false);
         assetImageView = (ImageView) view.findViewById(R.id.asset_image_view);
         assetImageView.setOnClickListener(this);
+        assetDescriptionView = (TextView) view.findViewById(R.id.asset_description);
+        assetDescriptionView.setText(getAsset().getDescription());
         return view;
     }
 
@@ -43,7 +51,7 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
 
     @Override
     public CharSequence getHostedSubtitle(ResourceStringProvider stringProvider) {
-        return getAsset().getChannel().getDisplayName();
+        return dateFormat.format(getAsset().getBroadcastDate());
     }
 
     @Override

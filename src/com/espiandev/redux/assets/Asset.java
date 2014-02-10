@@ -87,6 +87,10 @@ public class Asset implements Parcelable {
         return name;
     }
 
+    public Date getBroadcastDate() {
+        return broadcastDate;
+    }
+
     @Override
     public int describeContents() {
         return 0;
