@@ -91,7 +91,8 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
         String uriString = new ReduxUrlHelper().buildDownloadUrl(getAsset());
         Uri uri = Uri.parse(uriString);
         DownloadManager.Request request = new DownloadManager.Request(uri);
-        request.setMimeType("video/mpeg").setDescription(getAsset().getName());
+        request.setMimeType("video/mpeg")
+                .setTitle(getAsset().getName());
         downloadManager.enqueue(request);
     }
 }
