@@ -23,7 +23,8 @@ public class ReduxUrlHelper {
     public String buildSearchUrl(String query, String token) {
         return String.valueOf(getBaseUrl().path(PATH_SEARCH)
                 .appendQueryParameter("q", query)
-                .appendQueryParameter("token", token).build());
+                .appendQueryParameter("token", token)
+                .appendQueryParameter("limit", "20").build());
     }
 
     private Uri.Builder getBaseUrl() {

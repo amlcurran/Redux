@@ -26,7 +26,7 @@ public class ReduxUrlHelperTest {
         ReduxUrlHelper helper = new ReduxUrlHelper();
         String url = helper.buildSearchUrl("search Query", "authToken");
 
-        assertEquals("https://i.bbcredux.com/asset/search?q=search%20Query&token=authToken", url);
+        assertEquals("https://i.bbcredux.com/asset/search?q=search%20Query&token=authToken&limit=20", url);
     }
 
     @Test
