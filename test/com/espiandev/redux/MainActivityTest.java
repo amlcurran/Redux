@@ -1,13 +1,16 @@
 package com.espiandev.redux;
 
 import com.espiandev.redux.animation.AnimationFactory;
+import com.espiandev.redux.auth.LoginFragment;
 import com.espiandev.redux.auth.TokenStorage;
 import com.espiandev.redux.network.NetworkHelper;
+import com.espiandev.redux.search.SearchFragment;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
@@ -15,10 +18,11 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
 
+import android.app.Fragment;
 import android.preference.PreferenceManager;
 import android.widget.TextView;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -65,17 +69,25 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testIfNoAuthTokenIsStored_LogInActivityIsOpened() {
+    public void testIfNoAuthTokenIsStored_ThenLogInIsStacked() {
         when(mockTokenStorage.hasToken()).thenReturn(false);
+        ArgumentCaptor<Fragment> captor = ArgumentCaptor.forClass(Fragment.class);
+
         launchActivityController.create();
-        assertTrue(false);
+
+        verify(mockStacker).addFragment(captor.capture());
+        assertEquals(LoginFragment.class, captor.getValue().getClass());
     }
 
     @Test
-    public void testIfAuthTokenIsStored_LogInActivityIsNotOpened() {
-        when(mockTokenStorage.hasToken()).thenReturn(false);
+    public void testIfAuthTokenIsStored_ThenSearchIsStacked() {
+        when(mockTokenStorage.hasToken()).thenReturn(true);
+        ArgumentCaptor<Fragment> captor = ArgumentCaptor.forClass(Fragment.class);
+
         launchActivityController.create();
-        assertTrue(false);
+
+        verify(mockStacker).addFragment(captor.capture());
+        assertEquals(SearchFragment.class, captor.getValue().getClass());
     }
 
     @After
