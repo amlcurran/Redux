@@ -45,15 +45,14 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
 
         highBanner = (TextView) findViewById(R.id.high_banner);
         lowBanner = (TextView) findViewById(R.id.low_banner);
-        Fragment fragment;
-        fragment = tokenStorage.hasToken() ? new SearchFragment() : new LoginFragment();
+
+        Fragment fragment = tokenStorage.hasToken() ? new SearchFragment() : new LoginFragment();
         stacker.addFragment(fragment);
     }
 
     protected void createWorld() {
         animationFactory = new RealAnimationFactory();
-        tokenStorage = new SharedPreferencesTokenStorage(
-                PreferenceManager.getDefaultSharedPreferences(this));
+        tokenStorage = new SharedPreferencesTokenStorage(PreferenceManager.getDefaultSharedPreferences(this));
         networkHelper = new VolleyNetworkHelper(((ReduxApp) getApplication()).getRequestQueue(), tokenStorage);
         stacker = new FragmentManagerStacker(this);
     }
@@ -85,19 +84,16 @@ public class MainActivity extends Activity implements TitleHost, AnimationFactor
 
     @Override
     public void onLogin() {
-        SearchFragment searchFragment = new SearchFragment();
-        stacker.addFragment(searchFragment);
+        stacker.addFragment(new SearchFragment());
     }
 
     @Override
     public void onSearchResult(String query, ArrayList<Asset> results) {
-        AssetListFragment fragment = AssetListFragment.newInstance(query, results);
-        stacker.pushFragment(fragment);
+        stacker.pushFragment(AssetListFragment.newInstance(query, results));
     }
 
     @Override
     public void onAssetSelected(Asset asset) {
-        AssetDetailsFragment fragment = AssetDetailsFragment.newInstance(asset);
-        stacker.pushFragment(fragment);
+        stacker.pushFragment(AssetDetailsFragment.newInstance(asset));
     }
 }
