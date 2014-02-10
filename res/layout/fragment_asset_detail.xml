@@ -6,7 +6,7 @@
 
     <view android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          class="com.espiandev.redux.FixedImageView"
+          class="com.espiandev.redux.view.FixedImageView"
           android:id="@+id/asset_image_view"
           android:scaleType="centerCrop"/>
 
