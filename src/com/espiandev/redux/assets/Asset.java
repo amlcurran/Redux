@@ -1,23 +1,29 @@
 package com.espiandev.redux.assets;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.espiandev.redux.Channel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Asset implements Parcelable {
 
+    public static final DateFormat DATE_INSTANCE = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss zzzz");
     private String name;
     //private Channel channel;
     private String description;
     private String uuid;
     private String key;
     private long duration;
-
     private Channel channel;
+    private Date broadcastDate;
 
     public Asset() {
 
@@ -28,8 +34,13 @@ public class Asset implements Parcelable {
         description = in.readString();
         uuid = in.readString();
         key = in.readString();
+        duration = in.readLong();
         channel = in.readParcelable(getClass().getClassLoader());
-        //duration = in.readLong();
+        try {
+            broadcastDate = DATE_INSTANCE.parse(in.readString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Asset fromJsonObject(JSONObject object) {
@@ -40,12 +51,16 @@ public class Asset implements Parcelable {
             result.channel = Channel.fromJsonObject(object.getJSONObject("channel"));
             result.uuid = object.getString("uuid");
             result.key = object.getString("key");
-            //result.duration = object.getLong("duration");
+            result.duration = object.getJSONObject("timing").getLong("duration");
+            result.broadcastDate = DATE_INSTANCE.parse(
+                    object.getJSONObject("timing").getString("start"));
             return result;
         } catch (JSONException e) {
             e.printStackTrace();
-            return null;
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
     public long getDuration() {
@@ -85,6 +100,7 @@ public class Asset implements Parcelable {
         parcel.writeString(key);
         parcel.writeLong(duration);
         parcel.writeParcelable(channel, 0);
+        parcel.writeString(DATE_INSTANCE.format(broadcastDate));
     }
 
     @Override
