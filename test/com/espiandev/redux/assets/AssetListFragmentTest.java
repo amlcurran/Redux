@@ -2,6 +2,7 @@ package com.espiandev.redux.assets;
 
 import android.widget.ListView;
 
+import com.android.volley.AuthFailureError;
 import com.espiandev.redux.R;
 import com.espiandev.redux.testing.BaseFragmentTest;
 
@@ -78,6 +79,13 @@ public class AssetListFragmentTest extends BaseFragmentTest<AssetListFragment> {
 
         verify(mockAnimationFactory).downAndIn(activity.findViewById(R.id.results_list));
         verify(mockAnimationFactory).downAndOut(activity.findViewById(R.id.spinner));
+    }
+
+    @Test
+    public void testIfTokenExpired_OnAuthFailedIsCalled() {
+        fragment.onErrorResponse(new AuthFailureError());
+
+        assertTrue(activity.onAuthFailedCalled);
     }
 
     @Test

@@ -38,6 +38,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    public void onAuthFailed() {
+        stacker.pushFragment(new LoginFragment());
+    }
+
+    @Override
     public void onSearchResult(String query) {
         stacker.pushFragment(AssetListFragment.newInstance(query));
     }

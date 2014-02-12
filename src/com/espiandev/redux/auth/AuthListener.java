@@ -1,5 +1,6 @@
 package com.espiandev.redux.auth;
 
-public interface LoginListener {
+public interface AuthListener {
     public void onLogin();
+    public void onAuthFailed();
 }

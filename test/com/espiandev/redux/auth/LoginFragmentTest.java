@@ -128,7 +128,7 @@ public class LoginFragmentTest extends BaseFragmentTest<LoginFragment>{
         when(mockTokenStorage.storeToken(any(String.class))).thenReturn(true);
         fragment.onSuccessResponse(VALID_TOKEN_RESPONSE);
 
-        assertTrue("LoginListener wasn't notified of login", activity.onLoginCalled);
+        assertTrue("AuthListener wasn't notified of login", activity.onLoginCalled);
     }
 
     @Test

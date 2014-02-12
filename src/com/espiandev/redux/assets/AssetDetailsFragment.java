@@ -2,6 +2,7 @@ package com.espiandev.redux.assets;
 
 import android.app.Activity;
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,9 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.espiandev.redux.BasicFragment;
-import com.espiandev.redux.downloads.DownloadManagerProvider;
 import com.espiandev.redux.R;
 import com.espiandev.redux.ResourceStringProvider;
+import com.espiandev.redux.downloads.DownloadManagerProvider;
 import com.espiandev.redux.network.ReduxUrlHelper;
 import com.espiandev.redux.network.Responder;
 
@@ -90,9 +91,10 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
     public void onClick(View view) {
         String uriString = new ReduxUrlHelper().buildDownloadUrl(getAsset());
         Uri uri = Uri.parse(uriString);
-        DownloadManager.Request request = new DownloadManager.Request(uri);
-        request.setMimeType("video/mpeg")
-                .setTitle(getAsset().getName());
-        downloadManager.enqueue(request);
+        getActivity().startActivity(new Intent(Intent.ACTION_VIEW).setData(uri));
+//        DownloadManager.Request request = new DownloadManager.Request(uri);
+//        request.setMimeType("video/mpeg")
+//                .setTitle(getAsset().getName());
+//        downloadManager.enqueue(request);
     }
 }

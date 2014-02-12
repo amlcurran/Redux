@@ -3,8 +3,10 @@ package com.espiandev.redux;
 import android.app.Activity;
 import android.app.Fragment;
 
+import com.android.volley.AuthFailureError;
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.animation.AnimationFactoryProvider;
+import com.espiandev.redux.auth.AuthListener;
 import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
 
@@ -12,6 +14,7 @@ public abstract class BasicFragment extends Fragment implements ResourceStringPr
     protected NetworkHelper networkHelper;
     protected AnimationFactory animationFactory;
     protected TitleHost titleHost = TitleHost.NONE;
+    protected AuthListener authListener;
     protected boolean hasSetTitle;
 
     @Override
@@ -25,6 +28,9 @@ public abstract class BasicFragment extends Fragment implements ResourceStringPr
         }
         if (activity instanceof TitleHost) {
             titleHost = (TitleHost) activity;
+        }
+        if (activity instanceof AuthListener) {
+            authListener = (AuthListener) activity;
         }
 
         hasSetTitle = true;
@@ -56,5 +62,11 @@ public abstract class BasicFragment extends Fragment implements ResourceStringPr
     public void onDetach() {
         super.onDetach();
         titleHost = TitleHost.NONE;
+    }
+
+    protected void handleError(Exception error) {
+        if (error instanceof AuthFailureError) {
+            authListener.onAuthFailed();
+        }
     }
 }

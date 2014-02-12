@@ -10,7 +10,7 @@ import com.espiandev.redux.animation.AnimationFactoryProvider;
 import com.espiandev.redux.assets.AssetListParser;
 import com.espiandev.redux.assets.AssetListParserProvider;
 import com.espiandev.redux.assets.AssetSelectionListener;
-import com.espiandev.redux.auth.LoginListener;
+import com.espiandev.redux.auth.AuthListener;
 import com.espiandev.redux.auth.TokenStorage;
 import com.espiandev.redux.auth.TokenStorageProvider;
 import com.espiandev.redux.downloads.DownloadManagerProvider;
@@ -20,7 +20,7 @@ import com.espiandev.redux.network.NetworkHelperProvider;
 import com.espiandev.redux.search.SearchListener;
 
 public abstract class BaseActivity extends Activity implements TitleHost, AnimationFactoryProvider,
-        NetworkHelperProvider, TokenStorageProvider, SearchListener, LoginListener,
+        NetworkHelperProvider, TokenStorageProvider, SearchListener, AuthListener,
         AssetSelectionListener, AssetListParserProvider, DownloadManagerProvider {
     protected Stacker stacker;
     public AnimationFactory animationFactory;
