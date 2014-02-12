@@ -1,11 +1,11 @@
 package com.espiandev.redux.testing;
 
-import android.app.DownloadManager;
 import android.app.Fragment;
 
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.assets.AssetListParser;
 import com.espiandev.redux.auth.TokenStorage;
+import com.espiandev.redux.downloads.Downloader;
 import com.espiandev.redux.network.NetworkHelper;
 
 import org.junit.Before;
@@ -26,7 +26,7 @@ public abstract class BaseFragmentTest<T extends Fragment> {
     @Mock
     protected AssetListParser mockListParser;
     @Mock
-    protected DownloadManager mockDownloadManager;
+    protected Downloader mockDownloader;
 
     @Before
     public void setUp() {
@@ -48,6 +48,6 @@ public abstract class BaseFragmentTest<T extends Fragment> {
         activity.tokenStorage = mockTokenStorage;
         activity.networkHelper = mockNetworkHelper;
         activity.listParser = mockListParser;
-        activity.downloadManager = mockDownloadManager;
+        activity.downloader = mockDownloader;
     }
 }

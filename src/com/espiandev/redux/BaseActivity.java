@@ -1,7 +1,6 @@
 package com.espiandev.redux;
 
 import android.app.Activity;
-import android.app.DownloadManager;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -13,7 +12,8 @@ import com.espiandev.redux.assets.AssetSelectionListener;
 import com.espiandev.redux.auth.AuthListener;
 import com.espiandev.redux.auth.TokenStorage;
 import com.espiandev.redux.auth.TokenStorageProvider;
-import com.espiandev.redux.downloads.DownloadManagerProvider;
+import com.espiandev.redux.downloads.Downloader;
+import com.espiandev.redux.downloads.DownloaderProvider;
 import com.espiandev.redux.navigation.Stacker;
 import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
@@ -21,12 +21,12 @@ import com.espiandev.redux.search.SearchListener;
 
 public abstract class BaseActivity extends Activity implements TitleHost, AnimationFactoryProvider,
         NetworkHelperProvider, TokenStorageProvider, SearchListener, AuthListener,
-        AssetSelectionListener, AssetListParserProvider, DownloadManagerProvider {
+        AssetSelectionListener, AssetListParserProvider, DownloaderProvider {
     protected Stacker stacker;
     public AnimationFactory animationFactory;
     public TokenStorage tokenStorage;
     public NetworkHelper networkHelper;
-    public DownloadManager downloadManager;
+    public Downloader downloader;
     protected TextView highBanner;
     protected TextView lowBanner;
     public AssetListParser listParser;
@@ -75,7 +75,7 @@ public abstract class BaseActivity extends Activity implements TitleHost, Animat
     }
 
     @Override
-    public DownloadManager getDownloadManager() {
-        return downloadManager;
+    public Downloader getDownloader() {
+        return downloader;
     }
 }

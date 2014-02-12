@@ -1,10 +1,7 @@
 package com.espiandev.redux.assets;
 
 import android.app.Activity;
-import android.app.DownloadManager;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +12,8 @@ import android.widget.TextView;
 import com.espiandev.redux.BasicFragment;
 import com.espiandev.redux.R;
 import com.espiandev.redux.ResourceStringProvider;
-import com.espiandev.redux.downloads.DownloadManagerProvider;
-import com.espiandev.redux.network.ReduxUrlHelper;
+import com.espiandev.redux.downloads.Downloader;
+import com.espiandev.redux.downloads.DownloaderProvider;
 import com.espiandev.redux.network.Responder;
 
 import java.text.DateFormat;
@@ -27,7 +24,7 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
     private ImageView assetImageView;
     private DateFormat dateFormat = new SimpleDateFormat("E dd MMM yyyy 'at' HH:mm");
     private TextView assetDescriptionView;
-    private DownloadManager downloadManager;
+    private Downloader downloader;
 
     public static AssetDetailsFragment newInstance(Asset asset) {
         AssetDetailsFragment fragment = new AssetDetailsFragment();
@@ -51,8 +48,8 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (activity instanceof DownloadManagerProvider) {
-            downloadManager = ((DownloadManagerProvider) activity).getDownloadManager();
+        if (activity instanceof DownloaderProvider) {
+            downloader = ((DownloaderProvider) activity).getDownloader();
         }
     }
 
@@ -89,12 +86,10 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
 
     @Override
     public void onClick(View view) {
-        String uriString = new ReduxUrlHelper().buildDownloadUrl(getAsset());
-        Uri uri = Uri.parse(uriString);
-        getActivity().startActivity(new Intent(Intent.ACTION_VIEW).setData(uri));
+        downloader.requestDownload(getAsset());
 //        DownloadManager.Request request = new DownloadManager.Request(uri);
 //        request.setMimeType("video/mpeg")
 //                .setTitle(getAsset().getName());
-//        downloadManager.enqueue(request);
+//        downloader.enqueue(request);
     }
 }

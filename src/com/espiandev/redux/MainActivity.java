@@ -1,6 +1,5 @@
 package com.espiandev.redux;
 
-import android.app.DownloadManager;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -60,7 +59,6 @@ public class MainActivity extends BaseActivity {
         networkHelper = new VolleyNetworkHelper(requestQueue, super.getTokenStorage());
         stacker = new FragmentManagerStacker(this);
         listParser = new AssetListParser();
-        downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
     }
 
 }
