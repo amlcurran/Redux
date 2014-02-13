@@ -7,7 +7,7 @@
     <string name="log_in">Log in</string><string name="bbc_redux">BBC Redux</string>
     <string name="login_error_username">Invalid username</string>
     <string name="login_error_password">Invalid password</string>
-    <string name="volley_error_wrong_password">Incorrect username or password</string>
+    <string name="volley_error_wrong_password">Couldn\'t log in</string>
     <string name="search">Search</string>
     <string name="volley_error_timeout">Connection timed out</string>
     <string name="volley_error_network">Can\'t connect to the internet</string>

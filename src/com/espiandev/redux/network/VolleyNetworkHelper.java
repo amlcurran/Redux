@@ -1,13 +1,14 @@
 package com.espiandev.redux.network;
 
-import android.graphics.Bitmap;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.espiandev.redux.auth.TokenStorage;
+import com.espiandev.redux.auth.Validator;
+
+import android.graphics.Bitmap;
 
 public class VolleyNetworkHelper implements NetworkHelper {
 
@@ -15,12 +16,14 @@ public class VolleyNetworkHelper implements NetworkHelper {
     private final TokenStorage tokenStorage;
     private final ReduxUrlHelper urlHelper;
     private final ImageLoader imageLoader;
+    private final Validator validator;
 
     public VolleyNetworkHelper(RequestQueue requestQueue, TokenStorage tokenStorage) {
         this.requestQueue = requestQueue;
         this.tokenStorage = tokenStorage;
         this.imageLoader = new ImageLoader(requestQueue, new NullImageCache());
         this.urlHelper = new ReduxUrlHelper();
+        this.validator = new Validator();
     }
 
     @Override
@@ -43,7 +46,13 @@ public class VolleyNetworkHelper implements NetworkHelper {
 
     @Override
     public void login(String username, String password, Responder<String> responder) {
-        performGet(urlHelper.buildLoginUrl(username, password), responder);
+        if (!validator.isUsernameValid(username)) {
+            responder.onErrorResponse(new InvalidUsernameError());
+        } else if (!validator.isPasswordValid(password)) {
+            responder.onErrorResponse(new InvalidPasswordError());
+        } else {
+            performGet(urlHelper.buildLoginUrl(username, password), responder);
+        }
     }
 
     @Override

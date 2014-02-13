@@ -1,5 +1,7 @@
 package com.espiandev.redux.animation;
 
+import com.espiandev.redux.R;
+
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -7,8 +9,6 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.TextView;
-
-import com.espiandev.redux.R;
 
 public class RealAnimationFactory implements AnimationFactory {
 
@@ -99,7 +99,7 @@ public class RealAnimationFactory implements AnimationFactory {
     public void downAndIn(View view) {
         float translation = view.getContext().getResources().getDimension(R.dimen.translation_delta);
         AnimatorSet set = createSet();
-        set.playTogether(createFadeInAnimator(view, null), ObjectAnimator.ofFloat(view, "translationY", -translation, 0));
+        set.playTogether(createFadeInAnimator(view), ObjectAnimator.ofFloat(view, "translationY", -translation, 0));
         set.start();
     }
 
@@ -110,6 +110,10 @@ public class RealAnimationFactory implements AnimationFactory {
                 ((Animator) view.getTag()).cancel();
             }
         }
+    }
+
+    private static ObjectAnimator createFadeInAnimator(final View view) {
+        return createFadeInAnimator(view, null, 0f);
     }
 
     private static ObjectAnimator createFadeInAnimator(final View view, final Runnable runnable) {
@@ -130,7 +134,7 @@ public class RealAnimationFactory implements AnimationFactory {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                view.setTag(animator);
+                view.setTag(null);
             }
 
             @Override

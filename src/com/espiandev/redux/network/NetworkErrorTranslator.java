@@ -18,6 +18,10 @@ public class NetworkErrorTranslator {
             return provider.getString(R.string.volley_error_network);
         } else if (error instanceof TokenError) {
             return provider.getString(R.string.volley_error_token);
+        } else if (error instanceof InvalidPasswordError) {
+            return provider.getString(R.string.login_error_password);
+        } else if (error instanceof InvalidUsernameError) {
+            return provider.getString(R.string.login_error_username);
         }
         return provider.getString(R.string.volley_error_generic);
     }

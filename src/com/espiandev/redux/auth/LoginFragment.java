@@ -72,16 +72,8 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
 
         @Override
         public void onClick(View view) {
-            //TODO: fragment should be dumb
-
-            if (validator.isPasswordValid(passwordField.getText()) &&
-                    validator.isUsernameValid(usernameField.getText())) {
-                launchLoginRequest();
-                titleHost.setSubtitle(null);
-            } else {
-                titleHost.setSubtitle(validator.isUsernameValid(usernameField.getText()) ?
-                        getString(R.string.login_error_password) : getString(R.string.login_error_username));
-            }
+            titleHost.setSubtitle(null);
+            launchLoginRequest();
         }
 
     };
@@ -89,9 +81,9 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
     private void launchLoginRequest() {
         String username = String.valueOf(usernameField.getText());
         String password = String.valueOf(passwordField.getText());
-        networkHelper.login(username, password, this);
         animationFactory.upAndOut(credentialsHost);
         animationFactory.upAndIn(loadingSpinner);
+        networkHelper.login(username, password, this);
     }
 
     @Override

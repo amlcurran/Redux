@@ -2,6 +2,8 @@ package com.espiandev.redux.auth;
 
 import com.android.volley.AuthFailureError;
 import com.espiandev.redux.R;
+import com.espiandev.redux.network.InvalidPasswordError;
+import com.espiandev.redux.network.InvalidUsernameError;
 import com.espiandev.redux.testing.BaseFragmentTest;
 
 import org.junit.Test;
@@ -34,7 +36,7 @@ public class LoginFragmentTest extends BaseFragmentTest<LoginFragment>{
 
     @Test
     public void testWhenLoginClicked_AndUsernameIsEmpty_AUsernameErrorIsShown() {
-        clickSubmitButton();
+        fragment.onErrorResponse(new InvalidUsernameError());
 
         String expectedString = activity.getString(R.string.login_error_username);
         String actualString = String.valueOf(activity.getTitleHostSubtitle());
@@ -43,10 +45,8 @@ public class LoginFragmentTest extends BaseFragmentTest<LoginFragment>{
     }
 
     @Test
-    public void testWhenLoginClicked_AndPasswordIsEmpty_APasswordErrorIsShown() {
-        ((TextView) activity.findViewById(R.id.login_username)).setText("username");
-
-        clickSubmitButton();
+    public void testWhenErrorReponseIsInvalidPassword_APasswordErrorIsShown() {
+        fragment.onErrorResponse(new InvalidPasswordError());
 
         String expectedString = activity.getString(R.string.login_error_password);
         String actualString = String.valueOf(activity.getTitleHostSubtitle());
