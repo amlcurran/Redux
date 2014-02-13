@@ -1,5 +1,8 @@
 package com.espiandev.redux.auth;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.SharedPreferences;
 
 public class SharedPreferencesTokenStorage implements TokenStorage {
@@ -12,8 +15,7 @@ public class SharedPreferencesTokenStorage implements TokenStorage {
 
     @Override
     public boolean storeToken(String token) {
-        return preferences.edit().putString(KEY_AUTH_TOKEN, token)
-                .commit();
+        return token != null && preferences.edit().putString(KEY_AUTH_TOKEN, token).commit();
     }
 
     @Override
@@ -24,5 +26,16 @@ public class SharedPreferencesTokenStorage implements TokenStorage {
     @Override
     public String getToken() {
         return preferences.getString(KEY_AUTH_TOKEN, null);
+    }
+
+    @Override
+    public String extractToken(String jsonResponseString) {
+        try {
+            JSONObject object = new JSONObject(jsonResponseString);
+            return object.getString("token");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

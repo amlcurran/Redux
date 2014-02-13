@@ -7,9 +7,6 @@ import com.espiandev.redux.ResourceStringProvider;
 import com.espiandev.redux.network.NetworkErrorTranslator;
 import com.espiandev.redux.network.Responder;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -34,7 +31,8 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         usernameField = (EditText) view.findViewById(R.id.login_username);
         passwordField = (EditText) view.findViewById(R.id.login_password);
@@ -91,17 +89,11 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
         animationFactory.cancelAnimations(loadingSpinner);
         animationFactory.downAndOut(loadingSpinner);
 
-        try {
-            JSONObject object = new JSONObject(response);
-            String token = object.getString("token");
-            boolean storedToken = tokenStorage.storeToken(token);
-            if (storedToken) {
-                loginListener.onLogin();
-            } else {
-                onErrorResponse(new TokenError());
-            }
-        } catch (JSONException e) {
-            onErrorResponse(null);
+        String token = tokenStorage.extractToken(response);
+        if (tokenStorage.storeToken(token)) {
+            loginListener.onLogin();
+        } else {
+            onErrorResponse(new TokenError());
         }
     }
 

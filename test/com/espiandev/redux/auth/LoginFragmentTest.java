@@ -114,10 +114,17 @@ public class LoginFragmentTest extends BaseFragmentTest<LoginFragment>{
     }
 
     @Test
+    public void testWhenLogInResponseReturns_TheTokenIsExtractedFromTheResponse() {
+        fragment.onSuccessResponse(VALID_TOKEN_RESPONSE);
+
+        verify(mockTokenStorage).extractToken(VALID_TOKEN_RESPONSE);
+    }
+
+    @Test
     public void testWhenLogInResponseReturns_TheTokenIsStored() {
         fragment.onSuccessResponse(VALID_TOKEN_RESPONSE);
 
-        verify(mockTokenStorage).storeToken(TOKEN);
+        verify(mockTokenStorage).storeToken(any(String.class));
     }
 
     @Test
