@@ -72,6 +72,8 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
 
         @Override
         public void onClick(View view) {
+            //TODO: fragment should be dumb
+
             if (validator.isPasswordValid(passwordField.getText()) &&
                     validator.isUsernameValid(usernameField.getText())) {
                 launchLoginRequest();

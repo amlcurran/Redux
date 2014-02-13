@@ -1,10 +1,5 @@
 package com.espiandev.redux;
 
-import android.app.DownloadManager;
-import android.app.Fragment;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
@@ -18,6 +13,11 @@ import com.espiandev.redux.auth.SharedPreferencesTokenStorage;
 import com.espiandev.redux.navigation.FragmentManagerStacker;
 import com.espiandev.redux.network.VolleyNetworkHelper;
 import com.espiandev.redux.search.SearchFragment;
+
+import android.app.DownloadManager;
+import android.app.Fragment;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import javax.net.ssl.SSLSocketFactory;
 
