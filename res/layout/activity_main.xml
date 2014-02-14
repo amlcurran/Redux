@@ -1,38 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/default_padding">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/bbc_redux"
-            android:id="@+id/high_banner"
-            style="@style/HighBanner"
-            android:singleLine="true"
-            android:ellipsize="end" />
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/default_padding">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/low_banner"
-            style="@style/LowBanner"
-            android:visibility="invisible" />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bbc_redux"
+                    android:id="@+id/high_banner"
+                    style="@style/HighBanner"
+                    android:singleLine="true"
+                    android:ellipsize="end"/>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/low_banner"
+                    style="@style/LowBanner"
+                    android:visibility="invisible"/>
+
+        </LinearLayout>
+        <view android:layout_width="64dp"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              class="android.support.v7.app.MediaRouteButton"
+              style="@style/Theme.MediaRouter"
+              android:background="@drawable/button_highlight" android:id="@+id/media_route_buton"/>
 
     </LinearLayout>
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:id="@+id/host_frame"
-        android:layout_weight="1" />
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/host_frame"
+            android:layout_weight="1"/>
 
 </LinearLayout>

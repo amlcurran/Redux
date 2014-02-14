@@ -1,18 +1,16 @@
 package com.espiandev.redux;
 
-import android.app.Fragment;
-import android.preference.PreferenceManager;
-import android.widget.TextView;
-
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.auth.LoginFragment;
 import com.espiandev.redux.auth.TokenStorage;
+import com.espiandev.redux.cast.CastManager;
 import com.espiandev.redux.navigation.Stacker;
 import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.search.SearchFragment;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -22,6 +20,10 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
+
+import android.app.Fragment;
+import android.preference.PreferenceManager;
+import android.widget.TextView;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -43,6 +45,8 @@ public class MainActivityTest {
     public static AnimationFactory mockAnimationFactory;
     @Mock
     public static Stacker mockStacker;
+    @Mock
+    public static CastManager mockCastManager;
 
     @Before
     public void setUp() {
@@ -101,6 +105,13 @@ public class MainActivityTest {
         verify(mockStacker).removeFragment();
     }
 
+    @Test
+    @Ignore
+    public void testWhenActivityResumed_CastScanningIsStarted() {
+        launchActivityController.create().start().resume();
+        verify(mockCastManager).resumeScanning();
+    }
+
     @After
     public void tearDown() {
         PreferenceManager.getDefaultSharedPreferences(launchActivity).edit()
@@ -115,6 +126,7 @@ public class MainActivityTest {
             this.animationFactory = mockAnimationFactory;
             this.tokenStorage = mockTokenStorage;
             this.stacker = mockStacker;
+            this.castManager = mockCastManager;
         }
     }
 

@@ -1,5 +1,14 @@
 package com.espiandev.redux.assets;
 
+import com.espiandev.redux.BasicFragment;
+import com.espiandev.redux.R;
+import com.espiandev.redux.ResourceStringProvider;
+import com.espiandev.redux.cast.CastManager;
+import com.espiandev.redux.cast.CastManagerProvider;
+import com.espiandev.redux.downloads.Downloader;
+import com.espiandev.redux.downloads.DownloaderProvider;
+import com.espiandev.redux.network.Responder;
+
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -8,13 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.espiandev.redux.BasicFragment;
-import com.espiandev.redux.R;
-import com.espiandev.redux.ResourceStringProvider;
-import com.espiandev.redux.downloads.Downloader;
-import com.espiandev.redux.downloads.DownloaderProvider;
-import com.espiandev.redux.network.Responder;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,6 +27,7 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
     private DateFormat dateFormat = new SimpleDateFormat("E dd MMM yyyy 'at' HH:mm");
     private TextView assetDescriptionView;
     private Downloader downloader;
+    private CastManager castManager;
 
     public static AssetDetailsFragment newInstance(Asset asset) {
         AssetDetailsFragment fragment = new AssetDetailsFragment();
@@ -50,6 +53,9 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
         super.onAttach(activity);
         if (activity instanceof DownloaderProvider) {
             downloader = ((DownloaderProvider) activity).getDownloader();
+        }
+        if (activity instanceof CastManagerProvider) {
+            castManager = ((CastManagerProvider) activity).getCastManager();
         }
     }
 
@@ -86,7 +92,8 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
 
     @Override
     public void onClick(View view) {
-        downloader.requestDownload(getAsset());
+        castManager.playAsset(getAsset());
+        //downloader.requestDownload(getAsset());
 //        DownloadManager.Request request = new DownloadManager.Request(uri);
 //        request.setMimeType("video/mpeg")
 //                .setTitle(getAsset().getName());

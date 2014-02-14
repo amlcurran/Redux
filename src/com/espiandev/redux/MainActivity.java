@@ -10,6 +10,7 @@ import com.espiandev.redux.assets.AssetListFragment;
 import com.espiandev.redux.assets.AssetListParser;
 import com.espiandev.redux.auth.LoginFragment;
 import com.espiandev.redux.auth.SharedPreferencesTokenStorage;
+import com.espiandev.redux.cast.GoogleCastManager;
 import com.espiandev.redux.downloads.DownloadManagerDownloader;
 import com.espiandev.redux.navigation.FragmentManagerStacker;
 import com.espiandev.redux.network.VolleyNetworkHelper;
@@ -19,6 +20,8 @@ import android.app.DownloadManager;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.MediaRouteButton;
+import android.support.v7.media.MediaRouter;
 
 import javax.net.ssl.SSLSocketFactory;
 
@@ -30,6 +33,18 @@ public class MainActivity extends BaseActivity {
 
         Fragment fragment = getTokenStorage().hasToken() ? new SearchFragment() : new LoginFragment();
         stacker.addFragment(fragment);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        castManager.resumeScanning();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        castManager.pauseScanning();
     }
 
     @Override
@@ -62,6 +77,8 @@ public class MainActivity extends BaseActivity {
         stacker = new FragmentManagerStacker(this);
         listParser = new AssetListParser();
         downloader = new DownloadManagerDownloader((DownloadManager) getSystemService(DOWNLOAD_SERVICE));
+        castManager = new GoogleCastManager(this, MediaRouter.getInstance(this),
+                ((MediaRouteButton) findViewById(R.id.media_route_buton)));
     }
 
 }
