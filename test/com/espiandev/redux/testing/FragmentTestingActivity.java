@@ -14,6 +14,7 @@ public class FragmentTestingActivity extends BaseActivity {
     private CharSequence subtitle;
     public boolean onLoginCalled;
     public boolean onSearchResultCalled;
+    public boolean onAuthFailedCalled;
     public Asset selectedAsset;
 
     @Override
@@ -56,6 +57,11 @@ public class FragmentTestingActivity extends BaseActivity {
     @Override
     public void onLogin() {
         onLoginCalled = true;
+    }
+
+    @Override
+    public void onAuthFailed() {
+        onAuthFailedCalled = true;
     }
 
     @Override

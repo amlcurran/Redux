@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.espiandev.redux.BasicFragment;
 import com.espiandev.redux.R;
 import com.espiandev.redux.ResourceStringProvider;
+import com.espiandev.redux.network.NetworkErrorTranslator;
 import com.espiandev.redux.network.Responder;
 
 import java.util.ArrayList;
@@ -92,6 +93,10 @@ public class AssetListFragment extends BasicFragment implements AdapterView.OnIt
 
     @Override
     public void onErrorResponse(Exception error) {
-
+        titleHost.setSubtitle(NetworkErrorTranslator.getErrorString(this, error));
+        animationFactory.downAndIn(listview);
+        animationFactory.downAndOut(loadingSpinner);
+        handleError(error);
     }
+
 }

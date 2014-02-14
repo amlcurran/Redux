@@ -10,6 +10,7 @@ import com.espiandev.redux.assets.AssetListFragment;
 import com.espiandev.redux.assets.AssetListParser;
 import com.espiandev.redux.auth.LoginFragment;
 import com.espiandev.redux.auth.SharedPreferencesTokenStorage;
+import com.espiandev.redux.downloads.DownloadManagerDownloader;
 import com.espiandev.redux.navigation.FragmentManagerStacker;
 import com.espiandev.redux.network.VolleyNetworkHelper;
 import com.espiandev.redux.search.SearchFragment;
@@ -38,6 +39,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    public void onAuthFailed() {
+        stacker.pushFragment(new LoginFragment());
+    }
+
+    @Override
     public void onSearchResult(String query) {
         stacker.pushFragment(AssetListFragment.newInstance(query));
     }
@@ -55,7 +61,7 @@ public class MainActivity extends BaseActivity {
         networkHelper = new VolleyNetworkHelper(requestQueue, super.getTokenStorage());
         stacker = new FragmentManagerStacker(this);
         listParser = new AssetListParser();
-        downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        downloader = new DownloadManagerDownloader((DownloadManager) getSystemService(DOWNLOAD_SERVICE));
     }
 
 }

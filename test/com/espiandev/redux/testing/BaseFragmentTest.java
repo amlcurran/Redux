@@ -4,6 +4,7 @@ import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.assets.AssetListParser;
 import com.espiandev.redux.auth.TokenStorage;
 import com.espiandev.redux.cast.CastManager;
+import com.espiandev.redux.downloads.Downloader;
 import com.espiandev.redux.network.NetworkHelper;
 
 import org.junit.Before;
@@ -12,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.util.ActivityController;
 
-import android.app.DownloadManager;
 import android.app.Fragment;
 
 public abstract class BaseFragmentTest<T extends Fragment> {
@@ -27,7 +27,7 @@ public abstract class BaseFragmentTest<T extends Fragment> {
     @Mock
     protected AssetListParser mockListParser;
     @Mock
-    protected DownloadManager mockDownloadManager;
+    protected Downloader mockDownloader;
     @Mock
     protected CastManager mockCastManager;
 
@@ -51,7 +51,7 @@ public abstract class BaseFragmentTest<T extends Fragment> {
         activity.tokenStorage = mockTokenStorage;
         activity.networkHelper = mockNetworkHelper;
         activity.listParser = mockListParser;
-        activity.downloadManager = mockDownloadManager;
+        activity.downloader = mockDownloader;
         activity.castManager = mockCastManager;
     }
 }

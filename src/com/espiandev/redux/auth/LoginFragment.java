@@ -26,7 +26,7 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
     private ProgressBar loadingSpinner;
     private View credentialsHost;
     private TokenStorage tokenStorage;
-    private LoginListener loginListener;
+    private AuthListener authListener;
     private final Validator validator;
 
     public LoginFragment() {
@@ -62,10 +62,10 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
         if (activity instanceof TokenStorageProvider) {
             tokenStorage = ((TokenStorageProvider) activity).getTokenStorage();
         }
-        if (activity instanceof LoginListener) {
-            loginListener = (LoginListener) activity;
+        if (activity instanceof AuthListener) {
+            authListener = (AuthListener) activity;
         } else {
-            throw new ClassCastException("Host of LoginFragment must implement LoginListener");
+            throw new ClassCastException("Host of LoginFragment must implement AuthListener");
         }
     }
 
@@ -104,7 +104,7 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
 
         String token = tokenStorage.extractToken(response);
         if (tokenStorage.storeToken(token)) {
-            loginListener.onLogin();
+            authListener.onLogin();
         } else {
             onErrorResponse(new TokenError());
         }

@@ -1,6 +1,5 @@
 package com.espiandev.redux.assets;
 
-import android.app.DownloadManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.widget.ImageView;
@@ -15,7 +14,6 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -23,9 +21,12 @@ import static org.mockito.Mockito.verify;
 @Config(manifest = "AndroidManifest.xml")
 public class AssetDetailsFragmentTest extends BaseFragmentTest<AssetDetailsFragment> {
 
+    private TestAsset asset;
+
     @Override
     protected void createFragment() {
-        fragment = AssetDetailsFragment.newInstance(new TestAsset());
+        asset = new TestAsset();
+        fragment = AssetDetailsFragment.newInstance(asset);
     }
 
     @Test
@@ -50,7 +51,7 @@ public class AssetDetailsFragmentTest extends BaseFragmentTest<AssetDetailsFragm
     public void testWhenImageIsClicked_ADownloadIsRequested() {
         activity.findViewById(R.id.asset_image_view).performClick();
 
-        verify(mockDownloadManager).enqueue(any(DownloadManager.Request.class));
+        verify(mockDownloader).requestDownload(asset);
     }
 
     @Test
