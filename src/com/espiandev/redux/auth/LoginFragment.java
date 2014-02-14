@@ -9,12 +9,15 @@ import com.espiandev.redux.network.Responder;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class LoginFragment extends BasicFragment implements Responder<String> {
 
@@ -36,6 +39,16 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         usernameField = (EditText) view.findViewById(R.id.login_username);
         passwordField = (EditText) view.findViewById(R.id.login_password);
+        passwordField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_UNSPECIFIED) {
+                    submitClickListener.onClick(null);
+                    return true;
+                }
+                return false;
+            }
+        });
         loadingSpinner = (ProgressBar) view.findViewById(R.id.spinner);
         credentialsHost = view.findViewById(R.id.login_credentials_host);
         Button submitButton = (Button) view.findViewById(R.id.login_submit);
