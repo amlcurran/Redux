@@ -19,6 +19,8 @@
     <orderEntry type="library" exported="" name="compile libraries" level="project" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="module" module-name="google-play-services_lib" />
+    <orderEntry type="module" module-name="appcompat" />
+    <orderEntry type="module" module-name="mediarouter" />
   </component>
 </module>
 
