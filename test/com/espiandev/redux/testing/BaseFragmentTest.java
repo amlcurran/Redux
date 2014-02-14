@@ -1,11 +1,9 @@
 package com.espiandev.redux.testing;
 
-import android.app.DownloadManager;
-import android.app.Fragment;
-
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.assets.AssetListParser;
 import com.espiandev.redux.auth.TokenStorage;
+import com.espiandev.redux.cast.CastManager;
 import com.espiandev.redux.network.NetworkHelper;
 
 import org.junit.Before;
@@ -13,6 +11,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.util.ActivityController;
+
+import android.app.DownloadManager;
+import android.app.Fragment;
 
 public abstract class BaseFragmentTest<T extends Fragment> {
     protected FragmentTestingActivity activity;
@@ -27,6 +28,8 @@ public abstract class BaseFragmentTest<T extends Fragment> {
     protected AssetListParser mockListParser;
     @Mock
     protected DownloadManager mockDownloadManager;
+    @Mock
+    protected CastManager mockCastManager;
 
     @Before
     public void setUp() {
@@ -49,5 +52,6 @@ public abstract class BaseFragmentTest<T extends Fragment> {
         activity.networkHelper = mockNetworkHelper;
         activity.listParser = mockListParser;
         activity.downloadManager = mockDownloadManager;
+        activity.castManager = mockCastManager;
     }
 }

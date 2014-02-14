@@ -1,10 +1,5 @@
 package com.espiandev.redux;
 
-import android.app.Activity;
-import android.app.DownloadManager;
-import android.os.Bundle;
-import android.widget.TextView;
-
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.animation.AnimationFactoryProvider;
 import com.espiandev.redux.assets.AssetListParser;
@@ -13,23 +8,32 @@ import com.espiandev.redux.assets.AssetSelectionListener;
 import com.espiandev.redux.auth.LoginListener;
 import com.espiandev.redux.auth.TokenStorage;
 import com.espiandev.redux.auth.TokenStorageProvider;
+import com.espiandev.redux.cast.CastManager;
+import com.espiandev.redux.cast.CastManagerProvider;
 import com.espiandev.redux.downloads.DownloadManagerProvider;
 import com.espiandev.redux.navigation.Stacker;
 import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
 import com.espiandev.redux.search.SearchListener;
 
+import android.app.Activity;
+import android.app.DownloadManager;
+import android.os.Bundle;
+import android.widget.TextView;
+
 public abstract class BaseActivity extends Activity implements TitleHost, AnimationFactoryProvider,
         NetworkHelperProvider, TokenStorageProvider, SearchListener, LoginListener,
-        AssetSelectionListener, AssetListParserProvider, DownloadManagerProvider {
+        AssetSelectionListener, AssetListParserProvider, DownloadManagerProvider,
+        CastManagerProvider {
     protected Stacker stacker;
     public AnimationFactory animationFactory;
     public TokenStorage tokenStorage;
     public NetworkHelper networkHelper;
     public DownloadManager downloadManager;
-    protected TextView highBanner;
-    protected TextView lowBanner;
     public AssetListParser listParser;
+    public CastManager castManager;
+    protected TextView lowBanner;
+    protected TextView highBanner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,5 +81,10 @@ public abstract class BaseActivity extends Activity implements TitleHost, Animat
     @Override
     public DownloadManager getDownloadManager() {
         return downloadManager;
+    }
+
+    @Override
+    public CastManager getCastManager() {
+        return castManager;
     }
 }
