@@ -4,7 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Redux.iml" filepath="$PROJECT_DIR$/Redux.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraries/appcompat/appcompat.iml" filepath="$PROJECT_DIR$/libraries/appcompat/appcompat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/appcompat/appcompat.iml" filepath="$PROJECT_DIR$/libraries/appcompat/appcompat.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraries/google-play-services_lib/google-play-services_lib.iml" filepath="$PROJECT_DIR$/libraries/google-play-services_lib/google-play-services_lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/google-play-services_lib/google-play-services_lib.iml" filepath="$PROJECT_DIR$/libraries/google-play-services_lib/google-play-services_lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/mediarouter/mediarouter.iml" filepath="$PROJECT_DIR$/libraries/mediarouter/mediarouter.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraries/mediarouter/mediarouter.iml" filepath="$PROJECT_DIR$/libraries/mediarouter/mediarouter.iml" />
     </modules>
   </component>
