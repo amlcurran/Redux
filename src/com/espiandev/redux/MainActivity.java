@@ -1,5 +1,12 @@
 package com.espiandev.redux;
 
+import android.app.DownloadManager;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.MediaRouteButton;
+import android.support.v7.media.MediaRouter;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
@@ -15,13 +22,6 @@ import com.espiandev.redux.downloads.DownloadManagerDownloader;
 import com.espiandev.redux.navigation.FragmentManagerStacker;
 import com.espiandev.redux.network.VolleyNetworkHelper;
 import com.espiandev.redux.search.SearchFragment;
-
-import android.app.DownloadManager;
-import android.app.Fragment;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v7.app.MediaRouteButton;
-import android.support.v7.media.MediaRouter;
 
 import javax.net.ssl.SSLSocketFactory;
 

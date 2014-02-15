@@ -1,7 +1,7 @@
 package com.espiandev.redux;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 
 import com.android.volley.AuthFailureError;
 import com.espiandev.redux.animation.AnimationFactory;

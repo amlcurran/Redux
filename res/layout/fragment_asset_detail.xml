@@ -4,11 +4,17 @@
               android:orientation="vertical" android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <view android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          class="com.espiandev.redux.view.FixedImageView"
-          android:id="@+id/asset_image_view"
-          android:scaleType="centerCrop"/>
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/image_action_host">
+
+        <view android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              class="com.espiandev.redux.view.FixedImageView"
+              android:id="@+id/asset_image_view"
+              android:scaleType="centerCrop"/>
+    </FrameLayout>
 
     <LinearLayout
             android:orientation="vertical"

@@ -1,8 +1,8 @@
 package com.espiandev.redux.navigation;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 
 import com.espiandev.redux.R;
 
@@ -60,10 +60,10 @@ public class FragmentManagerStackerTest {
     }
 
     private Fragment getPoppedFragment() {
-        return activity.getFragmentManager().findFragmentById(R.id.host_frame);
+        return activity.getSupportFragmentManager().findFragmentById(R.id.host_frame);
     }
 
-    private static class FragmentManagerStackerActivity extends Activity {
+    private static class FragmentManagerStackerActivity extends FragmentActivity {
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {

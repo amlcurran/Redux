@@ -1,14 +1,5 @@
 package com.espiandev.redux.assets;
 
-import com.espiandev.redux.BasicFragment;
-import com.espiandev.redux.R;
-import com.espiandev.redux.ResourceStringProvider;
-import com.espiandev.redux.cast.CastManager;
-import com.espiandev.redux.cast.CastManagerProvider;
-import com.espiandev.redux.downloads.Downloader;
-import com.espiandev.redux.downloads.DownloaderProvider;
-import com.espiandev.redux.network.Responder;
-
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -17,6 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.espiandev.redux.BasicFragment;
+import com.espiandev.redux.R;
+import com.espiandev.redux.ResourceStringProvider;
+import com.espiandev.redux.cast.CastManager;
+import com.espiandev.redux.cast.CastManagerProvider;
+import com.espiandev.redux.downloads.Downloader;
+import com.espiandev.redux.downloads.DownloaderProvider;
+import com.espiandev.redux.network.Responder;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
