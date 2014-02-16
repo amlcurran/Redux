@@ -41,7 +41,9 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
     @Override
     public void resumeScanning() {
         MediaRouteSelector selector = createSelector();
-        routeButton.setRouteSelector(selector);
+        if (routeButton != null) {
+            routeButton.setRouteSelector(selector);
+        }
         mediaRouter.addCallback(selector, this, MediaRouter.CALLBACK_FLAG_PERFORM_ACTIVE_SCAN);
     }
 

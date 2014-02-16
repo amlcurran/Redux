@@ -40,7 +40,7 @@ public abstract class BaseFragmentTest<T extends Fragment> {
         createFragment();
         attachMocks();
         activity.setFragment(fragment);
-        controller.create();
+        controller.create().start().resume();
 
     }
 

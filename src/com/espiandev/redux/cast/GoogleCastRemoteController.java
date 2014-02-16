@@ -4,6 +4,8 @@ import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.RemoteMediaPlayer;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.io.IOException;
+
 public class GoogleCastRemoteController implements RemoteController {
 
     private final RemoteMediaPlayer remoteMedia;
@@ -17,5 +19,28 @@ public class GoogleCastRemoteController implements RemoteController {
     @Override
     public void load(MediaInfo mediaInfo) {
         remoteMedia.load(apiClient, mediaInfo, true);
+    }
+
+    @Override
+    public void play() {
+        try {
+            remoteMedia.play(apiClient);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void pause() {
+        try {
+            remoteMedia.pause(apiClient);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void seekTo(long millis) {
+        remoteMedia.seek(apiClient, millis);
     }
 }

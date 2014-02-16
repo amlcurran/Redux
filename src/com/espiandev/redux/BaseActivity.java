@@ -1,5 +1,9 @@
 package com.espiandev.redux;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.TextView;
+
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.animation.AnimationFactoryProvider;
 import com.espiandev.redux.assets.AssetListParser;
@@ -17,11 +21,7 @@ import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
 import com.espiandev.redux.search.SearchListener;
 
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.widget.TextView;
-
-public abstract class BaseActivity extends FragmentActivity implements TitleHost, AnimationFactoryProvider,
+public abstract class BaseActivity extends Activity implements TitleHost, AnimationFactoryProvider,
         NetworkHelperProvider, TokenStorageProvider, SearchListener, AuthListener,
         AssetSelectionListener, AssetListParserProvider, DownloaderProvider,
         CastManagerProvider {
