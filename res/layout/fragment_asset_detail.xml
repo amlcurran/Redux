@@ -1,53 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical" android:layout_width="match_parent"
-              android:layout_height="match_parent">
-
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/image_action_host">
-
-        <view android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              class="com.espiandev.redux.view.FixedImageView"
-              android:id="@+id/asset_image_view"
-              android:scaleType="centerCrop"/>
-    </FrameLayout>
-
-    <Button
-        android:drawableLeft="@drawable/ic_button_play"
-        android:text="Play"
-        android:id="@+id/button_play"
-        style="@style/action_button"
-        android:paddingRight="@dimen/default_padding" />
-
-    <Button
-        android:drawableLeft="@drawable/ic_button_download"
-        android:text="Download"
-        android:id="@+id/button_download"
-        style="@style/action_button"
-        android:paddingRight="@dimen/default_padding" />
-
-    <Button
-        android:drawableLeft="@drawable/ic_button_cast"
-        android:text="Cast"
-        android:id="@+id/button_cast"
-        style="@style/action_button"
-        android:paddingRight="@dimen/default_padding" />
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
     <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_action_host">
+
+            <view
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                class="com.espiandev.redux.view.FixedImageView"
+                android:id="@+id/asset_image_view"
+                android:scaleType="centerCrop" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:drawable/divider_horizontal_dark">
+
+            <Button
+                android:drawableTop="@drawable/ic_button_play"
+                android:text="@string/play"
+                android:id="@+id/button_play"
+                style="@style/action_button" />
+
+            <Button
+                android:drawableTop="@drawable/ic_button_download"
+                android:text="@string/download"
+                android:id="@+id/button_download"
+                style="@style/action_button" />
+
+            <Button
+                android:drawableTop="@drawable/ic_button_cast"
+                android:text="@string/cast"
+                android:id="@+id/button_cast"
+                style="@style/action_button" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:padding="@dimen/default_padding">
 
-        <TextView
-                android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/asset_description"/>
+                android:id="@+id/asset_description"
+                style="@style/LowBanner" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
