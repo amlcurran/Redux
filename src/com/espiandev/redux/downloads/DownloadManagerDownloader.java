@@ -1,6 +1,7 @@
 package com.espiandev.redux.downloads;
 
 import android.app.DownloadManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 
@@ -20,11 +21,29 @@ public class DownloadManagerDownloader implements Downloader {
     }
 
     @Override
-    public void requestDownload(Asset asset) {
+    public long requestDownload(Asset asset) {
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(urlHelper.buildDownloadUrl(asset)));
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MOVIES, getSubPath(asset));
-        request.setMimeType("video/mpeg").setTitle(asset.getName());
-        downloadManager.enqueue(request);
+        request.setMimeType("video/mp4").setTitle(asset.getName());
+        return downloadManager.enqueue(request);
+    }
+
+    @Override
+    public void monitorProgress(long id, DownloadProgressListener progressListener) {
+        DownloadManager.Query query = new DownloadManager.Query();
+        query.setFilterById(id);
+        Cursor result = downloadManager.query(query);
+        if (result.getCount() > 0) {
+            result.moveToFirst();
+            checkIfDownloadCompleted(id, result, progressListener);
+        }
+    }
+
+    private void checkIfDownloadCompleted(long id, Cursor result, DownloadProgressListener progressListener) {
+        int downloadStatus = result.getInt(result.getColumnIndex(DownloadManager.COLUMN_STATUS));
+        if (downloadStatus == DownloadManager.STATUS_SUCCESSFUL) {
+            progressListener.onDownloadCompleted(id);
+        }
     }
 
     private String getSubPath(Asset asset) {

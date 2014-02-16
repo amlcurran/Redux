@@ -3,5 +3,6 @@ package com.espiandev.redux.downloads;
 import com.espiandev.redux.assets.Asset;
 
 public interface Downloader {
-    void requestDownload(Asset asset);
+    long requestDownload(Asset asset);
+    void monitorProgress(long id, DownloadProgressListener progressListener);
 }

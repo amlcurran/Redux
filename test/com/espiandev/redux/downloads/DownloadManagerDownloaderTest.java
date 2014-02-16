@@ -37,4 +37,11 @@ public class DownloadManagerDownloaderTest {
         verify(mockDownloadManager).enqueue(any(DownloadManager.Request.class));
     }
 
+    @Test
+    public void testMonitoringProgress_QueriesTheDownloadManager() {
+        downloader.monitorProgress(0, null);
+
+        verify(mockDownloadManager).query(any(DownloadManager.Query.class));
+    }
+
 }
