@@ -22,15 +22,6 @@ import com.espiandev.redux.downloads.DownloaderProvider;
 import com.espiandev.redux.network.ReduxUrlHelper;
 import com.espiandev.redux.network.Responder;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -127,7 +118,7 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
 
     private void onPlayClick() {
         Uri playUri = Uri.parse(new ReduxUrlHelper().buildDownloadUrl(getAsset()));
-        startActivity(new Intent(Intent.ACTION_VIEW).setDataAndType(playUri, "video/mpeg"));
+        getActivity().startActivity(new Intent(Intent.ACTION_VIEW).setDataAndType(playUri, "video/mpeg"));
     }
 
     private void onDownloadClick() {
