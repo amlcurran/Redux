@@ -30,6 +30,7 @@
             android:imeActionLabel="@string/log_in"
             android:gravity="center"
             android:layout_below="@+id/login_username"
+            android:layout_marginTop="4dp"
             android:hint="@string/password_hint" />
 
         <Button
@@ -37,6 +38,8 @@
             android:layout_height="wrap_content"
             android:text="@string/login"
             android:id="@+id/login_submit"
+            android:layout_marginTop="4dp"
+            style="@style/Button.Highlight"
             android:layout_below="@+id/login_password"
             android:layout_alignParentStart="true" />
 

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="app_colour">#0E88FF</color>
+    <color name="app_colour_20">#330E88FF</color>
+    <color name="app_colour_60">#990E88FF</color>
     <color name="app_yellow_main">#FFB410</color>
     <color name="app_yellow_light">#FFBC2A</color>
     <color name="app_yellow_dark">#B27C06</color>
     <color name="app_blue_light">#1063FF</color>
     <color name="app_blue_dark">#003EB2</color>
     <color name="window_background">#CECEE0</color>
-
 
     <!--<color name="app_yellow_main">#FF5F10</color>-->
     <!--<color name="app_yellow_light">#FF732D</color>-->

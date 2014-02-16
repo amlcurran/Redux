@@ -10,13 +10,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="-100dp"
         android:id="@+id/search_query_host">
 
         <EditText
             android:layout_width="@dimen/login_item_width"
             android:layout_height="wrap_content"
             android:id="@+id/search_query"
-            android:inputType="text" />
+            android:inputType="text"
+            android:hint="@string/search"
+            android:layout_marginRight="4dp"/>
 
         <ImageButton
             android:layout_width="48dp"
