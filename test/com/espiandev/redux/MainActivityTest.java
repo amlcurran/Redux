@@ -1,5 +1,9 @@
 package com.espiandev.redux;
 
+import android.app.Fragment;
+import android.preference.PreferenceManager;
+import android.widget.TextView;
+
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.auth.LoginFragment;
 import com.espiandev.redux.auth.TokenStorage;
@@ -20,10 +24,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
-
-import android.app.Fragment;
-import android.preference.PreferenceManager;
-import android.widget.TextView;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -61,6 +61,15 @@ public class MainActivityTest {
     public void testSetTitle_SetsTheHighBanner() {
         String title = "A TITLE";
         launchActivityController.create();
+        launchActivity.setTitle(title);
+        verify(mockAnimationFactory).fadeAndChangeText((TextView) launchActivity.findViewById(R.id.high_banner), title);
+    }
+
+    @Test
+    public void testSetTitleTwice_OnlySetsTheHighBannerOnce() {
+        String title = "A TITLE";
+        launchActivityController.create();
+        launchActivity.setTitle(title);
         launchActivity.setTitle(title);
         verify(mockAnimationFactory).fadeAndChangeText((TextView) launchActivity.findViewById(R.id.high_banner), title);
     }

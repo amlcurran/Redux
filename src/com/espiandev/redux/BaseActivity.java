@@ -34,6 +34,8 @@ public abstract class BaseActivity extends Activity implements TitleHost, Animat
     public Downloader downloader;
     protected TextView lowBanner;
     protected TextView highBanner;
+    private CharSequence title;
+    private CharSequence subtitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,10 @@ public abstract class BaseActivity extends Activity implements TitleHost, Animat
 
     @Override
     public void setTitle(CharSequence title) {
-        animationFactory.fadeAndChangeText(highBanner, title);
+        if (!title.equals(this.title)) {
+            animationFactory.fadeAndChangeText(highBanner, title);
+            this.title = title;
+        }
     }
 
     @Override
