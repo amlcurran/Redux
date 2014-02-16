@@ -12,4 +12,6 @@ public interface CastManager {
     void pauseScanning();
 
     void playAsset(Asset asset);
+
+    boolean canCast();
 }

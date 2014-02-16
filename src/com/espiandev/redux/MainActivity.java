@@ -17,6 +17,7 @@ import com.espiandev.redux.assets.AssetListFragment;
 import com.espiandev.redux.assets.AssetListParser;
 import com.espiandev.redux.auth.LoginFragment;
 import com.espiandev.redux.auth.SharedPreferencesTokenStorage;
+import com.espiandev.redux.cast.GoogleCastConnector;
 import com.espiandev.redux.cast.GoogleCastManager;
 import com.espiandev.redux.downloads.DownloadManagerDownloader;
 import com.espiandev.redux.navigation.FragmentManagerStacker;
@@ -78,7 +79,7 @@ public class MainActivity extends BaseActivity {
         listParser = new AssetListParser();
         downloader = new DownloadManagerDownloader((DownloadManager) getSystemService(DOWNLOAD_SERVICE));
         castManager = new GoogleCastManager(this, MediaRouter.getInstance(this),
-                ((MediaRouteButton) findViewById(R.id.media_route_buton)));
+                ((MediaRouteButton) findViewById(R.id.media_route_buton)), new GoogleCastConnector(this, GoogleCastManager.APP_ID));
     }
 
 }

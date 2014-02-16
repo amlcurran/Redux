@@ -92,7 +92,11 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
 
     @Override
     public void onClick(View view) {
-        castManager.playAsset(getAsset());
+        if (castManager.canCast()) {
+            castManager.playAsset(getAsset());
+        } else {
+
+        }
         //downloader.requestDownload(getAsset());
 //        DownloadManager.Request request = new DownloadManager.Request(uri);
 //        request.setMimeType("video/mpeg")
