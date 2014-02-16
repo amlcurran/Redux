@@ -3,10 +3,13 @@ package com.espiandev.redux.search;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.espiandev.redux.BasicFragment;
 import com.espiandev.redux.R;
@@ -24,6 +27,7 @@ public class SearchFragment extends BasicFragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         view.findViewById(R.id.search_submit).setOnClickListener(mSearchClickListener);
         queryField = (EditText) view.findViewById(R.id.search_query);
+        queryField.setOnEditorActionListener(editorActionListener);
         loadingSpinner = view.findViewById(R.id.spinner);
         queryHost = view.findViewById(R.id.search_query_host);
         return view;
@@ -53,10 +57,25 @@ public class SearchFragment extends BasicFragment {
         @Override
         public void onClick(View view) {
             if (!TextUtils.isEmpty(queryField.getText())) {
-                searchListener.onSearchResult(String.valueOf(queryField.getText()));
+                requestSearch();
             } else {
                 titleHost.setSubtitle(getString(R.string.error_empty_search));
             }
+        }
+    };
+
+    private void requestSearch() {
+        searchListener.onSearchResult(String.valueOf(queryField.getText()));
+    }
+
+    private TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+            if (i == EditorInfo.IME_ACTION_SEARCH) {
+                requestSearch();
+                return true;
+            }
+            return false;
         }
     };
 

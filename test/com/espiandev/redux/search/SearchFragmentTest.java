@@ -1,5 +1,7 @@
 package com.espiandev.redux.search;
 
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.espiandev.redux.R;
@@ -36,6 +38,14 @@ public class SearchFragmentTest extends BaseFragmentTest<SearchFragment> {
     public void testAValidSearch_AnimatesOutTheQueryBarAndShowsSpinner() {
         setSearchQuery("query");
         clickSearchButton();
+
+        assertTrue(activity.onSearchResultCalled);
+    }
+
+    @Test
+    public void testPerformingAnActionOnTheEditText_StartsASearch() {
+        setSearchQuery("query");
+        ((EditText) activity.findViewById(R.id.search_query)).onEditorAction(EditorInfo.IME_ACTION_SEARCH);
 
         assertTrue(activity.onSearchResultCalled);
     }

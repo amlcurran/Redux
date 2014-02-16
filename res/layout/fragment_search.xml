@@ -16,9 +16,10 @@
         <EditText
             android:layout_width="@dimen/login_item_width"
             android:layout_height="wrap_content"
+            android:imeOptions="actionSearch"
             android:id="@+id/search_query"
-            android:inputType="text"
-            android:hint="@string/search"
+            android:inputType="textFilter"
+            android:hint="@string/search_lowercase"
             android:layout_marginRight="4dp"/>
 
         <ImageButton

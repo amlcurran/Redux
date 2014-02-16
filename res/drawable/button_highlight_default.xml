@@ -6,7 +6,7 @@
         <shape android:shape="rectangle">
             <padding android:bottom="2dp"/>
             <corners android:radius="2dp"/>
-            <solid android:color="@color/app_blue_dark"/>
+            <solid android:color="@color/app_yellow_main"/>
         </shape>
     </item>
 
