@@ -1,6 +1,7 @@
 package com.espiandev.redux.search;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -56,16 +58,22 @@ public class SearchFragment extends BasicFragment {
     private View.OnClickListener mSearchClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (!TextUtils.isEmpty(queryField.getText())) {
-                requestSearch();
-            } else {
-                titleHost.setSubtitle(getString(R.string.error_empty_search));
-            }
+            requestSearch();
         }
     };
 
     private void requestSearch() {
-        searchListener.onSearchResult(String.valueOf(queryField.getText()));
+        if (!TextUtils.isEmpty(queryField.getText())) {
+            searchListener.onSearchResult(String.valueOf(queryField.getText()));
+            hideIme();
+        } else {
+            titleHost.setSubtitle(getString(R.string.error_empty_search));
+        }
+    }
+
+    private void hideIme() {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 
     private TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {
