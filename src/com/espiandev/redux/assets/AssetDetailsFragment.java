@@ -29,12 +29,8 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
     private static final String ASSET = "asset";
     private ImageView assetImageView;
     private DateFormat dateFormat = new SimpleDateFormat("E dd MMM yyyy 'at' HH:mm");
-    private TextView assetDescriptionView;
     private Downloader downloader;
     private CastManager castManager;
-    private View castButton;
-    private View playButton;
-    private View downloadButton;
 
     public static AssetDetailsFragment newInstance(Asset asset) {
         AssetDetailsFragment fragment = new AssetDetailsFragment();
@@ -50,13 +46,13 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
         assetImageView = (ImageView) view.findViewById(R.id.asset_image_view);
         assetImageView.setOnClickListener(this);
         assetImageView.setVisibility(View.INVISIBLE);
-        castButton = view.findViewById(R.id.button_cast);
-        playButton = view.findViewById(R.id.button_play);
-        downloadButton = view.findViewById(R.id.button_download);
+        View castButton = view.findViewById(R.id.button_cast);
+        View playButton = view.findViewById(R.id.button_play);
+        View downloadButton = view.findViewById(R.id.button_download);
         castButton.setOnClickListener(this);
         playButton.setOnClickListener(this);
         downloadButton.setOnClickListener(this);
-        assetDescriptionView = (TextView) view.findViewById(R.id.asset_description);
+        TextView assetDescriptionView = (TextView) view.findViewById(R.id.asset_description);
         assetDescriptionView.setText(getAsset().getDescription());
         return view;
     }
@@ -106,19 +102,27 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
     @Override
     public void onClick(View view) {
 
-        if (view.equals(castButton)) {
-            onCastClick();
-        } else if (view.equals(downloadButton)) {
-            onDownloadClick();
-        } else if (view.equals(playButton)) {
-            onPlayClick();
+        switch (view.getId()) {
+
+            case R.id.button_cast:
+                onCastClick();
+                break;
+
+            case R.id.button_download:
+                onDownloadClick();
+                break;
+
+            case R.id.button_play:
+                onPlayClick();
+                break;
+
         }
 
     }
 
     private void onPlayClick() {
         Uri playUri = Uri.parse(new ReduxUrlHelper().buildDownloadUrl(getAsset()));
-        getActivity().startActivity(new Intent(Intent.ACTION_VIEW).setDataAndType(playUri, "video/mpeg"));
+        getActivity().startActivity(new Intent(Intent.ACTION_VIEW).setDataAndType(playUri, "video/mp4"));
     }
 
     private void onDownloadClick() {
