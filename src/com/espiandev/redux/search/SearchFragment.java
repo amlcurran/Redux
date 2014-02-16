@@ -32,6 +32,7 @@ public class SearchFragment extends BasicFragment {
         queryField.setOnEditorActionListener(editorActionListener);
         loadingSpinner = view.findViewById(R.id.spinner);
         queryHost = view.findViewById(R.id.search_query_host);
+        queryField.requestFocusFromTouch();
         return view;
     }
 

@@ -19,7 +19,7 @@
             android:imeOptions="actionSearch"
             android:id="@+id/search_query"
             android:inputType="textFilter"
-            android:hint="@string/search_lowercase"
+            android:hint="@string/search"
             android:layout_marginRight="4dp"/>
 
         <ImageButton
