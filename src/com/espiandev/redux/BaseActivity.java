@@ -35,7 +35,6 @@ public abstract class BaseActivity extends Activity implements TitleHost, Animat
     protected TextView lowBanner;
     protected TextView highBanner;
     private CharSequence title;
-    private CharSequence subtitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
