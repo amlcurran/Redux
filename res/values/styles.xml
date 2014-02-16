@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="HighBanner">
+    <!-- Banners -->
+
+    <style name="Banner" />
+
+    <style name="Banner.High">
         <item name="android:layout_gravity">left|top</item>
         <item name="android:textSize">@dimen/high_banner_text_size</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
@@ -9,26 +13,26 @@
         <item name="android:textColor">@color/app_colour</item>
     </style>
 
-    <style name="MediumBanner">
+    <style name="Banner.Medium">
         <item name="android:textSize">@dimen/small_banner_text_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/app_yellow_main</item>
     </style>
 
-    <style name="Button" parent="android:Widget.Holo.Light.Button">
-
-    </style>
-
-    <style name="Button.Highlight">
-        <item name="android:background">@drawable/button_highlight</item>
-        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
-    </style>
-
-    <style name="LowBanner">
+    <style name="Banner.Low">
         <item name="android:layout_gravity">left|top</item>
         <item name="android:textSize">@dimen/low_banner_text_size</item>
         <item name="android:paddingLeft">4dp</item>
         <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+
+    <!-- Buttons -->
+
+    <style name="Button" parent="android:Widget.Holo.Light.Button" />
+
+    <style name="Button.Highlight">
+        <item name="android:background">@drawable/button_highlight</item>
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
     </style>
 
     <style name="Button.Action">
@@ -43,26 +47,26 @@
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
-    <style name="check_box" parent="android:Widget.CompoundButton.CheckBox">
+    <style name="CheckBox" parent="android:Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/apptheme_btn_check_holo_light</item>
     </style>
 
-    <style name="seek_bar" parent="android:Widget.Holo.Light.SeekBar">
+    <style name="SeekBar" parent="android:Widget.Holo.Light.SeekBar">
         <item name="android:progressDrawable">@drawable/apptheme_scrubber_progress_horizontal_holo_light</item>
         <item name="android:indeterminateDrawable">@drawable/apptheme_scrubber_progress_horizontal_holo_light</item>
         <item name="android:thumb">@drawable/apptheme_scrubber_control_selector_holo_light</item>
     </style>
 
-    <style name="progress_bar" parent="android:Widget.Holo.Light.ProgressBar.Horizontal">
+    <style name="ProgressBar" parent="android:Widget.Holo.Light.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/apptheme_progress_horizontal_holo_light</item>
         <item name="android:indeterminateDrawable">@drawable/apptheme_progress_indeterminate_horizontal_holo_light</item>
     </style>
 
-    <style name="list_view" parent="android:Widget.Holo.ListView">
+    <style name="ListView" parent="android:Widget.Holo.ListView">
         <item name="android:listSelector">@drawable/apptheme_list_selector_holo_light</item>
     </style>
 
-    <style name="spinner_item" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+    <style name="SpinnerItem" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
         <item name="android:textColor">#000000</item>
     </style>
 

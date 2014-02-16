@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/asset_name"
-        style="@style/MediumBanner"
+        style="@style/Banner.Medium"
         android:singleLine="true"
         android:ellipsize="end" />
 

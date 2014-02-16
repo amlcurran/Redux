@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/bbc_redux"
                 android:id="@+id/high_banner"
-                style="@style/HighBanner"
+                style="@style/Banner.High"
                 android:singleLine="true"
                 android:ellipsize="end" />
 
@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/low_banner"
-                style="@style/LowBanner"
+                style="@style/Banner.Low"
                 android:visibility="invisible" />
 
         </LinearLayout>
