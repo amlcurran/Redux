@@ -1,9 +1,5 @@
 package com.espiandev.redux;
 
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.widget.TextView;
-
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.auth.LoginFragment;
 import com.espiandev.redux.auth.TokenStorage;
@@ -24,6 +20,10 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
+
+import android.app.Fragment;
+import android.preference.PreferenceManager;
+import android.widget.TextView;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;

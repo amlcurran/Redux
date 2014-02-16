@@ -1,11 +1,9 @@
 package com.espiandev.redux;
 
 import android.app.DownloadManager;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.MediaRouteButton;
-import android.support.v7.media.MediaRouter;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.HurlStack;
@@ -17,8 +15,6 @@ import com.espiandev.redux.assets.AssetListFragment;
 import com.espiandev.redux.assets.AssetListParser;
 import com.espiandev.redux.auth.LoginFragment;
 import com.espiandev.redux.auth.SharedPreferencesTokenStorage;
-import com.espiandev.redux.cast.GoogleCastConnector;
-import com.espiandev.redux.cast.GoogleCastManager;
 import com.espiandev.redux.downloads.DownloadManagerDownloader;
 import com.espiandev.redux.navigation.FragmentManagerStacker;
 import com.espiandev.redux.network.VolleyNetworkHelper;
@@ -78,8 +74,8 @@ public class MainActivity extends BaseActivity {
         stacker = new FragmentManagerStacker(this);
         listParser = new AssetListParser();
         downloader = new DownloadManagerDownloader((DownloadManager) getSystemService(DOWNLOAD_SERVICE));
-        castManager = new GoogleCastManager(this, MediaRouter.getInstance(this),
-                ((MediaRouteButton) findViewById(R.id.media_route_buton)), new GoogleCastConnector(this, GoogleCastManager.APP_ID));
+//        castManager = new GoogleCastManager(this, MediaRouter.getInstance(this),
+//                ((MediaRouteButton) findViewById(R.id.media_route_buton)), new GoogleCastConnector(this, GoogleCastManager.APP_ID));
     }
 
 }

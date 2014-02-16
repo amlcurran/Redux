@@ -1,7 +1,7 @@
 package com.espiandev.redux.testing;
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 
 import com.espiandev.redux.BaseActivity;
 import com.espiandev.redux.R;
@@ -22,7 +22,7 @@ public class FragmentTestingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (fragment != null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.host_frame, fragment)
+            getFragmentManager().beginTransaction().add(R.id.host_frame, fragment)
                     .commit();
         }
     }

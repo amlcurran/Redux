@@ -32,12 +32,12 @@
                     android:visibility="invisible"/>
 
         </LinearLayout>
-        <view android:layout_width="64dp"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_vertical"
-              class="android.support.v7.app.MediaRouteButton"
-              style="@style/Theme.MediaRouter"
-              android:background="@drawable/button_highlight" android:id="@+id/media_route_buton"/>
+        <!--<view android:layout_width="64dp"-->
+              <!--android:layout_height="wrap_content"-->
+              <!--android:layout_gravity="center_vertical"-->
+              <!--class="android.support.v7.app.MediaRouteButton"-->
+              <!--style="@style/Theme.MediaRouter"-->
+              <!--android:background="@drawable/button_highlight" android:id="@+id/media_route_buton"/>-->
 
     </LinearLayout>
 
