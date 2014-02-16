@@ -6,7 +6,7 @@
 
     <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/image_action_host">
 
         <view android:layout_width="match_parent"
@@ -15,6 +15,27 @@
               android:id="@+id/asset_image_view"
               android:scaleType="centerCrop"/>
     </FrameLayout>
+
+    <Button
+        android:drawableLeft="@drawable/ic_button_play"
+        android:text="Play"
+        android:id="@+id/button_play"
+        style="@style/action_button"
+        android:paddingRight="@dimen/default_padding" />
+
+    <Button
+        android:drawableLeft="@drawable/ic_button_download"
+        android:text="Download"
+        android:id="@+id/button_download"
+        style="@style/action_button"
+        android:paddingRight="@dimen/default_padding" />
+
+    <Button
+        android:drawableLeft="@drawable/ic_button_cast"
+        android:text="Cast"
+        android:id="@+id/button_cast"
+        style="@style/action_button"
+        android:paddingRight="@dimen/default_padding" />
 
     <LinearLayout
             android:orientation="vertical"

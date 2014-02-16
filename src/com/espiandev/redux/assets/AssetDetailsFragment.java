@@ -1,13 +1,16 @@
 package com.espiandev.redux.assets;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.espiandev.redux.BasicFragment;
 import com.espiandev.redux.R;
@@ -16,6 +19,7 @@ import com.espiandev.redux.cast.CastManager;
 import com.espiandev.redux.cast.CastManagerProvider;
 import com.espiandev.redux.downloads.Downloader;
 import com.espiandev.redux.downloads.DownloaderProvider;
+import com.espiandev.redux.network.ReduxUrlHelper;
 import com.espiandev.redux.network.Responder;
 
 import java.text.DateFormat;
@@ -28,6 +32,9 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
     private TextView assetDescriptionView;
     private Downloader downloader;
     private CastManager castManager;
+    private View castButton;
+    private View playButton;
+    private View downloadButton;
 
     public static AssetDetailsFragment newInstance(Asset asset) {
         AssetDetailsFragment fragment = new AssetDetailsFragment();
@@ -43,6 +50,12 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
         assetImageView = (ImageView) view.findViewById(R.id.asset_image_view);
         assetImageView.setOnClickListener(this);
         assetImageView.setVisibility(View.INVISIBLE);
+        castButton = view.findViewById(R.id.button_cast);
+        playButton = view.findViewById(R.id.button_play);
+        downloadButton = view.findViewById(R.id.button_download);
+        castButton.setOnClickListener(this);
+        playButton.setOnClickListener(this);
+        downloadButton.setOnClickListener(this);
         assetDescriptionView = (TextView) view.findViewById(R.id.asset_description);
         assetDescriptionView.setText(getAsset().getDescription());
         return view;
@@ -92,15 +105,31 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
 
     @Override
     public void onClick(View view) {
+
+        if (view.equals(castButton)) {
+            onCastClick();
+        } else if (view.equals(downloadButton)) {
+            onDownloadClick();
+        } else if (view.equals(playButton)) {
+            onPlayClick();
+        }
+
+    }
+
+    private void onPlayClick() {
+        Uri playUri = Uri.parse(new ReduxUrlHelper().buildDownloadUrl(getAsset()));
+        startActivity(new Intent(Intent.ACTION_VIEW).setDataAndType(playUri, "video/mpeg"));
+    }
+
+    private void onDownloadClick() {
+        downloader.requestDownload(getAsset());
+    }
+
+    private void onCastClick() {
         if (castManager.canCast()) {
             castManager.playAsset(getAsset());
         } else {
-
+            Toast.makeText(getActivity(), R.string.not_currently_casting, Toast.LENGTH_SHORT).show();
         }
-        //downloader.requestDownload(getAsset());
-//        DownloadManager.Request request = new DownloadManager.Request(uri);
-//        request.setMimeType("video/mpeg")
-//                .setTitle(getAsset().getName());
-//        downloader.enqueue(request);
     }
 }

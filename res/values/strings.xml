@@ -17,4 +17,5 @@
     <string name="results_title">Query was \"%s\"</string>
     <string name="search_results">Search results</string>
     <string name="volley_error_invalid_cred">Authorisation expired</string>
+    <string name="not_currently_casting">Not currently casting</string>
 </resources>
