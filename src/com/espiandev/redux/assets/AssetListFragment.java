@@ -20,12 +20,10 @@ import java.util.ArrayList;
 public class AssetListFragment extends BasicFragment implements AdapterView.OnItemClickListener, Responder<String> {
 
     private static final String QUERY = "query";
-    private static final String ASSET_LIST = "assetList";
     public ArrayAdapter<Asset> adapter;
     private ListView listview;
     private AssetSelectionListener selectionListener;
     private AssetListParser assetListParser;
-    private ArrayList<Asset> assetList;
     private View loadingSpinner;
 
     public static AssetListFragment newInstance(String query) {
@@ -85,7 +83,7 @@ public class AssetListFragment extends BasicFragment implements AdapterView.OnIt
 
     @Override
     public void onSuccessResponse(String response) {
-        assetList = assetListParser.parseResultList(response);
+        ArrayList<Asset> assetList = assetListParser.parseResultList(response);
         adapter.addAll(assetList);
         animationFactory.downAndIn(listview);
         animationFactory.downAndOut(loadingSpinner);

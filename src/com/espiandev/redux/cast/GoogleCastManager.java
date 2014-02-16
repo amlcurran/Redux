@@ -1,6 +1,5 @@
 package com.espiandev.redux.cast;
 
-import android.content.Context;
 import android.support.v7.app.MediaRouteButton;
 import android.support.v7.media.MediaRouteSelector;
 import android.support.v7.media.MediaRouter;
@@ -22,16 +21,13 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
 
     public static final String APP_ID
             = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
-    private Context context;
     private MediaRouter mediaRouter;
     private MediaRouteButton routeButton;
     private CastConnector<CastDevice> connector;
     private RemoteController remoteController;
     private boolean canCast;
 
-    public GoogleCastManager(Context context, MediaRouter mediaRouter,
-                             MediaRouteButton routeButton, CastConnector<CastDevice> connector) {
-        this.context = context;
+    public GoogleCastManager(MediaRouter mediaRouter, MediaRouteButton routeButton, CastConnector<CastDevice> connector) {
         this.mediaRouter = mediaRouter;
         this.routeButton = routeButton;
         this.connector = connector;

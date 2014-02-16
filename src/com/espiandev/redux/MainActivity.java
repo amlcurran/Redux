@@ -77,7 +77,7 @@ public class MainActivity extends BaseActivity {
         stacker = new FragmentManagerStacker(this);
         listParser = new AssetListParser();
         downloader = new DownloadManagerDownloader((DownloadManager) getSystemService(DOWNLOAD_SERVICE));
-        castManager = new GoogleCastManager(this, MediaRouter.getInstance(this),
+        castManager = new GoogleCastManager(MediaRouter.getInstance(this),
                 null, new GoogleCastConnector(this, GoogleCastManager.APP_ID));
     }
 
