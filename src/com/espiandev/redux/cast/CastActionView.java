@@ -20,5 +20,6 @@ public class CastActionView extends ActionView {
     public CastActionView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         LayoutInflater.from(context).inflate(R.layout.view_action_cast, this, true);
+
     }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Redux" parent="@android:style/Theme.Holo.Light">
+        <item name="android:checkboxStyle">@style/check_box</item>
+        <item name="android:progressBarStyleHorizontal">@style/progress_bar</item>
+        <item name="android:seekBarStyle">@style/seek_bar</item>
+        <item name="android:listViewStyle">@style/list_view</item>
+        <item name="android:spinnerItemStyle">@style/spinner_item</item>
+    </style>
+
+    <style name="Theme.Redux.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+</resources>
