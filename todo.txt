@@ -1,0 +1,2 @@
+Investigate GSON
+Log-in remember credentials
