@@ -23,4 +23,6 @@
     <string name="cast">Cast</string>
     <string name="search_lowercase">search</string>
     <string name="share">Share</string>
+    <string name="remember_me">Remember me</string>
+    <string name="favourite">Favourite</string>
 </resources>

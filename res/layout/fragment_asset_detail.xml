@@ -47,11 +47,11 @@
                 android:id="@+id/button_cast"
                 style="@style/Button.Action" />
 
-            <!--<Button-->
-                <!--android:drawableTop="@drawable/ic_button_share_default"-->
-                <!--android:text="@string/share"-->
-                <!--android:id="@+id/button_share"-->
-                <!--style="@style/Button.Action" />-->
+            <Button
+                android:drawableTop="@drawable/ic_button_favourite"
+                android:text="@string/favourite"
+                android:id="@+id/button_share"
+                style="@style/Button.Action" />
 
         </LinearLayout>
 

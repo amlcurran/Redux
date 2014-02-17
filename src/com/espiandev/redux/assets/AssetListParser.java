@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class AssetListParser {
 
     public ArrayList<Asset> parseResultList(String jsonString) {
-        ArrayList<Asset> result = new ArrayList<>();
+        ArrayList<Asset> result = new ArrayList<Asset>();
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray assetArray = jsonObject.getJSONObject("results").getJSONArray("assets");
