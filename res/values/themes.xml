@@ -14,4 +14,12 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.Redux.Dialog" parent="android:style/Theme.Holo.Light.Dialog">
+        <item name="android:checkboxStyle">@style/CheckBox</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBar</item>
+        <item name="android:seekBarStyle">@style/SeekBar</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
+        <item name="android:editTextStyle">@style/EditText</item>
+    </style>
+
 </resources>
