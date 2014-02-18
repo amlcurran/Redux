@@ -2,7 +2,7 @@ package com.espiandev.redux.cast;
 
 import android.view.View;
 
-import com.espiandev.redux.cast.ui.CastButton;
+import com.espiandev.redux.cast.ui.CastActivityButton;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,11 +18,11 @@ import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = "AndroidManifest.xml")
-public class CastButtonTest {
+public class CastActivityButtonTest {
 
     @Test
     public void testWhenSomeCastDevicesAreFound_TheButtonIsVisible() {
-        CastButton button = new CastButton(Robolectric.application);
+        CastActivityButton button = new CastActivityButton(Robolectric.application);
 
         List<CastableDevice> routeInfoList = mock(List.class);
         when(routeInfoList.size()).thenReturn(3);
@@ -34,7 +34,7 @@ public class CastButtonTest {
 
     @Test
     public void testWhenNoCastDevicesAreFound_TheButtonIsNotVisible() {
-        CastButton button = new CastButton(Robolectric.application);
+        CastActivityButton button = new CastActivityButton(Robolectric.application);
 
         List<CastableDevice> routeInfoList = mock(List.class);
         when(routeInfoList.size()).thenReturn(0);

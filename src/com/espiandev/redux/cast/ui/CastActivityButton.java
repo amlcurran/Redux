@@ -10,17 +10,17 @@ import com.espiandev.redux.cast.CastableDevice;
 
 import java.util.List;
 
-public class CastButton extends ImageView implements CastActivityIndicator {
+public class CastActivityButton extends ImageView implements CastActivityIndicator {
 
-    public CastButton(Context context) {
+    public CastActivityButton(Context context) {
         this(context, null, 0);
     }
 
-    public CastButton(Context context, AttributeSet attrs) {
+    public CastActivityButton(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CastButton(Context context, AttributeSet attrs, int defStyle) {
+    public CastActivityButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }

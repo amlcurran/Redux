@@ -1,12 +1,12 @@
 package com.espiandev.redux.cast;
 
+import android.os.Bundle;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import android.os.Bundle;
-
 /**
- * Created by Alex Curran on 14/02/2014.
+ * Helper class that wraps all the different Api connection callbacks into one
  */
 public class ConnectionHandler implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
