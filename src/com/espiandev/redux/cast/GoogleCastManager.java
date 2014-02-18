@@ -1,6 +1,5 @@
 package com.espiandev.redux.cast;
 
-import android.support.v7.app.MediaRouteButton;
 import android.support.v7.media.MediaRouteSelector;
 import android.support.v7.media.MediaRouter;
 
@@ -12,6 +11,9 @@ import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.RemoteMediaPlayer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Alex Curran on 14/02/2014.
  */
@@ -22,14 +24,15 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
     public static final String APP_ID
             = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
     private MediaRouter mediaRouter;
-    private MediaRouteButton routeButton;
+    private CastActivityIndicator routeIndicator;
     private CastConnector<CastDevice> connector;
     private RemoteController remoteController;
     private boolean canCast;
+    private final List<MediaRouter.RouteInfo> routeInfoList = new ArrayList<>();
 
-    public GoogleCastManager(MediaRouter mediaRouter, MediaRouteButton routeButton, CastConnector<CastDevice> connector) {
+    public GoogleCastManager(MediaRouter mediaRouter, CastActivityIndicator routeIndicator, CastConnector<CastDevice> connector) {
         this.mediaRouter = mediaRouter;
-        this.routeButton = routeButton;
+        this.routeIndicator = routeIndicator;
         this.connector = connector;
         this.connector.setCallbacks(this);
     }
@@ -37,9 +40,6 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
     @Override
     public void resumeScanning() {
         MediaRouteSelector selector = createSelector();
-        if (routeButton != null) {
-            routeButton.setRouteSelector(selector);
-        }
         mediaRouter.addCallback(selector, this, MediaRouter.CALLBACK_FLAG_PERFORM_ACTIVE_SCAN);
     }
 
@@ -71,6 +71,20 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
         return new MediaRouteSelector.Builder()
                 .addControlCategory(CastMediaControlIntent.categoryForCast(APP_ID))
                 .build();
+    }
+
+    @Override
+    public void onRouteAdded(MediaRouter router, MediaRouter.RouteInfo route) {
+        if (!routeInfoList.contains(route)) {
+            routeInfoList.add(route);
+        }
+        routeIndicator.onCastDevicesFound(routeInfoList);
+    }
+
+    @Override
+    public void onRouteRemoved(MediaRouter router, MediaRouter.RouteInfo route) {
+        routeInfoList.remove(route);
+        routeIndicator.onCastDevicesFound(routeInfoList);
     }
 
     @Override

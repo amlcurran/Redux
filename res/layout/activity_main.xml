@@ -5,35 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/title_host">
+        android:id="@+id/title_host"
+        android:padding="@dimen/default_padding">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <view
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            class="com.espiandev.redux.cast.CastButton"
+            android:id="@+id/cast_button_main"
+            android:scaleType="centerInside"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="true"
+            android:layout_alignBottom="@+id/high_banner"
+            android:layout_alignTop="@+id/high_banner"
+            android:layout_alignParentRight="true" />
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/default_padding">
+            android:text="@string/bbc_redux"
+            android:id="@+id/high_banner"
+            style="@style/Banner.High"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_toLeftOf="@+id/view" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/bbc_redux"
-                android:id="@+id/high_banner"
-                style="@style/Banner.High"
-                android:singleLine="true"
-                android:ellipsize="end" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/low_banner"
-                style="@style/Banner.Low"
-                android:visibility="invisible" />
-
-        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/low_banner"
+            style="@style/Banner.Low"
+            android:visibility="invisible"
+            android:layout_below="@+id/high_banner" />
         <!--<view android:layout_width="64dp"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_gravity="center_vertical"-->
@@ -41,7 +47,7 @@
         <!--style="@style/Theme.MediaRouter"-->
         <!--android:background="@drawable/button_highlight" android:id="@+id/media_route_buton"/>-->
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
