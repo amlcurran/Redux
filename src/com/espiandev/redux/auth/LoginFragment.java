@@ -65,6 +65,8 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
         super.onAttach(activity);
         if (activity instanceof TokenStorageProvider) {
             tokenStorage = ((TokenStorageProvider) activity).getTokenStorage();
+            usernameField.setText(tokenStorage.getUsername());
+            passwordField.setText(tokenStorage.getPassword());
         }
         if (activity instanceof AuthListener) {
             authListener = (AuthListener) activity;
