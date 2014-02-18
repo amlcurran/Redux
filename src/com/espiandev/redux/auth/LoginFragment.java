@@ -1,12 +1,5 @@
 package com.espiandev.redux.auth;
 
-import com.android.volley.AuthFailureError;
-import com.espiandev.redux.BasicFragment;
-import com.espiandev.redux.R;
-import com.espiandev.redux.ResourceStringProvider;
-import com.espiandev.redux.network.NetworkErrorTranslator;
-import com.espiandev.redux.network.Responder;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -15,9 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.android.volley.AuthFailureError;
+import com.espiandev.redux.BasicFragment;
+import com.espiandev.redux.R;
+import com.espiandev.redux.ResourceStringProvider;
+import com.espiandev.redux.network.NetworkErrorTranslator;
+import com.espiandev.redux.network.Responder;
 
 public class LoginFragment extends BasicFragment implements Responder<String> {
 
@@ -25,6 +27,7 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
     private EditText passwordField;
     private ProgressBar loadingSpinner;
     private View credentialsHost;
+    private Checkable rememberMeCheckBox;
     private TokenStorage tokenStorage;
     private AuthListener authListener;
     private final Validator validator;
@@ -51,6 +54,7 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
         });
         loadingSpinner = (ProgressBar) view.findViewById(R.id.spinner);
         credentialsHost = view.findViewById(R.id.login_credentials_host);
+        rememberMeCheckBox = (CheckBox) view.findViewById(R.id.login_remember_me);
         Button submitButton = (Button) view.findViewById(R.id.login_submit);
         submitButton.setOnClickListener(submitClickListener);
         return view;
@@ -95,6 +99,9 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
         animationFactory.upAndOut(credentialsHost);
         animationFactory.upAndIn(loadingSpinner);
         networkHelper.login(username, password, this);
+        if (rememberMeCheckBox.isChecked()) {
+            tokenStorage.storeCredentials(username, password);
+        }
     }
 
     @Override

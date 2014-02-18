@@ -5,4 +5,5 @@ public interface TokenStorage {
     boolean hasToken();
     String getToken();
     String extractToken(String jsonResponseString);
+    void storeCredentials(String username, String password);
 }

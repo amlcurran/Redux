@@ -1,5 +1,8 @@
 package com.espiandev.redux.auth;
 
+import android.widget.CheckBox;
+import android.widget.TextView;
+
 import com.android.volley.AuthFailureError;
 import com.espiandev.redux.R;
 import com.espiandev.redux.network.InvalidPasswordError;
@@ -10,8 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-
-import android.widget.TextView;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -156,6 +157,15 @@ public class LoginFragmentTest extends BaseFragmentTest<LoginFragment>{
         String expected = activity.getString(R.string.volley_error_wrong_password);
 
         assertEquals(expected, activity.getTitleHostSubtitle());
+    }
+
+    @Test
+    public void testIfRememberMeIsTicked_ThenTheCredentialsAreStored() {
+        setUpValidCredentials();
+        ((CheckBox) activity.findViewById(R.id.login_remember_me)).setChecked(true);
+
+        clickSubmitButton();
+        verify(mockTokenStorage).storeCredentials(VALID_USERNAME, VALID_PASSWORD);
     }
 
     private void setUpValidCredentials() {

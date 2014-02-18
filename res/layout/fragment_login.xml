@@ -40,8 +40,7 @@
             android:text="@string/login"
             android:id="@+id/login_submit"
             android:layout_marginTop="4dp"
-            style="@style/Button.Highlight"
-            android:layout_alignParentStart="true" />
+            style="@style/Button.Highlight" />
 
         <CheckBox
                 android:layout_width="match_parent"
@@ -49,7 +48,7 @@
                 android:layout_marginTop="4dp"
                 android:textColor="@android:color/darker_gray"
                 android:text="@string/remember_me"
-                android:id="@+id/checkBox"/>
+                android:id="@+id/login_remember_me"/>
 
     </LinearLayout>
 
