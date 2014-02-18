@@ -1,4 +1,4 @@
-package com.espiandev.redux.cast;
+package com.espiandev.redux.cast.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;

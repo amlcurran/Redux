@@ -4,6 +4,7 @@ import android.support.v7.media.MediaRouteSelector;
 import android.support.v7.media.MediaRouter;
 
 import com.espiandev.redux.assets.Asset;
+import com.espiandev.redux.cast.ui.CastActivityIndicator;
 import com.espiandev.redux.network.ReduxUrlHelper;
 import com.google.android.gms.cast.CastDevice;
 import com.google.android.gms.cast.CastMediaControlIntent;
@@ -28,7 +29,7 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
     private CastConnector<CastDevice> connector;
     private RemoteController remoteController;
     private boolean canCast;
-    private final List<MediaRouter.RouteInfo> routeInfoList = new ArrayList<>();
+    private final List<CastableDevice> routeInfoList = new ArrayList<>();
 
     public GoogleCastManager(MediaRouter mediaRouter, CastActivityIndicator routeIndicator, CastConnector<CastDevice> connector) {
         this.mediaRouter = mediaRouter;
@@ -75,15 +76,17 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
 
     @Override
     public void onRouteAdded(MediaRouter router, MediaRouter.RouteInfo route) {
-        if (!routeInfoList.contains(route)) {
-            routeInfoList.add(route);
+        GoogleCastableDevice device = new GoogleCastableDevice(route);
+        if (!routeInfoList.contains(device)) {
+            routeInfoList.add(device);
         }
         routeIndicator.onCastDevicesFound(routeInfoList);
     }
 
     @Override
     public void onRouteRemoved(MediaRouter router, MediaRouter.RouteInfo route) {
-        routeInfoList.remove(route);
+        GoogleCastableDevice device = new GoogleCastableDevice(route);
+        routeInfoList.remove(device);
         routeIndicator.onCastDevicesFound(routeInfoList);
     }
 

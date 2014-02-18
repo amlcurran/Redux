@@ -14,7 +14,7 @@
         <view
             android:layout_width="64dp"
             android:layout_height="match_parent"
-            class="com.espiandev.redux.cast.CastButton"
+            class="com.espiandev.redux.cast.ui.CastButton"
             android:id="@+id/cast_button_main"
             android:scaleType="centerInside"
             android:layout_alignParentLeft="false"

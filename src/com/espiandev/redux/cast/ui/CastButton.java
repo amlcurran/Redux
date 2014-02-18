@@ -1,11 +1,12 @@
-package com.espiandev.redux.cast;
+package com.espiandev.redux.cast.ui;
 
 import android.content.Context;
-import android.support.v7.media.MediaRouter;
 import android.support.v7.mediarouter.R;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.espiandev.redux.cast.CastableDevice;
 
 import java.util.List;
 
@@ -30,22 +31,22 @@ public class CastButton extends ImageView implements CastActivityIndicator {
     }
 
     @Override
-    public void onCastDevicesFound(List<MediaRouter.RouteInfo> routes) {
+    public void onCastDevicesFound(List<CastableDevice> routes) {
         setVisibility(routes.size() == 0 ? View.INVISIBLE : View.VISIBLE);
     }
 
     @Override
-    public void onCastDeviceConnecting(MediaRouter.RouteInfo route) {
+    public void onCastDeviceConnecting(CastableDevice route) {
 
     }
 
     @Override
-    public void onCastDeviceConnected(MediaRouter.RouteInfo route) {
+    public void onCastDeviceConnected(CastableDevice route) {
 
     }
 
     @Override
-    public void onCastDeviceDisconnected(MediaRouter.RouteInfo route) {
+    public void onCastDeviceDisconnected(CastableDevice route) {
 
     }
 }
