@@ -54,4 +54,14 @@ public class SharedPreferencesTokenStorage implements TokenStorage {
                 .remove(KEY_AUTH_PASSWORD)
                 .apply();
     }
+
+    @Override
+    public String getUsername() {
+        return preferences.getString(KEY_AUTH_USERNAME, null);
+    }
+
+    @Override
+    public String getPassword() {
+        return preferences.getString(KEY_AUTH_PASSWORD, null);
+    }
 }
