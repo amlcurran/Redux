@@ -6,4 +6,5 @@ public interface TokenStorage {
     String getToken();
     String extractToken(String jsonResponseString);
     void storeCredentials(String username, String password);
+    void purgeCredentials();
 }

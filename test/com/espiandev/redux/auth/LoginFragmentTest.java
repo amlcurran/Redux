@@ -168,6 +168,15 @@ public class LoginFragmentTest extends BaseFragmentTest<LoginFragment>{
         verify(mockTokenStorage).storeCredentials(VALID_USERNAME, VALID_PASSWORD);
     }
 
+    @Test
+    public void testIfRememberMeIsNotTicked_TheCredentialsArePurged() {
+        setUpValidCredentials();
+        ((CheckBox) activity.findViewById(R.id.login_remember_me)).setChecked(false);
+
+        clickSubmitButton();
+        verify(mockTokenStorage).purgeCredentials();
+    }
+
     private void setUpValidCredentials() {
         ((TextView) activity.findViewById(R.id.login_username)).setText(VALID_USERNAME);
         ((TextView) activity.findViewById(R.id.login_password)).setText(VALID_PASSWORD);

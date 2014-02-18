@@ -47,4 +47,11 @@ public class SharedPreferencesTokenStorage implements TokenStorage {
                 .putString(KEY_AUTH_PASSWORD, password)
                 .apply();
     }
+
+    @Override
+    public void purgeCredentials() {
+        preferences.edit().remove(KEY_AUTH_USERNAME)
+                .remove(KEY_AUTH_PASSWORD)
+                .apply();
+    }
 }

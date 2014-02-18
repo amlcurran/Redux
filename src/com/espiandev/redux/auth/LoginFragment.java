@@ -101,6 +101,8 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
         networkHelper.login(username, password, this);
         if (rememberMeCheckBox.isChecked()) {
             tokenStorage.storeCredentials(username, password);
+        } else {
+            tokenStorage.purgeCredentials();
         }
     }
 
