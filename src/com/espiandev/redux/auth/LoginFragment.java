@@ -65,14 +65,19 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
         super.onAttach(activity);
         if (activity instanceof TokenStorageProvider) {
             tokenStorage = ((TokenStorageProvider) activity).getTokenStorage();
-            usernameField.setText(tokenStorage.getUsername());
-            passwordField.setText(tokenStorage.getPassword());
         }
         if (activity instanceof AuthListener) {
             authListener = (AuthListener) activity;
         } else {
             throw new ClassCastException("Host of LoginFragment must implement AuthListener");
         }
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        usernameField.setText(tokenStorage.getUsername());
+        passwordField.setText(tokenStorage.getPassword());
     }
 
     @Override

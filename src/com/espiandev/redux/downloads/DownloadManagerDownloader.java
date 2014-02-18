@@ -24,7 +24,7 @@ public class DownloadManagerDownloader implements Downloader {
     public long requestDownload(Asset asset) {
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(urlHelper.buildDownloadUrl(asset)));
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MOVIES, getSubPath(asset));
-        request.setMimeType("video/mp4").setTitle(asset.getName());
+        request.setMimeType("video/mpeg").setTitle(asset.getName());
         return downloadManager.enqueue(request);
     }
 
@@ -33,7 +33,7 @@ public class DownloadManagerDownloader implements Downloader {
         DownloadManager.Query query = new DownloadManager.Query();
         query.setFilterById(id);
         Cursor result = downloadManager.query(query);
-        if (result.getCount() > 0) {
+        if (result != null && result.getCount() > 0) {
             result.moveToFirst();
             checkIfDownloadCompleted(id, result, progressListener);
         }
