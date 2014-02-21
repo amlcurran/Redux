@@ -2,6 +2,7 @@ package com.espiandev.redux.auth;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,6 +79,7 @@ public class LoginFragment extends BasicFragment implements Responder<String> {
         super.onActivityCreated(savedInstanceState);
         usernameField.setText(tokenStorage.getUsername());
         passwordField.setText(tokenStorage.getPassword());
+        rememberMeCheckBox.setChecked(!TextUtils.isEmpty(tokenStorage.getUsername()));
     }
 
     @Override
