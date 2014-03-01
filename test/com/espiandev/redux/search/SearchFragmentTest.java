@@ -50,6 +50,11 @@ public class SearchFragmentTest extends BaseFragmentTest<SearchFragment> {
         assertTrue(activity.onSearchResultCalled);
     }
 
+    @Test
+    public void testWhenActivityCreated_PreviousSearchResultsAreSetOnTheListView() {
+        assertEquals(PreviousResultsAdapter.class, fragment.previousResultsList.getAdapter().getClass());
+    }
+
     private void setSearchQuery(String query) {
         ((TextView) activity.findViewById(R.id.search_query)).setText(query);
     }

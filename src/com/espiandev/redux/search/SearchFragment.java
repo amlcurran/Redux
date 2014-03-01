@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.espiandev.redux.BasicFragment;
@@ -23,6 +24,8 @@ public class SearchFragment extends BasicFragment {
     private View loadingSpinner;
     private View queryHost;
     private SearchListener searchListener;
+    public ListView previousResultsList;
+    private PreviousResultsAdapter previousResultsAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,6 +36,9 @@ public class SearchFragment extends BasicFragment {
         loadingSpinner = view.findViewById(R.id.spinner);
         queryHost = view.findViewById(R.id.search_query_host);
         queryField.requestFocusFromTouch();
+        previousResultsAdapter = new PreviousResultsAdapter();
+        previousResultsList = (ListView) view.findViewById(R.id.search_previous_results);
+        previousResultsList.setAdapter(previousResultsAdapter);
         return view;
     }
 
