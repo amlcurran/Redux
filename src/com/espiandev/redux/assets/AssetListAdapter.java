@@ -28,4 +28,9 @@ public class AssetListAdapter extends ArrayAdapter<Asset> {
 
         return convertView;
     }
+
+    @Override
+    public boolean hasStableIds() {
+        return true;
+    }
 }

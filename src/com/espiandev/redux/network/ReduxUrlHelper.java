@@ -11,6 +11,7 @@ public class ReduxUrlHelper {
     private static final String PATH_SEARCH = "asset/search";
     private static final String IMAGE_PATH = "asset/media/%1$s/%2$s/JPEG-1280x/image.jpg";
     private static final String DOWNLOAD_PATH = "asset/media/%1$s/%2$s/h264_mp4_hi_v1.1/%3$s.mp4";
+    public static final int PAGE_SIZE = 20;
 
     public String buildLoginUrl(String username, String password) {
         return String.valueOf(getBaseUrl()
@@ -20,11 +21,12 @@ public class ReduxUrlHelper {
                 .build());
     }
 
-    public String buildSearchUrl(String query, String token) {
+    public String buildSearchUrl(String query, String token, int resultPage) {
         return String.valueOf(getBaseUrl().path(PATH_SEARCH)
                 .appendQueryParameter("q", query)
                 .appendQueryParameter("token", token)
-                .appendQueryParameter("limit", "20").build());
+                .appendQueryParameter("offset", String.valueOf(resultPage * PAGE_SIZE))
+                .appendQueryParameter("limit", String.valueOf(PAGE_SIZE)).build());
     }
 
     private Uri.Builder getBaseUrl() {

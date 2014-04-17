@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -17,7 +18,7 @@ import com.espiandev.redux.network.Responder;
 
 import java.util.ArrayList;
 
-public class AssetListFragment extends BasicFragment implements AdapterView.OnItemClickListener, Responder<String> {
+public class AssetListFragment extends BasicFragment implements AdapterView.OnItemClickListener, Responder<String>, AbsListView.OnScrollListener {
 
     private static final String QUERY = "query";
     public ArrayAdapter<Asset> adapter;
@@ -25,6 +26,8 @@ public class AssetListFragment extends BasicFragment implements AdapterView.OnIt
     private AssetSelectionListener selectionListener;
     private AssetListParser assetListParser;
     private View loadingSpinner;
+    private int pagesLoaded = 0;
+    private boolean isLoading;
 
     public static AssetListFragment newInstance(String query) {
         AssetListFragment fragment = new AssetListFragment();
@@ -47,10 +50,15 @@ public class AssetListFragment extends BasicFragment implements AdapterView.OnIt
         super.onActivityCreated(savedInstanceState);
         adapter = new AssetListAdapter(getActivity(), new ArrayList<Asset>());
         listview.setAdapter(adapter);
+        listview.setOnScrollListener(this);
         listview.setOnItemClickListener(this);
-        networkHelper.search(getArguments().getString(QUERY), this, 0);
+        networkHelper.search(getQuery(), this, 0);
         animationFactory.upAndOut(listview);
         animationFactory.upAndIn(loadingSpinner);
+    }
+
+    private String getQuery() {
+        return getArguments().getString(QUERY);
     }
 
     @Override
@@ -68,7 +76,7 @@ public class AssetListFragment extends BasicFragment implements AdapterView.OnIt
 
     @Override
     public CharSequence getHostedSubtitle(ResourceStringProvider stringProvider) {
-        return stringProvider.getString(R.string.results_title, getArguments().getString(QUERY));
+        return stringProvider.getString(R.string.results_title, getQuery());
     }
 
     @Override
@@ -83,18 +91,36 @@ public class AssetListFragment extends BasicFragment implements AdapterView.OnIt
 
     @Override
     public void onSuccessResponse(String response) {
+        isLoading = false;
         ArrayList<Asset> assetList = assetListParser.parseResultList(response);
         adapter.addAll(assetList);
-        animationFactory.downAndIn(listview);
-        animationFactory.downAndOut(loadingSpinner);
+        pagesLoaded++;
+        if (pagesLoaded == 1) {
+            animationFactory.downAndIn(listview);
+            animationFactory.downAndOut(loadingSpinner);
+        }
     }
 
     @Override
     public void onErrorResponse(Exception error) {
+        isLoading = false;
         titleHost.setSubtitle(NetworkErrorTranslator.getErrorString(this, error));
         animationFactory.downAndIn(listview);
         animationFactory.downAndOut(loadingSpinner);
         handleError(error);
     }
 
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        // start loading more when there are five visible below the last screen
+        if (firstVisibleItem > totalItemCount - visibleItemCount - 5 && !isLoading) {
+            networkHelper.search(getQuery(), this, pagesLoaded + 1);
+            isLoading = true;
+        }
+    }
 }
