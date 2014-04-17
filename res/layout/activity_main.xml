@@ -31,7 +31,7 @@
             style="@style/Banner.High"
             android:singleLine="true"
             android:ellipsize="end"
-            android:layout_toLeftOf="@+id/view" />
+            android:layout_toLeftOf="@+id/cast_button_main" />
 
         <TextView
             android:layout_width="match_parent"
@@ -39,13 +39,20 @@
             android:id="@+id/low_banner"
             style="@style/Banner.Low"
             android:visibility="invisible"
-            android:layout_below="@+id/high_banner" />
-        <!--<view android:layout_width="64dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--class="android.support.v7.app.MediaRouteButton"-->
-        <!--style="@style/Theme.MediaRouter"-->
-        <!--android:background="@drawable/button_highlight" android:id="@+id/media_route_buton"/>-->
+            android:layout_below="@+id/high_banner"
+            android:layout_toLeftOf="@+id/media_route_buton" />
+
+        <view
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            class="android.support.v7.app.MediaRouteButton"
+            style="@style/Theme.MediaRouter"
+            android:background="@drawable/button_highlight"
+            android:id="@+id/media_route_buton"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 

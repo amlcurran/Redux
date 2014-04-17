@@ -20,6 +20,14 @@
                 class="com.espiandev.redux.view.FixedImageView"
                 android:id="@+id/asset_image_view"
                 android:scaleType="centerCrop" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pause"
+                android:id="@+id/cast_pause"
+                android:layout_gravity="center" />
+
         </FrameLayout>
 
         <LinearLayout

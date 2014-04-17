@@ -1,10 +1,10 @@
 package com.espiandev.redux.cast;
 
+import android.support.v7.app.MediaRouteButton;
 import android.support.v7.media.MediaRouteSelector;
 import android.support.v7.media.MediaRouter;
 
 import com.espiandev.redux.assets.Asset;
-import com.espiandev.redux.cast.ui.CastActivityIndicator;
 import com.espiandev.redux.network.ReduxUrlHelper;
 import com.google.android.gms.cast.CastDevice;
 import com.google.android.gms.cast.CastMediaControlIntent;
@@ -24,23 +24,24 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
 
     public static final String APP_ID
             = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
+    private final MediaRouteButton mediaRouteButton;
     private MediaRouter mediaRouter;
-    private CastActivityIndicator routeIndicator;
     private CastConnector<CastDevice> connector;
     private RemoteController remoteController;
     private boolean canCast;
     private final List<CastableDevice> routeInfoList = new ArrayList<>();
 
-    public GoogleCastManager(MediaRouter mediaRouter, CastActivityIndicator routeIndicator, CastConnector<CastDevice> connector) {
+    public GoogleCastManager(MediaRouter mediaRouter, MediaRouteButton mediaRouteButton, CastConnector<CastDevice> connector) {
         this.mediaRouter = mediaRouter;
-        this.routeIndicator = routeIndicator;
         this.connector = connector;
         this.connector.setCallbacks(this);
+        this.mediaRouteButton = mediaRouteButton;
     }
 
     @Override
     public void resumeScanning() {
         MediaRouteSelector selector = createSelector();
+        mediaRouteButton.setRouteSelector(selector);
         mediaRouter.addCallback(selector, this, MediaRouter.CALLBACK_FLAG_PERFORM_ACTIVE_SCAN);
     }
 
@@ -50,7 +51,7 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
     }
 
     @Override
-    public void playAsset(Asset asset) {
+    public RemoteController playAsset(Asset asset) {
         if (canCast()) {
             MediaMetadata mediaMetadata = new MediaMetadata();
             mediaMetadata.putString(MediaMetadata.KEY_TITLE, asset.getName());
@@ -60,7 +61,9 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
                     .setMetadata(mediaMetadata)
                     .build();
             remoteController.load(mediaInfo);
+            return remoteController;
         }
+        return null;
     }
 
     @Override
@@ -80,14 +83,14 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
         if (!routeInfoList.contains(device)) {
             routeInfoList.add(device);
         }
-        routeIndicator.onCastDevicesFound(routeInfoList);
+        //routeIndicator.onCastDevicesFound(routeInfoList);
     }
 
     @Override
     public void onRouteRemoved(MediaRouter router, MediaRouter.RouteInfo route) {
         GoogleCastableDevice device = new GoogleCastableDevice(route);
         routeInfoList.remove(device);
-        routeIndicator.onCastDevicesFound(routeInfoList);
+        //routeIndicator.onCastDevicesFound(routeInfoList);
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import com.espiandev.redux.R;
 import com.espiandev.redux.ResourceStringProvider;
 import com.espiandev.redux.cast.CastManager;
 import com.espiandev.redux.cast.CastManagerProvider;
+import com.espiandev.redux.cast.RemoteController;
 import com.espiandev.redux.downloads.Downloader;
 import com.espiandev.redux.downloads.DownloaderProvider;
 import com.espiandev.redux.network.ReduxUrlHelper;
@@ -31,6 +33,8 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
     private DateFormat dateFormat = new SimpleDateFormat("E dd MMM yyyy 'at' HH:mm");
     private Downloader downloader;
     private CastManager castManager;
+    private RemoteController remoteController;
+    private Button castPauseButton;
 
     public static AssetDetailsFragment newInstance(Asset asset) {
         AssetDetailsFragment fragment = new AssetDetailsFragment();
@@ -46,6 +50,8 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
         assetImageView = (ImageView) view.findViewById(R.id.asset_image_view);
         assetImageView.setOnClickListener(this);
         assetImageView.setVisibility(View.INVISIBLE);
+        castPauseButton = (Button) view.findViewById(R.id.cast_pause);
+        castPauseButton.setOnClickListener(this);
         View castButton = view.findViewById(R.id.button_cast);
         View playButton = view.findViewById(R.id.button_play);
         View downloadButton = view.findViewById(R.id.button_download);
@@ -116,6 +122,10 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
                 onPlayClick();
                 break;
 
+            case R.id.cast_pause:
+                remoteController.pause();
+                break;
+
         }
 
     }
@@ -131,9 +141,16 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
 
     private void onCastClick() {
         if (castManager.canCast()) {
-            castManager.playAsset(getAsset());
+            remoteController = castManager.playAsset(getAsset());
+            if (remoteController != null) {
+                showPauseButton();
+            }
         } else {
             Toast.makeText(getActivity(), R.string.not_currently_casting, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void showPauseButton() {
+        castPauseButton.setVisibility(View.VISIBLE);
     }
 }

@@ -4,6 +4,7 @@ import android.app.DownloadManager;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.MediaRouteButton;
 import android.support.v7.media.MediaRouter;
 
 import com.android.volley.RequestQueue;
@@ -16,7 +17,6 @@ import com.espiandev.redux.assets.AssetListFragment;
 import com.espiandev.redux.assets.AssetListParser;
 import com.espiandev.redux.auth.LoginFragment;
 import com.espiandev.redux.auth.SharedPreferencesTokenStorage;
-import com.espiandev.redux.cast.ui.CastActivityButton;
 import com.espiandev.redux.cast.GoogleCastConnector;
 import com.espiandev.redux.cast.GoogleCastManager;
 import com.espiandev.redux.downloads.DownloadManagerDownloader;
@@ -78,8 +78,8 @@ public class MainActivity extends BaseActivity {
         stacker = new FragmentManagerStacker(this);
         listParser = new AssetListParser();
         downloader = new DownloadManagerDownloader((DownloadManager) getSystemService(DOWNLOAD_SERVICE));
-        castManager = new GoogleCastManager(MediaRouter.getInstance(this),
-                ((CastActivityButton) findViewById(R.id.cast_button_main)), new GoogleCastConnector(this, GoogleCastManager.APP_ID));
+        castManager = new GoogleCastManager(MediaRouter.getInstance(this), (MediaRouteButton) findViewById(R.id.media_route_buton),
+                new GoogleCastConnector(this, GoogleCastManager.APP_ID));
     }
 
 }
