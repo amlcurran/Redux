@@ -1,7 +1,7 @@
 package com.espiandev.redux;
 
-import android.app.Fragment;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.widget.TextView;
 
 import com.espiandev.redux.animation.AnimationFactory;

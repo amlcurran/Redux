@@ -1,6 +1,6 @@
 package com.espiandev.redux.testing;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 
 import com.espiandev.redux.animation.AnimationFactory;
 import com.espiandev.redux.assets.AssetListParser;

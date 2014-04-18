@@ -1,9 +1,9 @@
 package com.espiandev.redux;
 
 import android.app.DownloadManager;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.MediaRouteButton;
 import android.support.v7.media.MediaRouter;
 

@@ -1,6 +1,6 @@
 package com.espiandev.redux.navigation;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 
 /**
  * Created by Alex Curran on 10/02/2014.
