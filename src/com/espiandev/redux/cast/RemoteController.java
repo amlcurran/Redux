@@ -7,4 +7,23 @@ public interface RemoteController {
     void play();
     void pause();
     void seekTo(long millis);
+    void setListener(Listener listener);
+
+    interface Listener {
+        Listener NONE = new Listener() {
+            @Override
+            public void onPaused() {
+
+            }
+
+            @Override
+            public void onResumed() {
+
+            }
+        };
+
+        void onPaused();
+        void onResumed();
+    }
+
 }

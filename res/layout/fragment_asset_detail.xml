@@ -28,6 +28,13 @@
                 android:id="@+id/cast_pause"
                 android:layout_gravity="center" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Play"
+                android:id="@+id/cast_play"
+                android:layout_gravity="center" />
+
         </FrameLayout>
 
         <LinearLayout
