@@ -28,8 +28,6 @@ import javax.net.ssl.SSLSocketFactory;
 
 public class MainActivity extends BaseActivity {
 
-    private MediaRouter mediaRouter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,9 +78,11 @@ public class MainActivity extends BaseActivity {
         stacker = new FragmentManagerStacker(this);
         listParser = new AssetListParser();
         downloader = new DownloadManagerDownloader((DownloadManager) getSystemService(DOWNLOAD_SERVICE));
+        MediaRouter mediaRouter = MediaRouter.getInstance(this);
+
         MediaRouteButtonPlus mediaRouteButton = (MediaRouteButtonPlus) findViewById(R.id.media_route_button);
-        mediaRouter = MediaRouter.getInstance(this);
         mediaRouteButton.setMediaRouter(mediaRouter);
+
         castManager = new GoogleCastManager(mediaRouter, mediaRouteButton,
                 new GoogleCastConnector(this, GoogleCastManager.APP_ID));
     }

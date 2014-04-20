@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,7 +10,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/title_host"
         android:animateLayoutChanges="true"
-        android:padding="@dimen/default_padding">
+        android:padding="@dimen/default_padding"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -45,8 +49,33 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:id="@+id/host_frame"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/title_host"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
 
-</LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="false"
+        android:gravity="right"
+        android:background="#99FFFFFF">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/preferences"
+            android:id="@+id/button_preferences"
+            style="@style/Button.Action"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true" />
+    </LinearLayout>
+
+</RelativeLayout>

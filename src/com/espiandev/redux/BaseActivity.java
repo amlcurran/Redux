@@ -1,7 +1,10 @@
 package com.espiandev.redux;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.espiandev.redux.animation.AnimationFactory;
@@ -19,12 +22,13 @@ import com.espiandev.redux.downloads.DownloaderProvider;
 import com.espiandev.redux.navigation.Stacker;
 import com.espiandev.redux.network.NetworkHelper;
 import com.espiandev.redux.network.NetworkHelperProvider;
+import com.espiandev.redux.preferences.PreferencesActivity;
 import com.espiandev.redux.search.SearchListener;
 
 public abstract class BaseActivity extends FragmentActivity implements TitleHost, AnimationFactoryProvider,
         NetworkHelperProvider, TokenStorageProvider, SearchListener, AuthListener,
         AssetSelectionListener, AssetListParserProvider, DownloaderProvider,
-        CastManagerProvider {
+        CastManagerProvider, View.OnClickListener {
     protected Stacker stacker;
     public AnimationFactory animationFactory;
     public TokenStorage tokenStorage;
@@ -35,6 +39,7 @@ public abstract class BaseActivity extends FragmentActivity implements TitleHost
     protected TextView lowBanner;
     protected TextView highBanner;
     private CharSequence title;
+    private Button preferencesButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,8 @@ public abstract class BaseActivity extends FragmentActivity implements TitleHost
 
         highBanner = (TextView) findViewById(R.id.high_banner);
         lowBanner = (TextView) findViewById(R.id.low_banner);
+        preferencesButton = (Button) findViewById(R.id.button_preferences);
+        preferencesButton.setOnClickListener(this);
     }
 
     @Override
@@ -90,5 +97,12 @@ public abstract class BaseActivity extends FragmentActivity implements TitleHost
     @Override
     public Downloader getDownloader() {
         return downloader;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (preferencesButton.equals(v)) {
+            startActivity(new Intent(this, PreferencesActivity.class));
+        }
     }
 }
