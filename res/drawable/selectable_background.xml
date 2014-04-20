@@ -4,7 +4,7 @@
     android:exitFadeDuration="@android:integer/config_mediumAnimTime">
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/app_colour" />
+            <solid android:color="@color/app_colour_60" />
         </shape>
     </item>
     <item android:drawable="@android:color/transparent" />

@@ -21,19 +21,11 @@
                 android:id="@+id/asset_image_view"
                 android:scaleType="centerCrop" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pause"
-                android:id="@+id/cast_pause"
-                android:layout_gravity="center" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Play"
-                android:id="@+id/cast_play"
-                android:layout_gravity="center" />
+            <view
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                class="com.espiandev.redux.cast.CastAssetView"
+                android:id="@+id/cast_asset_view" />
 
         </FrameLayout>
 

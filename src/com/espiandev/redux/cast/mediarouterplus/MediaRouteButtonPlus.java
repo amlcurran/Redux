@@ -116,7 +116,7 @@ public class MediaRouteButtonPlus extends View {
     }
 
     public MediaRouteButtonPlus(Context context, AttributeSet attrs) {
-        this(context, attrs, R.attr.mediaRouteButtonStyle);
+        this(context, attrs, R.attr.mediaRouteButtonPlusStyle);
     }
 
     public MediaRouteButtonPlus(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -127,7 +127,7 @@ public class MediaRouteButtonPlus extends View {
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.MediaRouteButtonPlus, defStyleAttr, 0);
         setRemoteIndicatorDrawable(a.getDrawable(
-                R.styleable.MediaRouteButtonPlus_externalRouteEnabledDrawable));
+                R.styleable.MediaRouteButtonPlus_mrp_externalRouteEnabledDrawable));
         mMinWidth = a.getDimensionPixelSize(
                 R.styleable.MediaRouteButtonPlus_android_minWidth, 0);
         mMinHeight = a.getDimensionPixelSize(

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 import com.espiandev.redux.BasicFragment;
 import com.espiandev.redux.R;
 import com.espiandev.redux.ResourceStringProvider;
+import com.espiandev.redux.cast.CastAssetView;
 import com.espiandev.redux.cast.CastManager;
 import com.espiandev.redux.cast.CastManagerProvider;
 import com.espiandev.redux.cast.RemoteController;
@@ -27,15 +27,13 @@ import com.espiandev.redux.network.Responder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class AssetDetailsFragment extends BasicFragment implements Responder<Bitmap>, View.OnClickListener, RemoteController.Listener {
+public class AssetDetailsFragment extends BasicFragment implements Responder<Bitmap>, View.OnClickListener {
     private static final String ASSET = "asset";
     private ImageView assetImageView;
     private DateFormat dateFormat = new SimpleDateFormat("E dd MMM yyyy 'at' HH:mm");
     private Downloader downloader;
     private CastManager castManager;
-    private RemoteController remoteController;
-    private Button castPauseButton;
-    private Button castPlayButton;
+    private CastAssetView castAssetView;
 
     public static AssetDetailsFragment newInstance(Asset asset) {
         AssetDetailsFragment fragment = new AssetDetailsFragment();
@@ -51,10 +49,7 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
         assetImageView = (ImageView) view.findViewById(R.id.asset_image_view);
         assetImageView.setOnClickListener(this);
         assetImageView.setVisibility(View.INVISIBLE);
-        castPauseButton = (Button) view.findViewById(R.id.cast_pause);
-        castPauseButton.setOnClickListener(this);
-        castPlayButton = (Button) view.findViewById(R.id.cast_play);
-        castPlayButton.setOnClickListener(this);
+        castAssetView = (CastAssetView) view.findViewById(R.id.cast_asset_view);
         View castButton = view.findViewById(R.id.button_cast);
         View playButton = view.findViewById(R.id.button_play);
         View downloadButton = view.findViewById(R.id.button_download);
@@ -125,14 +120,6 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
                 onPlayClick();
                 break;
 
-            case R.id.cast_pause:
-                remoteController.pause();
-                break;
-
-            case R.id.cast_play:
-                remoteController.play();
-                break;
-
         }
 
     }
@@ -148,32 +135,12 @@ public class AssetDetailsFragment extends BasicFragment implements Responder<Bit
 
     private void onCastClick() {
         if (castManager.canCast()) {
-            remoteController = castManager.playAsset(getAsset());
+            RemoteController remoteController = castManager.playAsset(getAsset());
             if (remoteController != null) {
-                remoteController.setListener(this);
+                castAssetView.setRemoteController(remoteController);
             }
         } else {
             Toast.makeText(getActivity(), R.string.not_currently_casting, Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void showPauseButton() {
-        castPauseButton.setVisibility(View.VISIBLE);
-        castPlayButton.setVisibility(View.GONE);
-    }
-
-    private void showPlayButton() {
-        castPauseButton.setVisibility(View.GONE);
-        castPlayButton.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onPaused() {
-        showPlayButton();
-    }
-
-    @Override
-    public void onResumed() {
-        showPauseButton();
     }
 }

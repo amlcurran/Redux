@@ -20,14 +20,11 @@
              indicates active media routing.  Checkable indicates connecting
              and non-checked / non-checkable indicates
              that media is playing to the local device only. -->
-        <attr name="externalRouteEnabledDrawable" format="reference" />
+        <attr name="mrp_externalRouteEnabledDrawable" format="reference" />
 
         <attr name="android:minWidth" />
         <attr name="android:minHeight" />
     </declare-styleable>
 
-    <attr name="mediaRouteButtonStyle" format="reference" />
-    <attr name="mediaRouteOffDrawable" format="reference" />
-    <attr name="mediaRouteConnectingDrawable" format="reference" />
-    <attr name="mediaRouteOnDrawable" format="reference" />
+    <attr name="mediaRouteButtonPlusStyle" format="reference" />
 </resources>
