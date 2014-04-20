@@ -4,9 +4,13 @@ import com.google.android.gms.cast.MediaInfo;
 
 public interface RemoteController {
     void load(MediaInfo mediaInfo);
+
     void play();
+
     void pause();
-    void seekTo(long millis);
+
+    void seekTo(Time millis);
+
     void setListener(Listener listener);
 
     interface Listener {
@@ -25,11 +29,27 @@ public interface RemoteController {
             public void onBuffering() {
 
             }
+
+            @Override
+            public void onElapsedTimeChanged(Time elapsedTime) {
+
+            }
+
+            @Override
+            public void onTotalTimeChanged(Time totalTime) {
+
+            }
         };
 
         void onPaused();
+
         void onResumed();
+
         void onBuffering();
+
+        void onElapsedTimeChanged(Time elapsedTime);
+
+        void onTotalTimeChanged(Time totalTime);
     }
 
 }

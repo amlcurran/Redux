@@ -6,16 +6,18 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.SeekBar;
 
 import com.espiandev.redux.R;
 import com.espiandev.redux.assets.AssetView;
 
-public class CastAssetView extends AssetView implements View.OnClickListener, RemoteController.Listener {
+public class CastAssetView extends AssetView implements View.OnClickListener, RemoteController.Listener, SeekBar.OnSeekBarChangeListener {
 
     private View playButton;
     private View pauseButton;
     private View bufferingSpinner;
     private RemoteController controller;
+    private SeekBar scrubBar;
 
     public CastAssetView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -31,6 +33,8 @@ public class CastAssetView extends AssetView implements View.OnClickListener, Re
         playButton = findViewById(R.id.asset_cast_play);
         pauseButton = findViewById(R.id.asset_cast_pause);
         bufferingSpinner = findViewById(R.id.asset_cast_progress);
+        scrubBar = (SeekBar) findViewById(R.id.cast_view_seek);
+        scrubBar.setOnSeekBarChangeListener(this);
         playButton.setOnClickListener(this);
         pauseButton.setOnClickListener(this);
         hidePlayButton();
@@ -95,6 +99,16 @@ public class CastAssetView extends AssetView implements View.OnClickListener, Re
         showSpinner();
     }
 
+    @Override
+    public void onElapsedTimeChanged(Time elapsedTime) {
+        scrubBar.setProgress((int) elapsedTime.getMillis());
+    }
+
+    @Override
+    public void onTotalTimeChanged(Time totalTime) {
+        scrubBar.setMax((int) totalTime.getMillis());
+    }
+
     private void showSpinner() {
         bufferingSpinner.setVisibility(VISIBLE);
     }
@@ -117,5 +131,20 @@ public class CastAssetView extends AssetView implements View.OnClickListener, Re
 
     private void hidePlayButton() {
         playButton.setVisibility(GONE);
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        controller.seekTo(Time.fromMillis(seekBar.getProgress()));
     }
 }

@@ -43,8 +43,8 @@ public class GoogleCastRemoteController implements RemoteController, RemoteMedia
     }
 
     @Override
-    public void seekTo(long millis) {
-        remoteMedia.seek(apiClient, millis);
+    public void seekTo(Time time) {
+        remoteMedia.seek(apiClient, time.getMillis());
     }
 
     @Override
@@ -60,8 +60,9 @@ public class GoogleCastRemoteController implements RemoteController, RemoteMedia
     @Override
     public void onStatusUpdated() {
 
-        if (remoteMedia.getMediaStatus() == null)
+        if (remoteMedia.getMediaStatus() == null) {
             return;
+        }
 
         switch (remoteMedia.getMediaStatus().getPlayerState()) {
 
@@ -78,5 +79,11 @@ public class GoogleCastRemoteController implements RemoteController, RemoteMedia
                 break;
 
         }
+
+        Time elapsedTime = Time.fromMillis(remoteMedia.getApproximateStreamPosition());
+        Time totalTime = Time.fromMillis(remoteMedia.getStreamDuration());
+        listener.onElapsedTimeChanged(elapsedTime);
+        listener.onTotalTimeChanged(totalTime);
+
     }
 }
