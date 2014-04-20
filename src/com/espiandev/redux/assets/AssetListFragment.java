@@ -14,6 +14,7 @@ import com.espiandev.redux.BasicFragment;
 import com.espiandev.redux.R;
 import com.espiandev.redux.ResourceStringProvider;
 import com.espiandev.redux.network.NetworkErrorTranslator;
+import com.espiandev.redux.network.ReduxUrlHelper;
 import com.espiandev.redux.network.Responder;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class AssetListFragment extends BasicFragment implements AdapterView.OnIt
     private View loadingSpinner;
     private int pagesLoaded = 0;
     private boolean isLoading;
+    private boolean morePagesAvailable = true;
 
     public static AssetListFragment newInstance(String query) {
         AssetListFragment fragment = new AssetListFragment();
@@ -93,6 +95,9 @@ public class AssetListFragment extends BasicFragment implements AdapterView.OnIt
     public void onSuccessResponse(String response) {
         isLoading = false;
         ArrayList<Asset> assetList = assetListParser.parseResultList(response);
+        if (assetList.size() < ReduxUrlHelper.PAGE_SIZE) {
+            morePagesAvailable = false;
+        }
         adapter.addAll(assetList);
         pagesLoaded++;
         if (pagesLoaded == 1) {
@@ -118,7 +123,7 @@ public class AssetListFragment extends BasicFragment implements AdapterView.OnIt
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         // start loading more when there are five visible below the last screen
-        if (firstVisibleItem > totalItemCount - visibleItemCount - 5 && !isLoading) {
+        if (firstVisibleItem > totalItemCount - visibleItemCount - 5 && !isLoading && morePagesAvailable) {
             networkHelper.search(getQuery(), this, pagesLoaded + 1);
             isLoading = true;
         }
