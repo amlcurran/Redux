@@ -46,7 +46,7 @@
             android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            class="android.support.v7.app.MediaRouteButton"
+            class="com.espiandev.redux.cast.mediarouterplus.MediaRouteButtonPlus"
             style="@style/Theme.MediaRouter"
             android:background="@drawable/button_highlight"
             android:id="@+id/media_route_buton"
