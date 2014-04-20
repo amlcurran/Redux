@@ -27,7 +27,7 @@ public class DownloadManagerDownloaderTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        downloader = new DownloadManagerDownloader(mockDownloadManager);
+        downloader = new DownloadManagerDownloader(null, mockDownloadManager);
     }
 
     @Test

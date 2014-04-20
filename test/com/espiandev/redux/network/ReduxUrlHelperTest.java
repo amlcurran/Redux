@@ -41,7 +41,7 @@ public class ReduxUrlHelperTest {
     public void testUrlHelper_FormatsDownloadUrlCorrectly() {
         ReduxUrlHelper helper = new ReduxUrlHelper();
 
-        String url = helper.buildDownloadUrl(new TestAsset());
+        String url = helper.buildDownloadUrl(new TestAsset(), null);
 
         assertEquals("https://i.bbcredux.com/asset/media/" +
                 TestAsset.UUID + "/" +

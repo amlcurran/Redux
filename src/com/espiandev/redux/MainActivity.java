@@ -76,10 +76,10 @@ public class MainActivity extends BaseActivity {
         networkHelper = new VolleyNetworkHelper(requestQueue, super.getTokenStorage());
         stacker = new FragmentManagerStacker(this);
         listParser = new AssetListParser();
-        downloader = new DownloadManagerDownloader((DownloadManager) getSystemService(DOWNLOAD_SERVICE));
+        downloader = new DownloadManagerDownloader(this, (DownloadManager) getSystemService(DOWNLOAD_SERVICE));
         MediaRouter mediaRouter = MediaRouter.getInstance(this);
 
-        castManager = new GoogleCastManager(mediaRouter, this, new GoogleCastConnector(this));
+        castManager = new GoogleCastManager(this, mediaRouter, this, new GoogleCastConnector(this));
     }
 
 }

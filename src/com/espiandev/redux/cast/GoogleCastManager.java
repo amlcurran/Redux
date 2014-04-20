@@ -1,5 +1,7 @@
 package com.espiandev.redux.cast;
 
+import android.content.Context;
+import android.preference.PreferenceManager;
 import android.support.v7.media.MediaRouteSelector;
 import android.support.v7.media.MediaRouter;
 
@@ -24,13 +26,15 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
 
     public static final String APP_ID = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
     private final CastActivityIndicator activityIndicator;
+    private Context context;
     private MediaRouter mediaRouter;
     private CastConnector<CastDevice> connector;
     private RemoteController remoteController;
     private boolean canCast;
     private final List<CastableDevice> routeInfoList = new ArrayList<>();
 
-    public GoogleCastManager(MediaRouter mediaRouter, CastActivityIndicator activityIndicator, CastConnector<CastDevice> connector) {
+    public GoogleCastManager(Context context, MediaRouter mediaRouter, CastActivityIndicator activityIndicator, CastConnector<CastDevice> connector) {
+        this.context = context;
         this.mediaRouter = mediaRouter;
         this.connector = connector;
         this.connector.setCallbacks(this);
@@ -53,7 +57,8 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
         if (canCast()) {
             MediaMetadata mediaMetadata = new MediaMetadata();
             mediaMetadata.putString(MediaMetadata.KEY_TITLE, asset.getName());
-            MediaInfo mediaInfo = new MediaInfo.Builder(new ReduxUrlHelper().buildDownloadUrl(asset))
+            String contentUrl = new ReduxUrlHelper().buildDownloadUrl(asset, PreferenceManager.getDefaultSharedPreferences(context));
+            MediaInfo mediaInfo = new MediaInfo.Builder(contentUrl)
                     .setContentType("video/mp4")
                     .setStreamType(MediaInfo.STREAM_TYPE_BUFFERED)
                     .setMetadata(mediaMetadata)

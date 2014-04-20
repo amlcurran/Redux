@@ -65,7 +65,7 @@ public class AssetDetailsFragmentTest extends BaseFragmentTest<AssetDetailsFragm
 
         Intent intent = shadowOf(activity).getNextStartedActivity();
         Uri firedUri = shadowOf(intent).getData();
-        assertEquals(helper.buildDownloadUrl(asset), String.valueOf(firedUri));
+        assertEquals(helper.buildDownloadUrl(asset, null), String.valueOf(firedUri));
     }
 
     @Test
