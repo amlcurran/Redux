@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.espiandev.redux.R;
 import com.espiandev.redux.assets.AssetView;
@@ -18,6 +19,8 @@ public class CastAssetView extends AssetView implements View.OnClickListener, Re
     private View bufferingSpinner;
     private RemoteController controller;
     private SeekBar scrubBar;
+    private TextView elapsedText;
+    private TextView totalText;
 
     public CastAssetView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -33,13 +36,17 @@ public class CastAssetView extends AssetView implements View.OnClickListener, Re
         playButton = findViewById(R.id.asset_cast_play);
         pauseButton = findViewById(R.id.asset_cast_pause);
         bufferingSpinner = findViewById(R.id.asset_cast_progress);
+        elapsedText = (TextView) findViewById(R.id.asset_cast_elapsed);
+        totalText = (TextView) findViewById(R.id.asset_cast_total);
         scrubBar = (SeekBar) findViewById(R.id.cast_view_seek);
-        scrubBar.setOnSeekBarChangeListener(this);
-        playButton.setOnClickListener(this);
-        pauseButton.setOnClickListener(this);
+        if (!isInEditMode()) {
+            scrubBar.setOnSeekBarChangeListener(this);
+            playButton.setOnClickListener(this);
+            pauseButton.setOnClickListener(this);
+            setVisibility(GONE);
+        }
         hidePlayButton();
         hidePauseButton();
-        setVisibility(GONE);
     }
 
     public void setRemoteController(RemoteController controller) {
@@ -102,11 +109,13 @@ public class CastAssetView extends AssetView implements View.OnClickListener, Re
     @Override
     public void onElapsedTimeChanged(Time elapsedTime) {
         scrubBar.setProgress((int) elapsedTime.getMillis());
+        elapsedText.setText(elapsedTime.formatHms());
     }
 
     @Override
     public void onTotalTimeChanged(Time totalTime) {
         scrubBar.setMax((int) totalTime.getMillis());
+        totalText.setText(totalTime.formatHms());
     }
 
     private void showSpinner() {

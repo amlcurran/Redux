@@ -1,5 +1,9 @@
 package com.espiandev.redux.cast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 public class Time {
 
     private long millis;
@@ -15,5 +19,12 @@ public class Time {
 
     public long getMillis() {
         return millis;
+    }
+
+    public String formatHms() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date date = new Date(millis);
+        return dateFormat.format(date);
     }
 }

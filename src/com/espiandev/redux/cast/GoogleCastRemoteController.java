@@ -82,8 +82,10 @@ public class GoogleCastRemoteController implements RemoteController, RemoteMedia
 
         Time elapsedTime = Time.fromMillis(remoteMedia.getApproximateStreamPosition());
         Time totalTime = Time.fromMillis(remoteMedia.getStreamDuration());
-        listener.onElapsedTimeChanged(elapsedTime);
         listener.onTotalTimeChanged(totalTime);
+        listener.onElapsedTimeChanged(elapsedTime);
 
     }
+
+
 }

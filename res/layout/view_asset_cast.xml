@@ -36,14 +36,41 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
 
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|bottom"
+        android:layout_margin="16dp">
+
+        <TextView
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="01:23"
+            android:id="@+id/asset_cast_elapsed"
+            android:gravity="center_vertical"
+            style="@style/Time" />
+
         <SeekBar
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/cast_view_seek"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:padding="@dimen/default_padding" />
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal" />
 
-    </RelativeLayout>
+        <TextView
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="09:00"
+            android:id="@+id/asset_cast_total"
+            android:gravity="center_vertical|right"
+            style="@style/Time" />
+    </LinearLayout>
 </FrameLayout>
