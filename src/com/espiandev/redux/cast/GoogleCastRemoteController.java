@@ -73,6 +73,10 @@ public class GoogleCastRemoteController implements RemoteController, RemoteMedia
                 listener.onPaused();
                 break;
 
+            case MediaStatus.PLAYER_STATE_BUFFERING:
+                listener.onBuffering();
+                break;
+
         }
     }
 }

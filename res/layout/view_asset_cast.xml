@@ -11,6 +11,7 @@
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/cast_play"
             android:id="@+id/asset_cast_play"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
@@ -20,10 +21,20 @@
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/cast_pause"
             android:id="@+id/asset_cast_pause"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:src="@drawable/ic_action_pause"
             android:background="@drawable/selectable_background" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/asset_cast_progress"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
     </RelativeLayout>
 </FrameLayout>

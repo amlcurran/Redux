@@ -25,4 +25,6 @@
     <string name="share">Share</string>
     <string name="remember_me">Remember me</string>
     <string name="favourite">Favourite</string>
+    <string name="cast_pause">Pause cast</string>
+    <string name="cast_play">Play cast</string>
 </resources>

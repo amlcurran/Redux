@@ -20,10 +20,16 @@ public interface RemoteController {
             public void onResumed() {
 
             }
+
+            @Override
+            public void onBuffering() {
+
+            }
         };
 
         void onPaused();
         void onResumed();
+        void onBuffering();
     }
 
 }

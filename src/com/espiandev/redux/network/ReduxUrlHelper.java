@@ -10,7 +10,7 @@ public class ReduxUrlHelper {
     private static final String PATH_LOGIN = "user/login";
     private static final String PATH_SEARCH = "asset/search";
     private static final String IMAGE_PATH = "asset/media/%1$s/%2$s/JPEG-1280x/image.jpg";
-    private static final String DOWNLOAD_PATH = "asset/media/%1$s/%2$s/h264_mp4_hi_v1.1/%3$s.mp4";
+    private static final String DOWNLOAD_PATH = "asset/media/%1$s/%2$s/h264_mp4_lo_v1.0/%3$s.mp4";
     public static final int PAGE_SIZE = 20;
 
     public String buildLoginUrl(String username, String password) {
