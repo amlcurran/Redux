@@ -21,7 +21,10 @@
           <root url="jar://$MODULE_DIR$/libs/android-support-v7-mediarouter.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../../android-source/support/v7/mediarouter/src" />
+          <root url="file://$MODULE_DIR$/../../../android-source/support/v7/mediarouter/src" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="appcompat" exported="" />
