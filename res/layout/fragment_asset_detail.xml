@@ -40,25 +40,25 @@
                 android:drawableTop="@drawable/ic_button_play"
                 android:text="@string/play"
                 android:id="@+id/button_play"
-                style="@style/Button.Action" />
+                style="@style/Button.Action.Basic" />
 
             <Button
                 android:drawableTop="@drawable/ic_button_download"
                 android:text="@string/download"
                 android:id="@+id/button_download"
-                style="@style/Button.Action" />
+                style="@style/Button.Action.Basic" />
 
             <Button
                 android:drawableTop="@drawable/ic_button_cast"
                 android:text="@string/cast"
                 android:id="@+id/button_cast"
-                style="@style/Button.Action" />
+                style="@style/Button.Action.Basic" />
 
             <Button
                 android:drawableTop="@drawable/ic_button_favourite"
                 android:text="@string/favourite"
                 android:id="@+id/button_share"
-                style="@style/Button.Action" />
+                style="@style/Button.Action.Basic" />
 
         </LinearLayout>
 

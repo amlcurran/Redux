@@ -7,4 +7,5 @@
     <dimen name="small_banner_text_size">22sp</dimen>
     <dimen name="default_padding">8dp</dimen>
     <dimen name="half_default_padding">4dp</dimen>
+    <dimen name="action_button_text_size">18sp</dimen>
 </resources>

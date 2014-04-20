@@ -54,6 +54,7 @@
         <item name="android:background">@drawable/selectable_background</item>
         <item name="android:padding">@dimen/default_padding</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textSize">@dimen/action_button_text_size</item>
     </style>
 
     <style name="MediaRouteButtonPlus" parent="Widget.AppCompat.ActionButton">
@@ -94,4 +95,5 @@
         <item name="android:textColorHint">@color/app_colour_60</item>
         <item name="android:background">@drawable/edittext</item>
     </style>
+
 </resources>
