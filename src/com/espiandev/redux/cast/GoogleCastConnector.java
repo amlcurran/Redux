@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.google.android.gms.cast.Cast;
 import com.google.android.gms.cast.CastDevice;
+import com.google.android.gms.cast.CastMediaControlIntent;
 import com.google.android.gms.cast.RemoteMediaPlayer;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -17,12 +18,10 @@ public class GoogleCastConnector extends Cast.Listener implements CastConnector<
 
     GoogleApiClient apiClient;
     private Context context;
-    private String appId;
     private CastConnectorCallbacks connectorCallbacks = CastConnectorCallbacks.NONE;
 
-    public GoogleCastConnector(Context context, String appId) {
+    public GoogleCastConnector(Context context) {
         this.context = context;
-        this.appId = appId;
     }
 
     @Override
@@ -49,7 +48,7 @@ public class GoogleCastConnector extends Cast.Listener implements CastConnector<
         @Override
         public void onConnected(Bundle bundle) {
             try {
-                Cast.CastApi.launchApplication(apiClient, appId, false)
+                Cast.CastApi.launchApplication(apiClient, CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID, false)
                         .setResultCallback(
                                 new ResultCallback<Cast.ApplicationConnectionResult>() {
                                     @Override

@@ -36,7 +36,7 @@ public class CastActivityButton extends ImageView implements CastActivityIndicat
     }
 
     @Override
-    public void onCastDeviceConnecting(CastableDevice route) {
+    public void onCastDeviceConnecting(String route) {
 
     }
 

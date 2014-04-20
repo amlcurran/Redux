@@ -18,7 +18,6 @@ import com.espiandev.redux.auth.LoginFragment;
 import com.espiandev.redux.auth.SharedPreferencesTokenStorage;
 import com.espiandev.redux.cast.GoogleCastConnector;
 import com.espiandev.redux.cast.GoogleCastManager;
-import com.espiandev.redux.cast.mediarouterplus.MediaRouteButtonPlus;
 import com.espiandev.redux.downloads.DownloadManagerDownloader;
 import com.espiandev.redux.navigation.FragmentManagerStacker;
 import com.espiandev.redux.network.VolleyNetworkHelper;
@@ -80,11 +79,7 @@ public class MainActivity extends BaseActivity {
         downloader = new DownloadManagerDownloader((DownloadManager) getSystemService(DOWNLOAD_SERVICE));
         MediaRouter mediaRouter = MediaRouter.getInstance(this);
 
-        MediaRouteButtonPlus mediaRouteButton = (MediaRouteButtonPlus) findViewById(R.id.media_route_button);
-        mediaRouteButton.setMediaRouter(mediaRouter);
-
-        castManager = new GoogleCastManager(mediaRouter, mediaRouteButton,
-                new GoogleCastConnector(this, GoogleCastManager.APP_ID));
+        castManager = new GoogleCastManager(mediaRouter, this, new GoogleCastConnector(this));
     }
 
 }

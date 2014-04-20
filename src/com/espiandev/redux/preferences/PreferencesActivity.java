@@ -23,8 +23,8 @@ public class PreferencesActivity extends BaseActivity {
     @Override
     protected void createWorld() {
         animationFactory = new RealAnimationFactory();
-        findViewById(R.id.media_route_button).setVisibility(View.GONE);
-        findViewById(R.id.button_preferences).setVisibility(View.GONE);
+        findViewById(R.id.button_bar_cast).setVisibility(View.GONE);
+        findViewById(R.id.button_bar_preferences).setVisibility(View.GONE);
     }
 
     @Override

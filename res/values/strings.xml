@@ -30,4 +30,6 @@
     <string name="preferences">Preferences</string>
     <string name="preference_high_quality_title">High quality video</string>
     <string name="preference_high_quality_summary">Download, cast, and play higher quality videos (may buffer more)</string>
+    <string name="cast_connecting">Connecting to %s</string>
+    <string name="cast_connected">Connected to %s</string>
 </resources>

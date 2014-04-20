@@ -23,8 +23,7 @@
             android:id="@+id/high_banner"
             style="@style/Banner.High"
             android:singleLine="true"
-            android:ellipsize="end"
-            android:layout_toLeftOf="@+id/media_route_button" />
+            android:ellipsize="end" />
 
         <TextView
             android:layout_width="match_parent"
@@ -32,18 +31,7 @@
             android:id="@+id/low_banner"
             style="@style/Banner.Low"
             android:visibility="invisible"
-            android:layout_below="@+id/high_banner"
-            android:layout_toLeftOf="@+id/media_route_button" />
-
-        <view
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="bottom"
-            class="com.espiandev.redux.cast.mediarouterplus.MediaRouteButtonPlus"
-            style="@style/Theme.MediaRouter.Light"
-            android:id="@+id/media_route_button"
-            android:layout_alignBottom="@+id/high_banner"
-            android:layout_alignParentRight="true" />
+            android:layout_below="@+id/high_banner" />
 
     </RelativeLayout>
 
@@ -64,18 +52,22 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="false"
         android:gravity="right"
+        style="?android:attr/buttonBarStyle"
         android:background="#99FFFFFF">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/preferences"
-            android:id="@+id/button_preferences"
+            android:text="@string/cast"
+            android:id="@+id/button_bar_cast"
+            style="@style/Button.Action" />
+
+        <Button
             style="@style/Button.Action"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentTop="false"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/preferences"
+            android:id="@+id/button_bar_preferences" />
     </LinearLayout>
 
 </RelativeLayout>
