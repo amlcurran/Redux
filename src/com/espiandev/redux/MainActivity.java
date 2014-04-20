@@ -4,7 +4,6 @@ import android.app.DownloadManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.MediaRouteButton;
 import android.support.v7.media.MediaRouter;
 
 import com.android.volley.RequestQueue;
@@ -81,7 +80,7 @@ public class MainActivity extends BaseActivity {
         stacker = new FragmentManagerStacker(this);
         listParser = new AssetListParser();
         downloader = new DownloadManagerDownloader((DownloadManager) getSystemService(DOWNLOAD_SERVICE));
-        MediaRouteButtonPlus mediaRouteButton = (MediaRouteButtonPlus) findViewById(R.id.media_route_buton);
+        MediaRouteButtonPlus mediaRouteButton = (MediaRouteButtonPlus) findViewById(R.id.media_route_button);
         mediaRouter = MediaRouter.getInstance(this);
         mediaRouteButton.setMediaRouter(mediaRouter);
         castManager = new GoogleCastManager(mediaRouter, mediaRouteButton,

@@ -14,7 +14,7 @@
     </style>
 
     <style name="Time" parent="@android:TextAppearance.Medium">
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">@dimen/small_banner_text_size</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:textColor">@color/app_colour</item>
     </style>
@@ -59,7 +59,7 @@
         <item name="android:padding">0dp</item>
         <item name="android:focusable">true</item>
         <item name="android:contentDescription">@string/mr_media_route_button_content_description</item>
-        <item name="mrp_externalRouteEnabledDrawable">@drawable/mr_ic_media_route_holo_dark</item>
+        <item name="mrp_externalRouteEnabledDrawable">@drawable/mr_ic_media_route_holo_light</item>
     </style>
 
     <style name="CheckBox" parent="android:Widget.CompoundButton.CheckBox">

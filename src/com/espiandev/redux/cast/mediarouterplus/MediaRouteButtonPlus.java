@@ -485,7 +485,7 @@ public class MediaRouteButtonPlus extends View {
     }
 
     private void refreshRoute() {
-        if (mAttachedToWindow) {
+        if (mAttachedToWindow && mRouter != null) {
             final MediaRouter.RouteInfo route = mRouter.getSelectedRoute();
             final boolean isRemote = !route.isDefault() && route.matchesSelector(mSelector);
             final boolean isConnecting = isRemote && route.isConnecting();

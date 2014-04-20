@@ -9,19 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/title_host"
+        android:animateLayoutChanges="true"
         android:padding="@dimen/default_padding">
-
-        <view
-            android:layout_width="64dp"
-            android:layout_height="match_parent"
-            class="com.espiandev.redux.cast.ui.CastActivityButton"
-            android:id="@+id/cast_button_main"
-            android:scaleType="centerInside"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentTop="true"
-            android:layout_alignBottom="@+id/high_banner"
-            android:layout_alignTop="@+id/high_banner"
-            android:layout_alignParentRight="true" />
 
         <TextView
             android:layout_width="match_parent"
@@ -31,7 +20,7 @@
             style="@style/Banner.High"
             android:singleLine="true"
             android:ellipsize="end"
-            android:layout_toLeftOf="@+id/cast_button_main" />
+            android:layout_toLeftOf="@+id/media_route_button" />
 
         <TextView
             android:layout_width="match_parent"
@@ -40,19 +29,17 @@
             style="@style/Banner.Low"
             android:visibility="invisible"
             android:layout_below="@+id/high_banner"
-            android:layout_toLeftOf="@+id/media_route_buton" />
+            android:layout_toLeftOf="@+id/media_route_button" />
 
         <view
             android:layout_width="64dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_height="64dp"
+            android:layout_gravity="bottom"
             class="com.espiandev.redux.cast.mediarouterplus.MediaRouteButtonPlus"
-            style="@style/Theme.MediaRouter"
-            android:background="@drawable/button_highlight"
-            android:id="@+id/media_route_buton"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            style="@style/Theme.MediaRouter.Light"
+            android:id="@+id/media_route_button"
+            android:layout_alignBottom="@+id/high_banner"
+            android:layout_alignParentRight="true" />
 
     </RelativeLayout>
 
