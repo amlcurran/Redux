@@ -7,8 +7,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
+import com.espiandev.redux.assets.Asset;
 import com.espiandev.redux.auth.TokenStorage;
 import com.espiandev.redux.auth.Validator;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class VolleyNetworkHelper implements NetworkHelper {
 
@@ -26,8 +30,7 @@ public class VolleyNetworkHelper implements NetworkHelper {
         this.validator = new Validator();
     }
 
-    @Override
-    public void performGet(String url, final Responder<String> responder) {
+    private void performGet(String url, final Responder<String> responder) {
         Response.Listener<String> listener = new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
@@ -71,6 +74,27 @@ public class VolleyNetworkHelper implements NetworkHelper {
             @Override
             public void onErrorResponse(VolleyError error) {
                 bitmapResponder.onErrorResponse(error);
+            }
+        });
+    }
+
+    @Override
+    public void assetDetails(String uuid, String key, final Responder<Asset> assetResponder) {
+        performGet(urlHelper.buildAssetDetailUrl(uuid, key), new Responder<String>() {
+            @Override
+            public void onSuccessResponse(String response) {
+                try {
+                    Asset asset = Asset.fromJsonObject(new JSONObject(response));
+                    assetResponder.onSuccessResponse(asset);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    assetResponder.onErrorResponse(e);
+                }
+            }
+
+            @Override
+            public void onErrorResponse(Exception error) {
+                assetResponder.onErrorResponse(error);
             }
         });
     }

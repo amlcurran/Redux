@@ -22,11 +22,13 @@ import java.util.ArrayList;
 public class AssetListFragment extends BasicFragment implements AdapterView.OnItemClickListener, Responder<String>, AbsListView.OnScrollListener {
 
     private static final String QUERY = "query";
-    public ArrayAdapter<Asset> adapter;
-    private ListView listview;
-    private AssetSelectionListener selectionListener;
-    private AssetListParser assetListParser;
-    private View loadingSpinner;
+
+    ArrayAdapter<Asset> adapter;
+    ListView listview;
+    AssetSelectionListener selectionListener;
+    AssetListParser assetListParser;
+    View loadingSpinner;
+
     private int pagesLoaded = 0;
     private boolean isLoading;
     private boolean morePagesAvailable = true;
