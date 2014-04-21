@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -27,7 +28,7 @@ public class DownloadManagerDownloaderTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        downloader = new DownloadManagerDownloader(null, mockDownloadManager);
+        downloader = new DownloadManagerDownloader(Robolectric.application, mockDownloadManager);
     }
 
     @Test
