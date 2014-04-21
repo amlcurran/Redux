@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.MediaRouteDialogFactory;
+import android.support.v7.media.MediaRouter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -123,7 +124,7 @@ public abstract class BaseActivity extends FragmentActivity implements TitleHost
     }
 
     @Override
-    public void onCastDevicesFound(List<CastableDevice> routes) {
+    public void onCastDevicesFound(List<MediaRouter.RouteInfo> routes) {
         castText.setEnabled(routes.size() > 0);
     }
 

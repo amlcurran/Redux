@@ -1,9 +1,10 @@
 package com.espiandev.redux.cast;
 
-import com.google.android.gms.cast.MediaInfo;
+import com.espiandev.redux.assets.Asset;
+import com.espiandev.redux.network.ReduxUrlHelper;
 
 public interface RemoteController {
-    void load(MediaInfo mediaInfo);
+    void load(Asset asset, ReduxUrlHelper urlHelper);
 
     void play();
 

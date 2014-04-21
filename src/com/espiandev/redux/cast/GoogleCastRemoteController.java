@@ -1,6 +1,9 @@
 package com.espiandev.redux.cast;
 
+import com.espiandev.redux.assets.Asset;
+import com.espiandev.redux.network.ReduxUrlHelper;
 import com.google.android.gms.cast.MediaInfo;
+import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.MediaStatus;
 import com.google.android.gms.cast.RemoteMediaPlayer;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -20,7 +23,15 @@ public class GoogleCastRemoteController implements RemoteController, RemoteMedia
     }
 
     @Override
-    public void load(MediaInfo mediaInfo) {
+    public void load(Asset asset, ReduxUrlHelper urlHelper) {
+        MediaMetadata mediaMetadata = new MediaMetadata();
+        mediaMetadata.putString(MediaMetadata.KEY_TITLE, asset.getName());
+        String contentUrl = urlHelper.buildDownloadUrl(asset);
+        MediaInfo mediaInfo = new MediaInfo.Builder(contentUrl)
+                .setContentType("video/mp4")
+                .setStreamType(MediaInfo.STREAM_TYPE_BUFFERED)
+                .setMetadata(mediaMetadata)
+                .build();
         remoteMedia.load(apiClient, mediaInfo, true);
     }
 

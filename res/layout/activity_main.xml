@@ -59,6 +59,7 @@
             android:layout_height="wrap_content"
             android:text="@string/cast"
             android:id="@+id/button_bar_cast"
+            android:enabled="false"
             style="@style/Button.Action" />
 
         <Button

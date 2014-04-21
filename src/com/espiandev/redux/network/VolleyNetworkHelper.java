@@ -18,11 +18,11 @@ public class VolleyNetworkHelper implements NetworkHelper {
     private final ImageLoader imageLoader;
     private final Validator validator;
 
-    public VolleyNetworkHelper(RequestQueue requestQueue, TokenStorage tokenStorage) {
+    public VolleyNetworkHelper(RequestQueue requestQueue, TokenStorage tokenStorage, ReduxUrlHelper reduxUrlHelper) {
         this.requestQueue = requestQueue;
         this.tokenStorage = tokenStorage;
         this.imageLoader = new ImageLoader(requestQueue, new NullImageCache());
-        this.urlHelper = new ReduxUrlHelper();
+        this.urlHelper = reduxUrlHelper;
         this.validator = new Validator();
     }
 

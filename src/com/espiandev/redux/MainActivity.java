@@ -20,6 +20,7 @@ import com.espiandev.redux.cast.GoogleCastConnector;
 import com.espiandev.redux.cast.GoogleCastManager;
 import com.espiandev.redux.downloads.DownloadManagerDownloader;
 import com.espiandev.redux.navigation.FragmentManagerStacker;
+import com.espiandev.redux.network.ReduxUrlHelper;
 import com.espiandev.redux.network.VolleyNetworkHelper;
 import com.espiandev.redux.search.SearchFragment;
 
@@ -73,7 +74,7 @@ public class MainActivity extends BaseActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this, hurlStack);
         animationFactory = new RealAnimationFactory();
         tokenStorage = new SharedPreferencesTokenStorage(PreferenceManager.getDefaultSharedPreferences(this));
-        networkHelper = new VolleyNetworkHelper(requestQueue, super.getTokenStorage());
+        networkHelper = new VolleyNetworkHelper(requestQueue, getTokenStorage(), new ReduxUrlHelper(this));
         stacker = new FragmentManagerStacker(this);
         listParser = new AssetListParser();
         downloader = new DownloadManagerDownloader(this, (DownloadManager) getSystemService(DOWNLOAD_SERVICE));

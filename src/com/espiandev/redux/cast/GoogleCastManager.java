@@ -1,7 +1,6 @@
 package com.espiandev.redux.cast;
 
 import android.content.Context;
-import android.preference.PreferenceManager;
 import android.support.v7.media.MediaRouteSelector;
 import android.support.v7.media.MediaRouter;
 
@@ -10,8 +9,6 @@ import com.espiandev.redux.cast.ui.CastActivityIndicator;
 import com.espiandev.redux.network.ReduxUrlHelper;
 import com.google.android.gms.cast.CastDevice;
 import com.google.android.gms.cast.CastMediaControlIntent;
-import com.google.android.gms.cast.MediaInfo;
-import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.RemoteMediaPlayer;
 
 import java.util.ArrayList;
@@ -26,6 +23,7 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
 
     public static final String APP_ID = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
     private final CastActivityIndicator activityIndicator;
+    private final ReduxUrlHelper urlHelper;
     private Context context;
     private MediaRouter mediaRouter;
     private CastConnector<CastDevice> connector;
@@ -39,6 +37,7 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
         this.connector = connector;
         this.connector.setCallbacks(this);
         this.activityIndicator = activityIndicator;
+        this.urlHelper = new ReduxUrlHelper(context);
     }
 
     @Override
@@ -55,15 +54,7 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
     @Override
     public RemoteController playAsset(Asset asset) {
         if (canCast()) {
-            MediaMetadata mediaMetadata = new MediaMetadata();
-            mediaMetadata.putString(MediaMetadata.KEY_TITLE, asset.getName());
-            String contentUrl = new ReduxUrlHelper().buildDownloadUrl(asset, PreferenceManager.getDefaultSharedPreferences(context));
-            MediaInfo mediaInfo = new MediaInfo.Builder(contentUrl)
-                    .setContentType("video/mp4")
-                    .setStreamType(MediaInfo.STREAM_TYPE_BUFFERED)
-                    .setMetadata(mediaMetadata)
-                    .build();
-            remoteController.load(mediaInfo);
+            remoteController.load(asset, urlHelper);
             return remoteController;
         }
         return null;
@@ -82,18 +73,12 @@ public class GoogleCastManager extends MediaRouter.Callback implements CastManag
 
     @Override
     public void onRouteAdded(MediaRouter router, MediaRouter.RouteInfo route) {
-        GoogleCastableDevice device = new GoogleCastableDevice(route);
-        if (!routeInfoList.contains(device)) {
-            routeInfoList.add(device);
-        }
-        activityIndicator.onCastDevicesFound(routeInfoList);
+        activityIndicator.onCastDevicesFound(router.getRoutes());
     }
 
     @Override
     public void onRouteRemoved(MediaRouter router, MediaRouter.RouteInfo route) {
-        GoogleCastableDevice device = new GoogleCastableDevice(route);
-        routeInfoList.remove(device);
-        activityIndicator.onCastDevicesFound(routeInfoList);
+        activityIndicator.onCastDevicesFound(router.getRoutes());
     }
 
     @Override

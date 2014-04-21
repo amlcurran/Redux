@@ -1,5 +1,6 @@
 package com.espiandev.redux.cast;
 
+import android.support.v7.media.MediaRouter;
 import android.view.View;
 
 import com.espiandev.redux.cast.ui.CastActivityButton;
@@ -24,7 +25,7 @@ public class CastActivityButtonTest {
     public void testWhenSomeCastDevicesAreFound_TheButtonIsVisible() {
         CastActivityButton button = new CastActivityButton(Robolectric.application);
 
-        List<CastableDevice> routeInfoList = mock(List.class);
+        List<MediaRouter.RouteInfo> routeInfoList = mock(List.class);
         when(routeInfoList.size()).thenReturn(3);
 
         button.onCastDevicesFound(routeInfoList);
@@ -36,7 +37,7 @@ public class CastActivityButtonTest {
     public void testWhenNoCastDevicesAreFound_TheButtonIsNotVisible() {
         CastActivityButton button = new CastActivityButton(Robolectric.application);
 
-        List<CastableDevice> routeInfoList = mock(List.class);
+        List<MediaRouter.RouteInfo> routeInfoList = mock(List.class);
         when(routeInfoList.size()).thenReturn(0);
 
         button.onCastDevicesFound(routeInfoList);

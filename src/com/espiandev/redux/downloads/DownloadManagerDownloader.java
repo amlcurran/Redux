@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 
 import com.espiandev.redux.assets.Asset;
 import com.espiandev.redux.network.ReduxUrlHelper;
@@ -21,12 +20,12 @@ public class DownloadManagerDownloader implements Downloader {
     public DownloadManagerDownloader(Context context, DownloadManager downloadManager) {
         this.context = context;
         this.downloadManager = downloadManager;
-        this.urlHelper = new ReduxUrlHelper();
+        this.urlHelper = new ReduxUrlHelper(context);
     }
 
     @Override
     public long requestDownload(Asset asset) {
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(urlHelper.buildDownloadUrl(asset, PreferenceManager.getDefaultSharedPreferences(context))));
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(urlHelper.buildDownloadUrl(asset)));
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MOVIES, getSubPath(asset));
         request.setMimeType("video/mpeg").setTitle(asset.getName());
         return downloadManager.enqueue(request);

@@ -13,6 +13,7 @@ import com.espiandev.redux.testing.TestAsset;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -59,13 +60,13 @@ public class AssetDetailsFragmentTest extends BaseFragmentTest<AssetDetailsFragm
 
     @Test
     public void testWhenThePlayButtonIsClicked_AVideoUrlIsFired() {
-        ReduxUrlHelper helper = new ReduxUrlHelper();
+        ReduxUrlHelper helper = new ReduxUrlHelper(Robolectric.application);
 
         activity.findViewById(R.id.button_play).performClick();
 
         Intent intent = shadowOf(activity).getNextStartedActivity();
         Uri firedUri = shadowOf(intent).getData();
-        assertEquals(helper.buildDownloadUrl(asset, null), String.valueOf(firedUri));
+        assertEquals(helper.buildDownloadUrl(asset), String.valueOf(firedUri));
     }
 
     @Test

@@ -1,7 +1,9 @@
 package com.espiandev.redux.network;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 
 import com.espiandev.redux.assets.Asset;
 
@@ -13,6 +15,11 @@ public class ReduxUrlHelper {
     private static final String IMAGE_PATH = "asset/media/%1$s/%2$s/JPEG-1280x/image.jpg";
     private static final String DOWNLOAD_PATH = "asset/media/%1$s/%2$s/%4$s/%3$s.mp4";
     public static final int PAGE_SIZE = 20;
+    private Context context;
+
+    public ReduxUrlHelper(Context context) {
+        this.context = context;
+    }
 
     public String buildLoginUrl(String username, String password) {
         return String.valueOf(getBaseUrl()
@@ -40,8 +47,8 @@ public class ReduxUrlHelper {
                 .build());
     }
 
-    public String buildDownloadUrl(Asset asset, SharedPreferences preferences) {
-        String qualityString = getQualityString(preferences);
+    public String buildDownloadUrl(Asset asset) {
+        String qualityString = getQualityString(PreferenceManager.getDefaultSharedPreferences(context));
         String downloadPath = String.format(DOWNLOAD_PATH, asset.getUuid(), asset.getKey(), asset.getName(), qualityString);
         return String.valueOf(getBaseUrl().path(downloadPath));
     }

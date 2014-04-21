@@ -4,6 +4,7 @@ import com.espiandev.redux.testing.TestAsset;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -15,7 +16,7 @@ public class ReduxUrlHelperTest {
 
     @Test
     public void testUrlHelperFormatsALogInUrlCorrectly() {
-        ReduxUrlHelper helper = new ReduxUrlHelper();
+        ReduxUrlHelper helper = new ReduxUrlHelper(Robolectric.application);
         String url = helper.buildLoginUrl("USERNAME", "PASSWORD");
 
         assertEquals("https://i.bbcredux.com/user/login?username=USERNAME&password=PASSWORD", url);
@@ -23,7 +24,7 @@ public class ReduxUrlHelperTest {
 
     @Test
     public void testUrlHelper_FormatsSearchUrlCorrectly() {
-        ReduxUrlHelper helper = new ReduxUrlHelper();
+        ReduxUrlHelper helper = new ReduxUrlHelper(Robolectric.application);
         String url = helper.buildSearchUrl("search Query", "authToken", 0);
 
         assertEquals("https://i.bbcredux.com/asset/search?q=search%20Query&token=authToken&offset=0&limit=20", url);
@@ -31,7 +32,7 @@ public class ReduxUrlHelperTest {
 
     @Test
     public void testUrlHelper_FormatsImageUrlCorrectly() {
-        ReduxUrlHelper helper = new ReduxUrlHelper();
+        ReduxUrlHelper helper = new ReduxUrlHelper(Robolectric.application);
         String url = helper.buildImageUrl("pinguuuid", "pinguKey");
 
         assertEquals("https://i.bbcredux.com/asset/media/pinguuuid/pinguKey/JPEG-1280x/image.jpg", url);
@@ -39,9 +40,9 @@ public class ReduxUrlHelperTest {
 
     @Test
     public void testUrlHelper_FormatsDownloadUrlCorrectly() {
-        ReduxUrlHelper helper = new ReduxUrlHelper();
+        ReduxUrlHelper helper = new ReduxUrlHelper(Robolectric.application);
 
-        String url = helper.buildDownloadUrl(new TestAsset(), null);
+        String url = helper.buildDownloadUrl(new TestAsset());
 
         assertEquals("https://i.bbcredux.com/asset/media/" +
                 TestAsset.UUID + "/" +
